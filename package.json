@@ -1,14 +1,17 @@
 {
   "name": "tfm-pyme-ventas-api",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "src/server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon src/server.js",
+    "start": "node src/server.js",
+    "test:smoke": "bash ./tests/smoke.sh",
+    "test": "npm run test:smoke"
   },
   "keywords": [],
-  "author": "",
+  "author": "Carlos Alfredo Callagua",
   "license": "ISC",
-  "description": "",
+  "description": "Backend API (Node.js + Express + SQLite + JWT) para TFM - Sistema de Gestión de Ventas para PYME",
   "dependencies": {
     "bcryptjs": "^3.0.3",
     "cors": "^2.8.6",
