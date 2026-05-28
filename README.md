@@ -1,150 +1,93 @@
-# TFM – Sistema de Gestión de Ventas para PYME
-## Backend API (Node.js + Express + SQLite + JWT)
+# Intelligent Sales System
 
-Autor: Carlos Alfredo Callagua  
-Máster Universitario – Universidad de Alicante  
-Año: 2026  
+Backend system for sales management in SMEs (PYMES), designed with a modular architecture and extended with data analysis and basic predictive capabilities.
 
----
+## 🚀 Overview
 
-# 1. Descripción del Proyecto
+This project implements a REST API for managing products, clients, and sales, combined with a data analysis layer that transforms operational data into actionable insights.
 
-Este proyecto corresponde al backend de un sistema de gestión de ventas orientado a pequeñas y medianas empresas (PYMES).
+The system is designed to be domain-independent and applicable to different business sectors (retail, textile, distribution, etc.).
 
-La aplicación expone una API REST desarrollada en Node.js utilizando Express, con persistencia en SQLite y autenticación basada en JSON Web Tokens (JWT).
+## 🧠 Key Features
 
-El sistema permite:
-- Gestión de usuarios con autenticación segura
-- Gestión de categorías
-- Gestión de productos
-- Gestión de clientes
-- Registro de ventas con control de stock
-- Eliminación lógica de registros
-- Control de acceso por roles
+* CRUD management for:
 
----
+  * Products
+  * Clients
+  * Sales
+* JWT-based authentication
+* Modular backend architecture
+* Data persistence with SQLite
+* Data analysis using Python (Pandas, Matplotlib)
+* Business insights:
 
-# 2. Arquitectura del Backend
+  * Sales per month
+  * Top-selling products
+  * Most active clients
+* Basic sales prediction model
 
-Estructura por capas:
+## 🏗️ Architecture
 
-src/
-- routes/        Definición de endpoints
-- controllers/   Entrada/salida HTTP
-- services/      Lógica de negocio
-- repositories/  Acceso a datos
-- middlewares/   JWT, roles, errores
-- db/            SQLite init/seed
-- app.js         Configuración Express
-- server.js      Arranque
+Backend:
 
----
+* Node.js + Express
+* SQLite (relational database)
+* REST API
 
-# 3. Tecnologías
-- Node.js
-- Express.js
-- SQLite
-- JWT
-- bcrypt
-- dotenv
-- cors
+Data Layer:
 
----
+* Python
+* Pandas
+* Matplotlib
+* Scikit-learn
 
-# 4. Instalación
+```text
+Node.js API → SQLite → Python Analysis → Insights / Prediction
+```
 
-## Clonar
-git clone https://gitlab.com/carlsalf1/tfm-pyme-ventas-api.git
-cd tfm-pyme-ventas-api
+## 📊 Example Outputs
 
-## Instalar
+* `ventas_mes.png` → monthly sales trend
+* `top_productos.png` → most sold products
+* `prediccion_ventas.png` → future sales estimation
+
+## ⚙️ Installation
+
+```bash
+git clone https://github.com/Carlsalf/intelligent-sales-system.git
+cd intelligent-sales-system
 npm install
+```
 
-## Variables de entorno
-Crea .env:
-PORT=3001
-JWT_SECRET=super_secret_key
+Run backend:
 
-## Inicializar BD
-node src/db/init.js
-node src/db/seedAdmin.js
-
-Admin por defecto:
-Email: admin@pyme.com
-Password: Admin123*
-
-## Ejecutar
+```bash
 npm run dev
-# o
-node src/server.js
+```
 
-Servidor:
-http://localhost:3001
+Run analysis:
 
----
+```bash
+cd data-analysis
+source venv/bin/activate
+python analysis.py
+```
 
-# 5. Autenticación (JWT)
+## 💼 Technical Stack
 
-POST /api/auth/login
-Body:
-{ "email":"admin@pyme.com", "password":"Admin123*" }
+* Backend: Node.js, Express
+* Database: SQLite
+* Data Analysis: Python, Pandas, Matplotlib, Scikit-learn
+* Auth: JWT
 
-Header para rutas protegidas:
-Authorization: Bearer <TOKEN>
+## 🎯 Purpose
 
----
+This project was developed as part of a Master’s thesis, with the goal of evolving traditional sales systems into data-driven platforms that support decision-making.
 
-# 6. Endpoints
+## 👨‍💻 Author
 
-Auth:
-- POST /api/auth/login
+Carlos Alfredo Callagua
+Master’s Degree in Software Engineering – University of Alicante
+Based in Alicante, Spain
 
-Me:
-- GET /api/me
-
-Categorías:
-- GET /api/categorias
-- POST /api/categorias
-- PUT /api/categorias/:id
-- DELETE /api/categorias/:id (lógica)
-
-Productos:
-- GET /api/productos
-- POST /api/productos
-- PUT /api/productos/:id
-- DELETE /api/productos/:id
-
-Clientes:
-- GET /api/clientes
-- POST /api/clientes
-- PUT /api/clientes/:id
-- DELETE /api/clientes/:id
-
-Ventas:
-- GET /api/ventas
-- POST /api/ventas
-
----
-
-# 7. Seguridad
-- Hash de contraseñas con bcrypt
-- JWT con expiración
-- Middleware de validación de token
-- Control de acceso por rol
-- Eliminación lógica
-- Manejo centralizado de errores
-
----
-
-# 8. Estado
-v1.0: Backend funcional base (CRUD + Auth + Ventas)
-
-Futuro:
-- Documentación OpenAPI
-- Reportes/Exportación
-- Integración App móvil
-
----
-
-# 9. Licencia
-Proyecto académico (TFM).
+LinkedIn: https://linkedin.com/in/carlscallagua
