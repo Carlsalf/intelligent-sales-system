@@ -1,0 +1,5844 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Inter, Arial, Helvetica, sans-serif;
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 45%, #334155 100%);
+  color: #0f172a;
+}
+
+.page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+}
+
+.card {
+  width: 100%;
+  max-width: 980px;
+  background: #ffffff;
+  border-radius: 22px;
+  padding: 42px;
+  box-shadow: 0 28px 80px rgba(0, 0, 0, 0.32);
+}
+
+h1 {
+  margin: 0 0 12px;
+  font-size: 40px;
+  color: #0f172a;
+  font-weight: 800;
+  text-align: center;
+}
+
+.subtitle {
+  margin: 0 0 34px;
+  color: #475569;
+  font-size: 18px;
+  text-align: center;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+label {
+  font-weight: 700;
+  color: #1e293b;
+}
+
+input {
+  padding: 14px 16px;
+  border: 1px solid #cbd5e1;
+  border-radius: 12px;
+  font-size: 16px;
+  background: #f8fafc;
+  color: #0f172a;
+}
+
+input:focus {
+  outline: 3px solid #bfdbfe;
+  border-color: #2563eb;
+}
+
+button {
+  margin-top: 12px;
+  padding: 15px 18px;
+  border: none;
+  border-radius: 12px;
+  background: #2563eb;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #1d4ed8;
+}
+
+.error {
+  margin-top: 18px;
+  color: #b91c1c;
+  font-weight: 700;
+  text-align: center;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+}
+
+article {
+  border: 1px solid #dbeafe;
+  border-radius: 18px;
+  padding: 26px;
+  background: linear-gradient(180deg, #eff6ff, #ffffff);
+  min-height: 150px;
+}
+
+article h3 {
+  margin: 0 0 12px;
+  color: #1e3a8a;
+  font-size: 26px;
+}
+
+article p {
+  margin: 0;
+  color: #475569;
+  font-size: 17px;
+  line-height: 1.45;
+}
+
+.header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 24px;
+}
+
+.link-button {
+  display: inline-block;
+  padding: 12px 18px;
+  border-radius: 12px;
+  background: #1e293b;
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 800;
+}
+
+.module-card {
+  display: block;
+  border: 1px solid #dbeafe;
+  border-radius: 18px;
+  padding: 26px;
+  background: linear-gradient(180deg, #eff6ff, #ffffff);
+  min-height: 150px;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.module-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 18px 35px rgba(37, 99, 235, 0.16);
+}
+
+.table-wrapper {
+  overflow-x: auto;
+  margin-top: 24px;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #ffffff;
+}
+
+th {
+  background: #eff6ff;
+  color: #1e3a8a;
+  text-align: left;
+  padding: 16px;
+  font-size: 15px;
+}
+
+td {
+  padding: 15px 16px;
+  border-top: 1px solid #e2e8f0;
+  color: #334155;
+  font-size: 15px;
+}
+
+tr:hover td {
+  background: #f8fafc;
+}
+
+th,
+td {
+  text-align: left;
+  vertical-align: middle;
+}
+
+th:nth-child(1),
+td:nth-child(1),
+th:nth-child(4),
+td:nth-child(4),
+th:nth-child(5),
+td:nth-child(5),
+th:nth-child(6),
+td:nth-child(6) {
+  text-align: center;
+}
+
+th:nth-child(2),
+td:nth-child(2),
+th:nth-child(3),
+td:nth-child(3) {
+  text-align: left;
+}
+
+table {
+  table-layout: fixed;
+}
+
+th:nth-child(1),
+td:nth-child(1) {
+  width: 70px;
+}
+
+th:nth-child(2),
+td:nth-child(2) {
+  width: 280px;
+}
+
+th:nth-child(3),
+td:nth-child(3) {
+  width: 260px;
+}
+
+th:nth-child(4),
+td:nth-child(4) {
+  width: 120px;
+}
+
+th:nth-child(5),
+td:nth-child(5) {
+  width: 100px;
+}
+
+th:nth-child(6),
+td:nth-child(6) {
+  width: 120px;
+}
+
+.card {
+  max-width: 1180px;
+}
+
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #94a3b8 #e2e8f0;
+}
+
+.table-wrapper::-webkit-scrollbar {
+  height: 10px;
+}
+
+.table-wrapper::-webkit-scrollbar-track {
+  background: #e2e8f0;
+  border-radius: 999px;
+}
+
+.table-wrapper::-webkit-scrollbar-thumb {
+  background: #94a3b8;
+  border-radius: 999px;
+}
+
+table {
+  min-width: 900px;
+}
+
+.products-card {
+  max-width: 1240px;
+}
+
+/* FIX TABLA PRODUCTOS */
+.products-card table {
+  width: 100%;
+  min-width: 0;
+  table-layout: auto;
+}
+
+.products-card th,
+.products-card td {
+  text-align: left;
+  padding: 16px 22px;
+  white-space: nowrap;
+}
+
+.products-card th:nth-child(1),
+.products-card td:nth-child(1) {
+  width: 35%;
+}
+
+.products-card th:nth-child(2),
+.products-card td:nth-child(2) {
+  width: 25%;
+}
+
+.products-card th:nth-child(3),
+.products-card td:nth-child(3),
+.products-card th:nth-child(4),
+.products-card td:nth-child(4),
+.products-card th:nth-child(5),
+.products-card td:nth-child(5) {
+  width: 13%;
+  text-align: center;
+}
+
+.actions-row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  margin: 26px 0;
+}
+
+.kpi-card {
+  background: linear-gradient(180deg, #eff6ff, #ffffff);
+  border: 1px solid #dbeafe;
+  border-radius: 18px;
+  padding: 22px;
+}
+
+.kpi-card span {
+  display: block;
+  color: #64748b;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.kpi-card strong {
+  display: block;
+  color: #1e3a8a;
+  font-size: 34px;
+  font-weight: 900;
+}
+
+.search-input {
+  width: 100%;
+  margin: 0 0 22px;
+  padding: 15px 18px;
+  border: 1px solid #cbd5e1;
+  border-radius: 14px;
+  background: #f8fafc;
+  color: #0f172a;
+  font-size: 16px;
+}
+
+.badge-active {
+  display: inline-block;
+  padding: 7px 13px;
+  border-radius: 999px;
+  background: #dcfce7;
+  color: #166534;
+  font-weight: 800;
+  font-size: 13px;
+}
+
+@media (max-width: 900px) {
+  .header-row,
+  .actions-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .kpi-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* PREMIUM UI REFINEMENT */
+
+.dashboard-card {
+  max-width: 1180px;
+}
+
+.dashboard-hero {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 34px;
+}
+
+.eyebrow {
+  margin: 0 0 10px;
+  color: #2563eb;
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.premium-card {
+  border: 1px solid #dbeafe;
+  border-radius: 22px;
+  padding: 30px;
+  background: linear-gradient(180deg, #f8fbff, #ffffff);
+  min-height: 190px;
+  box-shadow: 0 14px 32px rgba(15, 23, 42, 0.06);
+}
+
+.premium-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 22px 45px rgba(37, 99, 235, 0.14);
+}
+
+.module-icon {
+  display: inline-flex;
+  width: 48px;
+  height: 48px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  background: #eff6ff;
+  font-size: 25px;
+  margin-bottom: 16px;
+}
+
+.premium-card h3 {
+  margin: 0 0 10px;
+  color: #1e3a8a;
+  font-size: 25px;
+  font-weight: 900;
+}
+
+.premium-card p {
+  margin: 0;
+  color: #475569;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.actions-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.kpi-card span {
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 13px;
+}
+
+.subtitle {
+  margin-top: 10px;
+}
+
+thead {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+button,
+.link-button {
+  min-height: 52px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 900px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.actions-row {
+  align-items: center;
+}
+
+.actions-row button,
+.actions-row .link-button {
+  height: 56px;
+  padding: 0 24px;
+  border-radius: 14px;
+  font-size: 16px;
+}
+
+.actions-row .link-button {
+  background: #111827;
+}
+
+.eyebrow {
+  text-transform: none;
+  letter-spacing: 0.6px;
+  font-size: 15px;
+}
+
+.analytics-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  margin-top: 28px;
+}
+
+.chart-card {
+  border: 1px solid #dbeafe;
+  border-radius: 20px;
+  padding: 24px;
+  background: #ffffff;
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.06);
+}
+
+.chart-card h3 {
+  margin: 0 0 8px;
+  color: #1e3a8a;
+  font-size: 22px;
+}
+
+.chart-card p {
+  margin: 0 0 18px;
+  color: #64748b;
+  font-size: 15px;
+}
+
+.chart-card img {
+  width: 100%;
+  border-radius: 14px;
+  border: 1px solid #e2e8f0;
+  background: #f8fafc;
+}
+
+.wide-chart {
+  grid-column: 1 / -1;
+}
+
+@media (max-width: 900px) {
+  .analytics-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.insight-box {
+  margin-top: 28px;
+  border: 1px solid #bfdbfe;
+  border-radius: 20px;
+  padding: 26px;
+  background: #eff6ff;
+}
+
+.insight-box h3 {
+  margin: 0 0 10px;
+  color: #1e3a8a;
+  font-size: 24px;
+}
+
+.insight-box p {
+  margin: 0;
+  color: #475569;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.recommendation-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 22px;
+}
+
+.recommendation-card {
+  border: 1px solid #dbeafe;
+  border-radius: 18px;
+  padding: 22px;
+  background: #ffffff;
+}
+
+.recommendation-card h4 {
+  margin: 0 0 10px;
+  color: #1e3a8a;
+  font-size: 18px;
+}
+
+.recommendation-card p {
+  margin: 0;
+  color: #475569;
+  line-height: 1.5;
+}
+
+@media (max-width: 900px) {
+  .recommendation-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.trend-summary {
+  margin: 24px 0 28px;
+  border: 1px solid #bfdbfe;
+  border-radius: 20px;
+  padding: 24px;
+  background: linear-gradient(180deg, #eff6ff, #ffffff);
+  text-align: center;
+}
+
+.trend-summary span {
+  display: block;
+  color: #64748b;
+  font-weight: 900;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.trend-summary strong {
+  display: block;
+  color: #b45309;
+  font-size: 30px;
+  font-weight: 900;
+  margin-bottom: 10px;
+}
+
+.trend-summary p {
+  margin: 0 auto;
+  max-width: 760px;
+  color: #475569;
+  font-size: 16px;
+  line-height: 1.55;
+}
+
+.four-columns {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+@media (max-width: 1100px) {
+  .four-columns {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 700px) {
+  .four-columns {
+    grid-template-columns: 1fr;
+  }
+}
+
+.chart-insight {
+  margin-top: 16px;
+  padding: 14px 16px;
+  border-radius: 14px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  color: #475569;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.chart-insight strong {
+  color: #1e3a8a;
+}
+
+
+.analytics-kpis {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.kpi-card small {
+  display: block;
+  margin-top: 8px;
+  color: #64748b;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.kpi-card.negative strong {
+  color: #b45309;
+}
+
+.kpi-card.positive strong {
+  color: #15803d;
+}
+
+.kpi-card.neutral strong {
+  color: #1e3a8a;
+}
+
+.business-highlight-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  margin: 26px 0 30px;
+}
+
+.business-highlight-card {
+  border: 1px solid #dbeafe;
+  border-radius: 20px;
+  padding: 22px;
+  text-align: center;
+  background: linear-gradient(180deg, #f8fbff, #ffffff);
+}
+
+.business-highlight-card span {
+  display: block;
+  color: #64748b;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-bottom: 8px;
+}
+
+.business-highlight-card strong {
+  display: block;
+  color: #1e3a8a;
+  font-size: 28px;
+  font-weight: 900;
+  margin-bottom: 8px;
+}
+
+.business-highlight-card p {
+  margin: 0;
+  color: #475569;
+  font-size: 15px;
+}
+
+.warning-insight {
+  background: #fff7ed;
+  border-color: #fed7aa;
+}
+
+@media (max-width: 1100px) {
+  .analytics-kpis,
+  .business-highlight-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 700px) {
+  .analytics-kpis,
+  .business-highlight-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.pro-highlight-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.decision-engine-box,
+.top-products-box {
+  margin-top: 28px;
+  padding: 28px;
+  border: 1px solid #dbeafe;
+  border-radius: 24px;
+  background: linear-gradient(180deg, #f8fbff, #ffffff);
+  text-align: center;
+}
+
+.decision-engine-box h3,
+.top-products-box h3 {
+  margin: 0 0 10px;
+  color: #1e3a8a;
+  font-size: 28px;
+}
+
+.decision-engine-box > p {
+  margin: 0 auto 22px;
+  max-width: 920px;
+  color: #475569;
+  line-height: 1.6;
+}
+
+.rules-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.rule-card {
+  padding: 18px;
+  border: 1px solid #dbeafe;
+  border-radius: 18px;
+  background: #ffffff;
+  text-align: left;
+}
+
+.rule-card span {
+  display: block;
+  color: #64748b;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.7px;
+  margin-bottom: 8px;
+}
+
+.rule-card strong {
+  display: block;
+  color: #1e3a8a;
+  font-size: 17px;
+  margin-bottom: 8px;
+}
+
+.rule-card p {
+  margin: 0;
+  color: #475569;
+  line-height: 1.5;
+}
+
+.top-products-list {
+  max-width: 720px;
+  margin: 20px auto 0;
+  display: grid;
+  gap: 12px;
+}
+
+.top-product-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 20px;
+  border: 1px solid #dbeafe;
+  border-radius: 16px;
+  background: #ffffff;
+  color: #334155;
+}
+
+.top-product-row strong {
+  color: #1e3a8a;
+}
+
+@media (max-width: 1100px) {
+  .pro-highlight-grid,
+  .rules-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 700px) {
+  .pro-highlight-grid,
+  .rules-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .top-product-row {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+.monthly-comparison-box {
+  margin: 26px 0 28px;
+  padding: 28px;
+  border: 1px solid #dbeafe;
+  border-radius: 24px;
+  background: linear-gradient(180deg, #f8fbff, #ffffff);
+  text-align: center;
+}
+
+.monthly-comparison-box h3 {
+  margin: 0 0 20px;
+  color: #1e3a8a;
+  font-size: 28px;
+}
+
+.comparison-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.comparison-grid div {
+  padding: 22px;
+  border: 1px solid #dbeafe;
+  border-radius: 18px;
+  background: #ffffff;
+}
+
+.comparison-grid span {
+  display: block;
+  color: #64748b;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-bottom: 8px;
+}
+
+.comparison-grid strong {
+  display: block;
+  color: #1e3a8a;
+  font-size: 28px;
+  font-weight: 900;
+  margin-bottom: 8px;
+}
+
+.comparison-grid p {
+  margin: 0;
+  color: #475569;
+}
+
+@media (max-width: 800px) {
+  .comparison-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.commercial-health-box {
+  margin: 26px 0 28px;
+  padding: 30px;
+  border: 1px solid #bfdbfe;
+  border-radius: 24px;
+  background: linear-gradient(180deg, #eff6ff, #ffffff);
+  text-align: center;
+}
+
+.commercial-health-box h3 {
+  margin: 0 0 12px;
+  color: #1e3a8a;
+  font-size: 28px;
+}
+
+.commercial-health-box strong {
+  display: block;
+  color: #15803d;
+  font-size: 48px;
+  font-weight: 900;
+}
+
+.commercial-health-box p {
+  margin: 8px 0 0;
+  color: #475569;
+  font-size: 20px;
+}
+
+.model-box {
+  margin: 18px auto;
+  padding: 18px 22px;
+  border: 1px solid #dbeafe;
+  border-radius: 16px;
+  background: #f8fbff;
+  color: #475569;
+  line-height: 1.7;
+}
+
+.model-box strong {
+  color: #1e3a8a;
+}
+
+.explainability-box {
+  margin-top: 28px;
+  padding: 28px;
+  border: 1px solid #dbeafe;
+  border-radius: 24px;
+  background: linear-gradient(180deg, #f8fbff, #ffffff);
+  text-align: center;
+}
+
+.explainability-box h3,
+.action-plan-title h3 {
+  margin: 0 0 10px;
+  color: #1e3a8a;
+  font-size: 28px;
+}
+
+.explainability-box p,
+.action-plan-title p {
+  margin: 0 auto 20px;
+  max-width: 920px;
+  color: #475569;
+  line-height: 1.6;
+}
+
+.activated-rules-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.activated-rule {
+  padding: 18px;
+  border: 1px solid #bbf7d0;
+  border-radius: 18px;
+  background: #f0fdf4;
+  text-align: left;
+}
+
+.activated-rule strong {
+  display: block;
+  color: #15803d;
+  margin-bottom: 8px;
+}
+
+.activated-rule span {
+  color: #334155;
+  line-height: 1.5;
+}
+
+.action-plan-title {
+  margin-top: 30px;
+  text-align: center;
+}
+
+@media (max-width: 900px) {
+  .activated-rules-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+.health-criteria {
+  margin: 22px auto 0;
+  max-width: 980px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+.health-criteria span {
+  padding: 10px 14px;
+  border: 1px solid #bbf7d0;
+  border-radius: 999px;
+  background: #f0fdf4;
+  color: #166534;
+  font-weight: 800;
+  font-size: 14px;
+}
+
+.data-pipeline-box {
+  margin: 26px 0 28px;
+  padding: 30px;
+  border: 1px solid #dbeafe;
+  border-radius: 24px;
+  background: linear-gradient(180deg, #f8fbff, #ffffff);
+  text-align: center;
+}
+
+.data-pipeline-box h3 {
+  margin: 0 0 10px;
+  color: #1e3a8a;
+  font-size: 30px;
+}
+
+.data-pipeline-box > p {
+  margin: 0 auto 24px;
+  max-width: 900px;
+  color: #475569;
+  line-height: 1.6;
+}
+
+.pipeline-flow {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+.pipeline-step {
+  padding: 16px 10px;
+  border: 1px solid #bfdbfe;
+  border-radius: 16px;
+  background: #eff6ff;
+  color: #1e3a8a;
+}
+
+.pipeline-step strong {
+  font-size: 15px;
+}
+
+.pipeline-detail-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.pipeline-detail-grid div {
+  padding: 18px;
+  border: 1px solid #dbeafe;
+  border-radius: 16px;
+  background: #ffffff;
+}
+
+.pipeline-detail-grid span {
+  display: block;
+  color: #64748b;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.7px;
+  margin-bottom: 8px;
+}
+
+.pipeline-detail-grid strong {
+  color: #1e3a8a;
+  font-size: 16px;
+}
+
+@media (max-width: 1000px) {
+  .pipeline-flow,
+  .pipeline-detail-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 650px) {
+  .pipeline-flow,
+  .pipeline-detail-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.health-formula-box {
+  margin: 28px 0;
+  padding: 30px;
+  border: 1px solid #bfdbfe;
+  border-radius: 24px;
+  background: linear-gradient(180deg, #f8fbff, #ffffff);
+  text-align: center;
+}
+
+.health-formula-box h3,
+.final-conclusion-box h3 {
+  margin: 0 0 10px;
+  color: #1e3a8a;
+  font-size: 30px;
+}
+
+.health-formula-box p,
+.final-conclusion-box p {
+  margin: 0 auto 22px;
+  max-width: 960px;
+  color: #475569;
+  line-height: 1.6;
+}
+
+.formula-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.formula-card {
+  padding: 18px;
+  border: 1px solid #dbeafe;
+  border-radius: 18px;
+  background: #ffffff;
+}
+
+.formula-card span {
+  display: block;
+  color: #64748b;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: .6px;
+  margin-bottom: 10px;
+}
+
+.formula-card strong {
+  display: block;
+  color: #1e3a8a;
+  font-size: 28px;
+}
+
+.formula-card small,
+.formula-card em {
+  display: block;
+  color: #475569;
+  margin-top: 6px;
+  font-style: normal;
+}
+
+.formula-total {
+  margin-top: 22px;
+  font-size: 22px;
+  color: #334155;
+}
+
+.formula-total strong {
+  color: #15803d;
+  font-size: 30px;
+}
+
+.risk-level {
+  display: block;
+  margin-bottom: 12px;
+  color: #15803d;
+  font-size: 22px;
+}
+
+.final-conclusion-box {
+  margin-top: 32px;
+  padding: 30px;
+  border: 1px solid #bbf7d0;
+  border-radius: 24px;
+  background: #f0fdf4;
+  text-align: center;
+}
+
+@media (max-width: 1100px) {
+  .formula-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 650px) {
+  .formula-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.score-scale {
+  margin: 22px auto 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  max-width: 900px;
+}
+
+.score-scale span {
+  padding: 12px;
+  border: 1px solid #dbeafe;
+  border-radius: 14px;
+  background: #f8fbff;
+  color: #334155;
+  font-weight: 800;
+}
+
+.formula-reason {
+  margin: 12px 0 0;
+  color: #475569;
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.data-pipeline-box .pipeline-grid {
+  align-items: center;
+}
+
+.data-pipeline-box .pipeline-grid > div:not(:last-child)::after {
+  content: "→";
+  margin-left: 14px;
+  color: #1e3a8a;
+  font-weight: 900;
+}
+
+@media (max-width: 900px) {
+  .score-scale {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .data-pipeline-box .pipeline-grid > div:not(:last-child)::after {
+    content: "";
+  }
+}
+
+@media (max-width: 600px) {
+  .score-scale {
+    grid-template-columns: 1fr;
+  }
+}
+
+.backend-source {
+  margin-top: 10px !important;
+  padding: 12px 18px;
+  border: 1px solid #bfdbfe;
+  border-radius: 14px;
+  background: #eff6ff;
+  color: #1e3a8a !important;
+  font-weight: 700;
+}
+
+.backend-source strong {
+  color: #1e3a8a;
+}
+
+/* ===== Analítica Comercial - Layout final estable ===== */
+
+.analytics-page {
+  min-height: 100vh;
+  background: #111827;
+  padding: 32px 20px;
+  color: #0f172a;
+}
+
+.analytics-shell {
+  max-width: 1280px;
+  margin: 0 auto;
+  background: #ffffff;
+  border-radius: 28px;
+  padding: 42px 48px;
+}
+
+.analytics-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 24px;
+  text-align: center;
+  margin-bottom: 52px;
+}
+
+.analytics-header > div {
+  flex: 1;
+}
+
+.analytics-header h1 {
+  margin: 0;
+  color: #0f172a;
+  font-size: 48px;
+  line-height: 1.05;
+  font-weight: 800;
+}
+
+.analytics-header p {
+  max-width: 980px;
+  margin: 10px auto 0;
+  color: #475569;
+  font-size: 21px;
+  line-height: 1.45;
+}
+
+.dark-button {
+  background: #111827;
+  color: #ffffff;
+  border: 0;
+  border-radius: 16px;
+  padding: 16px 26px;
+  font-size: 19px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.kpi-grid {
+  display: grid;
+  gap: 24px;
+  margin-bottom: 34px;
+}
+
+.kpi-grid.four {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.kpi-grid.three {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.kpi-card,
+.signal-card,
+.health-card,
+.section-card,
+.chart-card,
+.executive-card,
+.conclusion-card {
+  background: linear-gradient(180deg, #f8fbff 0%, #ffffff 100%);
+  border: 1px solid #bfdbfe;
+  border-radius: 22px;
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.035);
+}
+
+.kpi-card {
+  min-height: 145px;
+  padding: 26px 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.kpi-card span {
+  color: #64748b;
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.kpi-card strong {
+  margin-top: 10px;
+  color: #1e3a8a;
+  font-size: 36px;
+  line-height: 1.05;
+  font-weight: 800;
+}
+
+.kpi-card small {
+  margin-top: 10px;
+  color: #64748b;
+  font-size: 16px;
+  line-height: 1.4;
+  font-weight: 650;
+}
+
+.positive {
+  color: #15803d !important;
+}
+
+.negative {
+  color: #b91c1c !important;
+}
+
+.signal-card,
+.health-card,
+.section-card,
+.executive-card,
+.conclusion-card,
+.action-section {
+  padding: 32px 34px;
+  margin-bottom: 34px;
+  text-align: center;
+}
+
+.signal-card span {
+  color: #64748b;
+  font-size: 21px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.signal-card h2 {
+  margin: 8px 0 12px;
+  color: #b45309;
+  font-size: 38px;
+  line-height: 1.1;
+}
+
+.signal-card p,
+.health-card p,
+.section-card > p,
+.executive-card p,
+.conclusion-card p,
+.action-section > p {
+  max-width: 980px;
+  margin: 0 auto;
+  color: #475569;
+  font-size: 19px;
+  line-height: 1.5;
+}
+
+.health-card h2,
+.section-card h2,
+.chart-card h2,
+.executive-card h2,
+.conclusion-card h2,
+.action-section h2 {
+  margin: 0 0 10px;
+  color: #1e3a8a;
+  font-size: 34px;
+  line-height: 1.15;
+  font-weight: 800;
+}
+
+.health-card > strong {
+  display: block;
+  color: #15803d;
+  font-size: 54px;
+  line-height: 1;
+  font-weight: 800;
+}
+
+.badge-row {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 26px;
+}
+
+.badge-row span {
+  border: 1px solid #86efac;
+  background: #f0fdf4;
+  color: #166534;
+  border-radius: 999px;
+  padding: 10px 18px;
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.source-pill,
+.model-note,
+.chart-note {
+  margin: 24px auto;
+  padding: 16px 22px;
+  border: 1px solid #bfdbfe;
+  border-radius: 16px;
+  background: #eff6ff;
+  color: #1e3a8a;
+  font-size: 17px;
+  font-weight: 750;
+  line-height: 1.45;
+}
+
+.formula-grid,
+.trace-grid,
+.comparison-grid,
+.rules-grid,
+.active-rules,
+.action-grid,
+.chart-grid {
+  display: grid;
+  gap: 22px;
+  margin-top: 26px;
+}
+
+.formula-grid {
+  grid-template-columns: repeat(5, 1fr);
+}
+
+.trace-grid,
+.rules-grid,
+.action-grid {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.comparison-grid,
+.active-rules {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.chart-grid {
+  grid-template-columns: repeat(2, 1fr);
+  margin-bottom: 34px;
+}
+
+.formula-card,
+.trace-grid article,
+.comparison-grid article,
+.rules-grid article,
+.active-rules article,
+.action-grid article {
+  border: 1px solid #dbeafe;
+  border-radius: 18px;
+  background: #ffffff;
+  padding: 24px 18px;
+}
+
+.formula-card span,
+.trace-grid span,
+.rules-grid span {
+  color: #64748b;
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.formula-card strong,
+.comparison-grid strong {
+  display: block;
+  color: #1e3a8a;
+  font-size: 30px;
+  margin-top: 10px;
+}
+
+.chart-card {
+  padding: 30px;
+  text-align: center;
+}
+
+.chart-card p {
+  color: #64748b;
+  font-size: 18px;
+  line-height: 1.45;
+}
+
+.chart-card img,
+.wide-chart {
+  width: 100%;
+  border: 1px solid #dbeafe;
+  border-radius: 16px;
+  background: #ffffff;
+  margin-top: 22px;
+}
+
+.warning-note {
+  margin-top: 22px;
+  padding: 16px 22px;
+  border: 1px solid #fdba74;
+  border-radius: 16px;
+  background: #fff7ed;
+  color: #475569;
+  font-size: 17px;
+  line-height: 1.45;
+}
+
+.executive-card {
+  background: #eff6ff;
+}
+
+.active-rules article {
+  background: #ecfdf5;
+  border-color: #86efac;
+  color: #15803d;
+  text-align: left;
+  font-size: 19px;
+  font-weight: 800;
+}
+
+.active-rules span {
+  display: block;
+  margin-top: 10px;
+  color: #334155;
+  font-weight: 500;
+}
+
+.ranking-list {
+  max-width: 860px;
+  margin: 26px auto 0;
+  display: grid;
+  gap: 14px;
+}
+
+.ranking-list div {
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid #dbeafe;
+  border-radius: 16px;
+  padding: 18px 26px;
+  background: #ffffff;
+  font-size: 20px;
+}
+
+.ranking-list strong {
+  color: #1e3a8a;
+}
+
+.action-grid h3 {
+  margin: 0 0 16px;
+  color: #1e3a8a;
+  font-size: 23px;
+}
+
+.action-grid p,
+.action-grid strong {
+  color: #334155;
+  font-size: 20px;
+  line-height: 1.45;
+  font-weight: 500;
+}
+
+.action-grid strong {
+  color: #15803d;
+  font-weight: 800;
+}
+
+.conclusion-card {
+  background: #ecfdf5;
+  border-color: #86efac;
+}
+
+.pipeline-row,
+.scale-row {
+  display: grid;
+  gap: 14px;
+  margin-top: 24px;
+}
+
+.pipeline-row {
+  grid-template-columns: repeat(6, 1fr);
+}
+
+.scale-row {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.pipeline-row span,
+.scale-row span {
+  padding: 18px 14px;
+  border: 1px solid #bfdbfe;
+  border-radius: 16px;
+  background: #eff6ff;
+  color: #1e3a8a;
+  font-size: 16px;
+  font-weight: 800;
+}
+
+@media (max-width: 1100px) {
+  .kpi-grid.four,
+  .kpi-grid.three,
+  .formula-grid,
+  .trace-grid,
+  .comparison-grid,
+  .rules-grid,
+  .active-rules,
+  .action-grid,
+  .chart-grid,
+  .pipeline-row,
+  .scale-row {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 720px) {
+  .analytics-shell {
+    padding: 28px 18px;
+  }
+
+  .analytics-header {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .kpi-grid.four,
+  .kpi-grid.three,
+  .formula-grid,
+  .trace-grid,
+  .comparison-grid,
+  .rules-grid,
+  .active-rules,
+  .action-grid,
+  .chart-grid,
+  .pipeline-row,
+  .scale-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ===== Microajustes finales Analítica Comercial ===== */
+
+.analytics-header h1 {
+  font-size: 44px;
+}
+
+.analytics-header p {
+  font-size: 19px;
+  line-height: 1.45;
+}
+
+.health-card h2,
+.section-card h2,
+.chart-card h2,
+.executive-card h2,
+.conclusion-card h2,
+.action-section h2 {
+  font-size: 30px;
+  line-height: 1.18;
+}
+
+.signal-card h2 {
+  font-size: 34px;
+}
+
+.kpi-card {
+  min-height: 132px;
+  padding: 22px 18px;
+}
+
+.kpi-card strong {
+  font-size: 32px;
+}
+
+.kpi-card small {
+  font-size: 15px;
+}
+
+.signal-card,
+.health-card,
+.section-card,
+.executive-card,
+.conclusion-card,
+.action-section {
+  padding: 28px 30px;
+  margin-bottom: 30px;
+}
+
+.formula-card,
+.trace-grid article,
+.comparison-grid article,
+.rules-grid article,
+.active-rules article,
+.action-grid article {
+  padding: 22px 18px;
+}
+
+.rules-grid article span {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.rules-grid article strong {
+  display: block;
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.action-grid h3 {
+  font-size: 22px;
+}
+
+.action-grid p,
+.action-grid strong {
+  font-size: 18px;
+}
+
+.conclusion-card p,
+.executive-card p,
+.section-card > p,
+.signal-card p {
+  text-align: left;
+}
+
+.conclusion-card h2,
+.executive-card h2,
+.section-card h2,
+.signal-card h2 {
+  text-align: center;
+}
+
+.badge-row span {
+  padding: 9px 15px;
+  font-size: 14px;
+}
+
+.source-pill,
+.model-note,
+.chart-note {
+  font-size: 16px;
+  padding: 14px 18px;
+}
+
+.dark-button {
+  padding: 14px 22px;
+  font-size: 18px;
+  border-radius: 14px;
+}
+
+@media (max-width: 720px) {
+  .analytics-header h1 {
+    font-size: 34px;
+  }
+
+  .health-card h2,
+  .section-card h2,
+  .chart-card h2,
+  .executive-card h2,
+  .conclusion-card h2,
+  .action-section h2 {
+    font-size: 26px;
+  }
+}
+
+/* ===== Módulos operativos: ventas/clientes/productos - acabado TFM ===== */
+
+.module-page {
+  min-height: 100vh;
+  padding: 42px 32px;
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  color: #0f172a;
+}
+
+.module-card {
+  width: min(1240px, 100%);
+  margin: 0 auto;
+  background: #ffffff;
+  border-radius: 28px;
+  padding: 44px;
+  box-shadow: 0 24px 70px rgba(15, 23, 42, 0.22);
+}
+
+.module-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 32px;
+  margin-bottom: 42px;
+}
+
+.module-header h1 {
+  font-size: clamp(2.2rem, 4vw, 3.6rem);
+  line-height: 1.05;
+  margin: 0 0 10px;
+  letter-spacing: -0.04em;
+  color: #0f172a;
+}
+
+.module-header p {
+  max-width: 820px;
+  margin: 0;
+  color: #475569;
+  font-size: 1.25rem;
+  line-height: 1.45;
+}
+
+.module-actions {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.primary-button,
+.secondary-button {
+  border: 0;
+  border-radius: 16px;
+  padding: 16px 28px;
+  font-weight: 800;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.primary-button {
+  background: #1d4ed8;
+  color: #ffffff;
+  box-shadow: 0 10px 24px rgba(29, 78, 216, 0.25);
+}
+
+.secondary-button {
+  background: #111827;
+  color: #ffffff;
+}
+
+.primary-button:hover,
+.secondary-button:hover {
+  transform: translateY(-1px);
+}
+
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 26px;
+  margin-bottom: 34px;
+}
+
+.metric-card {
+  border: 1px solid #bfdbfe;
+  background: linear-gradient(180deg, #f8fbff 0%, #ffffff 100%);
+  border-radius: 22px;
+  padding: 30px 24px;
+  text-align: center;
+}
+
+.metric-card span {
+  display: block;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: 0.92rem;
+  font-weight: 800;
+  margin-bottom: 16px;
+}
+
+.metric-card strong {
+  color: #1e3a8a;
+  font-size: 2.45rem;
+  line-height: 1;
+}
+
+.search-input {
+  width: 100%;
+  border: 1px solid #cbd5e1;
+  border-radius: 16px;
+  padding: 18px 22px;
+  font-size: 1.05rem;
+  margin-bottom: 28px;
+  color: #0f172a;
+  background: #f8fafc;
+}
+
+.data-table-card {
+  border: 1px solid #dbeafe;
+  border-radius: 22px;
+  overflow: hidden;
+  background: #ffffff;
+}
+
+.data-table-card table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.data-table-card th {
+  text-align: left;
+  background: #eff6ff;
+  color: #1e3a8a;
+  padding: 18px 20px;
+  font-size: 0.98rem;
+  letter-spacing: 0.02em;
+}
+
+.data-table-card td {
+  padding: 18px 20px;
+  border-top: 1px solid #e5e7eb;
+  color: #1f2937;
+  font-size: 1rem;
+}
+
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: 8px 14px;
+  font-weight: 800;
+  font-size: 0.9rem;
+}
+
+.status-pill.active {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.empty-row {
+  text-align: center;
+  color: #64748b;
+  padding: 28px !important;
+}
+
+.info-banner {
+  margin-bottom: 24px;
+  border: 1px solid #bfdbfe;
+  background: #eff6ff;
+  color: #1e3a8a;
+  border-radius: 16px;
+  padding: 16px 20px;
+  font-weight: 700;
+}
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.62);
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  z-index: 50;
+}
+
+.modal-card {
+  width: min(560px, 100%);
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 32px;
+  box-shadow: 0 30px 80px rgba(15, 23, 42, 0.35);
+}
+
+.modal-header h2 {
+  margin: 0 0 8px;
+  color: #0f172a;
+  font-size: 2rem;
+  letter-spacing: -0.03em;
+}
+
+.modal-header p {
+  margin: 0 0 24px;
+  color: #64748b;
+  line-height: 1.5;
+}
+
+.modal-form {
+  display: grid;
+  gap: 18px;
+}
+
+.modal-form label {
+  display: grid;
+  gap: 8px;
+  color: #334155;
+  font-weight: 800;
+}
+
+.modal-form input,
+.modal-form select {
+  border: 1px solid #cbd5e1;
+  border-radius: 14px;
+  padding: 14px 16px;
+  font-size: 1rem;
+  background: #f8fafc;
+  color: #0f172a;
+}
+
+.calculated-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #bfdbfe;
+  background: #eff6ff;
+  border-radius: 16px;
+  padding: 16px 18px;
+  color: #1e3a8a;
+}
+
+.calculated-total strong {
+  font-size: 1.45rem;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 14px;
+  margin-top: 8px;
+}
+
+@media (max-width: 900px) {
+  .module-card {
+    padding: 28px;
+  }
+
+  .module-header {
+    flex-direction: column;
+  }
+
+  .module-actions {
+    width: 100%;
+  }
+
+  .module-actions button {
+    flex: 1;
+  }
+
+  .metrics-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .data-table-card {
+    overflow-x: auto;
+  }
+}
+
+/* ===== Gestión de Ventas - versión fina TFM ===== */
+
+.sales-page {
+  min-height: 100vh;
+  background: #111827;
+  padding: 42px 28px;
+  color: #0f172a;
+}
+
+.sales-panel {
+  max-width: 1180px;
+  margin: 0 auto;
+  background: #ffffff;
+  border-radius: 34px;
+  padding: 46px 52px;
+  border: 1px solid #cfe3ff;
+  box-shadow: 0 24px 70px rgba(15, 23, 42, 0.16);
+}
+
+.sales-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 32px;
+  margin-bottom: 46px;
+}
+
+.sales-eyebrow {
+  color: #2563eb;
+  font-size: 0.88rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.sales-header h1 {
+  font-size: clamp(2.4rem, 4.6vw, 4.2rem);
+  line-height: 1.02;
+  letter-spacing: -0.055em;
+  margin: 0 0 12px;
+  color: #0f172a;
+}
+
+.sales-header p {
+  max-width: 760px;
+  font-size: 1.25rem;
+  line-height: 1.5;
+  color: #475569;
+  margin: 0;
+}
+
+.sales-actions {
+  display: flex;
+  gap: 16px;
+  flex-shrink: 0;
+}
+
+.primary-btn,
+.dark-btn {
+  border: 0;
+  border-radius: 18px;
+  padding: 18px 28px;
+  font-size: 1rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.primary-btn {
+  background: #2563eb;
+  color: #ffffff;
+  box-shadow: 0 14px 28px rgba(37, 99, 235, 0.22);
+}
+
+.dark-btn {
+  background: #111827;
+  color: #ffffff;
+}
+
+.soft-alert {
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  border-radius: 18px;
+  padding: 18px;
+  text-align: center;
+  font-weight: 800;
+  color: #1e3a8a;
+  margin-bottom: 28px;
+}
+
+.sales-kpis {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 26px;
+  margin-bottom: 32px;
+}
+
+.sales-kpi {
+  min-height: 145px;
+  border: 1px solid #bfdbfe;
+  border-radius: 24px;
+  background: linear-gradient(180deg, #f8fbff 0%, #ffffff 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.sales-kpi span {
+  font-size: 0.95rem;
+  font-weight: 850;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #64748b;
+}
+
+.sales-kpi strong {
+  font-size: clamp(2rem, 3.2vw, 3.3rem);
+  line-height: 1;
+  color: #1e3a8a;
+  letter-spacing: -0.04em;
+}
+
+.sales-kpi small {
+  font-size: 0.98rem;
+  font-weight: 700;
+  color: #64748b;
+}
+
+.sales-search {
+  width: 100%;
+  height: 62px;
+  border: 1px solid #cbd5e1;
+  border-radius: 18px;
+  padding: 0 24px;
+  font-size: 1.05rem;
+  color: #0f172a;
+  margin-bottom: 30px;
+  background: #f8fafc;
+}
+
+.sales-table-card {
+  border: 1px solid #dbeafe;
+  border-radius: 24px;
+  overflow: hidden;
+}
+
+.sales-table-card table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.sales-table-card th {
+  background: #eff6ff;
+  color: #1e3a8a;
+  font-size: 0.98rem;
+  text-align: left;
+  padding: 20px 24px;
+}
+
+.sales-table-card td {
+  padding: 19px 24px;
+  color: #1f2937;
+  border-top: 1px solid #e5e7eb;
+}
+
+.empty-row {
+  text-align: center;
+  padding: 34px !important;
+  color: #475569 !important;
+}
+
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 18px;
+  border-radius: 999px;
+  background: #dcfce7;
+  color: #166534;
+  font-weight: 800;
+  font-size: 0.9rem;
+}
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.68);
+  display: grid;
+  place-items: center;
+  z-index: 50;
+  padding: 24px;
+}
+
+.sales-modal {
+  width: min(720px, 100%);
+  background: #ffffff;
+  border-radius: 32px;
+  padding: 42px;
+  box-shadow: 0 30px 80px rgba(15, 23, 42, 0.32);
+}
+
+.sales-modal h2 {
+  margin: 0 0 10px;
+  font-size: 2.6rem;
+  letter-spacing: -0.045em;
+  text-align: center;
+}
+
+.sales-modal p {
+  text-align: center;
+  color: #64748b;
+  font-size: 1.15rem;
+  line-height: 1.45;
+  margin-bottom: 30px;
+}
+
+.sales-modal label {
+  display: block;
+  text-align: center;
+  font-weight: 850;
+  color: #334155;
+  margin: 18px 0 8px;
+}
+
+.sales-modal select,
+.sales-modal input {
+  width: 100%;
+  height: 54px;
+  border: 1px solid #cbd5e1;
+  border-radius: 14px;
+  padding: 0 16px;
+  font-size: 1rem;
+  background: #f8fafc;
+}
+
+.modal-total {
+  margin-top: 24px;
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  border-radius: 18px;
+  padding: 22px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-total span {
+  color: #1e3a8a;
+  font-size: 1.1rem;
+}
+
+.modal-total strong {
+  color: #1e3a8a;
+  font-size: 2rem;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 18px;
+  margin-top: 30px;
+}
+
+@media (max-width: 900px) {
+  .sales-panel {
+    padding: 32px 24px;
+  }
+
+  .sales-header {
+    flex-direction: column;
+  }
+
+  .sales-actions {
+    width: 100%;
+  }
+
+  .primary-btn,
+  .dark-btn {
+    flex: 1;
+  }
+
+  .sales-kpis {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ===== Override profesional TFM - Gestión de Ventas ===== */
+
+.sales-page {
+  min-height: 100vh;
+  background: #0f172a;
+  padding: 32px 24px;
+}
+
+.sales-panel {
+  max-width: 1180px;
+  margin: 0 auto;
+  background: #ffffff;
+  border-radius: 26px;
+  padding: 34px;
+  border: 1px solid #dbeafe;
+  box-shadow: 0 22px 55px rgba(15, 23, 42, 0.18);
+}
+
+.sales-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 28px;
+}
+
+.sales-eyebrow {
+  color: #2563eb;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.sales-header h1 {
+  font-size: clamp(1.9rem, 3vw, 2.7rem);
+  line-height: 1.05;
+  margin: 0 0 10px;
+  color: #0f172a;
+  letter-spacing: -0.035em;
+}
+
+.sales-header p {
+  max-width: 760px;
+  font-size: 1rem;
+  line-height: 1.55;
+  color: #475569;
+  margin: 0;
+}
+
+.sales-actions {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.primary-btn,
+.dark-btn,
+.ghost-btn {
+  border: 0;
+  border-radius: 14px;
+  padding: 12px 18px;
+  font-size: 0.92rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.primary-btn {
+  background: #2563eb;
+  color: #ffffff;
+}
+
+.dark-btn {
+  background: #111827;
+  color: #ffffff;
+}
+
+.ghost-btn {
+  border: 1px solid #cbd5e1;
+  background: #ffffff;
+  color: #334155;
+}
+
+.soft-alert {
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  border-radius: 14px;
+  padding: 14px 16px;
+  color: #1e3a8a;
+  font-weight: 700;
+  margin-bottom: 22px;
+}
+
+.sales-kpis {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-bottom: 24px;
+}
+
+.sales-kpi {
+  min-height: 112px;
+  border: 1px solid #dbeafe;
+  border-radius: 18px;
+  background: #f8fafc;
+  padding: 18px;
+  align-items: flex-start;
+}
+
+.sales-kpi span {
+  font-size: 0.76rem;
+  letter-spacing: 0.08em;
+  color: #64748b;
+}
+
+.sales-kpi strong {
+  font-size: clamp(1.65rem, 2.4vw, 2.25rem);
+  color: #1e3a8a;
+}
+
+.sales-kpi small {
+  font-size: 0.86rem;
+  color: #64748b;
+}
+
+.sales-toolbar {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+.sales-search {
+  flex: 1;
+  height: 48px;
+  border: 1px solid #cbd5e1;
+  border-radius: 14px;
+  padding: 0 16px;
+  font-size: 0.95rem;
+  background: #f8fafc;
+}
+
+.sales-table-card {
+  border: 1px solid #dbeafe;
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+.sales-table-card table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.sales-table-card th {
+  background: #eff6ff;
+  color: #1e3a8a;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  text-align: left;
+  padding: 14px 18px;
+}
+
+.sales-table-card td {
+  padding: 14px 18px;
+  color: #1f2937;
+  border-top: 1px solid #e5e7eb;
+  font-size: 0.94rem;
+}
+
+.sale-code,
+.amount-cell {
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.status-pill {
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.status-pill.active {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.status-pill.inactive {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.empty-row {
+  text-align: center;
+  padding: 28px !important;
+  color: #64748b !important;
+}
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.68);
+  display: grid;
+  place-items: center;
+  z-index: 50;
+  padding: 24px;
+}
+
+.sales-modal {
+  width: min(620px, 100%);
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 30px;
+  box-shadow: 0 30px 80px rgba(15, 23, 42, 0.32);
+}
+
+.sales-modal h2 {
+  margin: 0 0 8px;
+  font-size: 1.8rem;
+  color: #0f172a;
+  text-align: center;
+}
+
+.sales-modal p {
+  text-align: center;
+  color: #64748b;
+  font-size: 0.95rem;
+  line-height: 1.45;
+  margin-bottom: 22px;
+}
+
+.sales-modal label {
+  display: block;
+  font-size: 0.86rem;
+  font-weight: 800;
+  color: #334155;
+  margin: 14px 0 6px;
+}
+
+.sales-modal select,
+.sales-modal input {
+  width: 100%;
+  height: 46px;
+  border: 1px solid #cbd5e1;
+  border-radius: 12px;
+  padding: 0 14px;
+  font-size: 0.94rem;
+  background: #f8fafc;
+}
+
+.modal-total {
+  margin-top: 20px;
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  border-radius: 14px;
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-total span {
+  color: #1e3a8a;
+  font-weight: 700;
+}
+
+.modal-total strong {
+  color: #1e3a8a;
+  font-size: 1.45rem;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 22px;
+}
+
+@media (max-width: 900px) {
+  .sales-header,
+  .sales-toolbar {
+    flex-direction: column;
+  }
+
+  .sales-kpis {
+    grid-template-columns: 1fr;
+  }
+
+  .sales-actions {
+    width: 100%;
+  }
+
+  .primary-btn,
+  .dark-btn,
+  .ghost-btn {
+    width: 100%;
+  }
+}
+
+/* ===== Gestión de Ventas - versión profesional TFM ===== */
+
+.sales-page {
+  min-height: 100vh;
+  background: #0f172a;
+  padding: 32px 24px;
+}
+
+.sales-panel {
+  max-width: 1180px;
+  margin: 0 auto;
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 32px;
+  border: 1px solid #dbeafe;
+  box-shadow: 0 22px 55px rgba(15, 23, 42, 0.18);
+}
+
+.sales-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 24px;
+  margin-bottom: 26px;
+}
+
+.sales-eyebrow {
+  color: #2563eb;
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.sales-header h1 {
+  font-size: clamp(1.8rem, 2.5vw, 2.45rem) !important;
+  line-height: 1.05;
+  margin: 0 0 10px;
+  color: #0f172a;
+  letter-spacing: -0.035em;
+}
+
+.sales-header p {
+  max-width: 720px;
+  font-size: 0.98rem;
+  line-height: 1.55;
+  color: #475569;
+  margin: 0;
+}
+
+.sales-actions {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.primary-btn,
+.dark-btn,
+.ghost-btn {
+  border: 0;
+  border-radius: 13px;
+  padding: 11px 17px;
+  font-size: 0.9rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+}
+
+.primary-btn:hover,
+.dark-btn:hover,
+.ghost-btn:hover {
+  transform: translateY(-1px);
+}
+
+.primary-btn {
+  background: #2563eb;
+  color: #ffffff;
+}
+
+.dark-btn {
+  background: #111827;
+  color: #ffffff;
+}
+
+.ghost-btn {
+  border: 1px solid #cbd5e1;
+  background: #ffffff;
+  color: #334155;
+}
+
+.soft-alert {
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  border-radius: 14px;
+  padding: 13px 15px;
+  color: #1e3a8a;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.sales-kpis {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-bottom: 24px;
+}
+
+.sales-kpi {
+  min-height: 104px;
+  border: 1px solid #dbeafe;
+  border-radius: 18px;
+  background: #f8fafc;
+  padding: 17px;
+  align-items: flex-start;
+}
+
+.sales-kpi span {
+  font-size: 0.74rem;
+  letter-spacing: 0.08em;
+  color: #64748b;
+  text-transform: uppercase;
+}
+
+.sales-kpi strong {
+  display: block;
+  margin: 8px 0 6px;
+  font-size: clamp(1.55rem, 2vw, 2rem) !important;
+  color: #1e3a8a;
+  letter-spacing: -0.03em;
+}
+
+.sales-kpi small {
+  font-size: 0.84rem;
+  color: #64748b;
+}
+
+.sales-toolbar {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+.sales-search {
+  flex: 1;
+  height: 46px;
+  border: 1px solid #cbd5e1;
+  border-radius: 14px;
+  padding: 0 16px;
+  font-size: 0.92rem;
+  background: #f8fafc;
+  color: #0f172a;
+}
+
+.sales-table-card {
+  border: 1px solid #dbeafe;
+  border-radius: 18px;
+  overflow: hidden;
+  background: #ffffff;
+}
+
+.sales-table-card table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.sales-table-card th {
+  background: #eff6ff;
+  color: #1e3a8a;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  text-align: left;
+  padding: 13px 17px;
+}
+
+.sales-table-card td {
+  padding: 13px 17px;
+  color: #1f2937;
+  border-top: 1px solid #e5e7eb;
+  font-size: 0.92rem;
+}
+
+.sale-code,
+.amount-cell {
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.status-pill {
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 0.76rem;
+  font-weight: 800;
+}
+
+.status-pill.active {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.status-pill.inactive {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.empty-row {
+  text-align: center;
+  padding: 26px !important;
+  color: #64748b !important;
+}
+
+/* ===== Modal profesional ===== */
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.68);
+  display: grid;
+  place-items: center;
+  z-index: 50;
+  padding: 24px;
+}
+
+.sales-modal,
+.refined-modal {
+  width: min(560px, 94vw);
+  background: #ffffff;
+  border-radius: 22px;
+  padding: 26px;
+  box-shadow: 0 30px 80px rgba(15, 23, 42, 0.32);
+}
+
+.modal-head h2,
+.sales-modal h2 {
+  margin: 0 0 6px;
+  font-size: 1.7rem !important;
+  line-height: 1.1;
+  color: #0f172a;
+  text-align: center;
+  letter-spacing: -0.03em;
+}
+
+.modal-head p,
+.sales-modal p {
+  max-width: 440px;
+  margin: 0 auto 20px;
+  text-align: center;
+  color: #64748b;
+  font-size: 0.94rem !important;
+  line-height: 1.45;
+}
+
+.form-grid {
+  display: grid;
+  gap: 14px;
+}
+
+.form-field label,
+.sales-modal label {
+  display: block;
+  margin: 0 0 6px;
+  font-size: 0.88rem;
+  font-weight: 800;
+  color: #334155;
+  text-align: left;
+}
+
+.clean-select,
+.sales-modal select {
+  width: 100%;
+  height: 44px;
+  border: 1px solid #cbd5e1;
+  border-radius: 12px;
+  padding: 0 12px;
+  background: #f8fafc;
+  color: #0f172a !important;
+  font-size: 0.93rem;
+  font-weight: 600;
+  outline: none;
+}
+
+.clean-select option,
+.sales-modal select option {
+  color: #0f172a;
+  background: #ffffff;
+}
+
+.clean-select:focus,
+.sales-modal select:focus {
+  border-color: #60a5fa;
+  box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.25);
+}
+
+.quantity-control {
+  display: grid;
+  grid-template-columns: 44px 1fr 44px;
+  gap: 8px;
+  align-items: center;
+}
+
+.quantity-control button {
+  height: 44px;
+  border: 1px solid #cbd5e1;
+  border-radius: 12px;
+  background: #eff6ff;
+  color: #1e3a8a;
+  font-size: 1.25rem;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.quantity-control input {
+  height: 44px;
+  border: 1px solid #cbd5e1;
+  border-radius: 12px;
+  text-align: center;
+  color: #0f172a;
+  font-size: 1rem;
+  font-weight: 700;
+  background: #f8fafc;
+}
+
+.modal-total,
+.compact-total {
+  margin-top: 18px;
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  border-radius: 14px;
+  padding: 14px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-total span,
+.compact-total span {
+  color: #1e3a8a;
+  font-weight: 800;
+  font-size: 0.95rem;
+}
+
+.modal-total strong,
+.compact-total strong {
+  color: #1e3a8a;
+  font-size: 1.55rem !important;
+  letter-spacing: -0.03em;
+}
+
+.modal-actions,
+.compact-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.compact-actions .primary-btn,
+.compact-actions .dark-btn {
+  height: 46px;
+  padding: 0 18px;
+  font-size: 0.92rem;
+  border-radius: 13px;
+}
+
+@media (max-width: 900px) {
+  .sales-header,
+  .sales-toolbar {
+    flex-direction: column;
+  }
+
+  .sales-kpis {
+    grid-template-columns: 1fr;
+  }
+
+  .sales-actions {
+    width: 100%;
+  }
+
+  .primary-btn,
+  .dark-btn,
+  .ghost-btn {
+    width: 100%;
+  }
+
+  .modal-actions,
+  .compact-actions {
+    flex-direction: column-reverse;
+  }
+}
+
+.quantity-control button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* =========================================================
+   PULIDO FINAL TFM - Gestión de Ventas
+   Criterio: interfaz ERP sobria, responsive y defendible
+   ========================================================= */
+
+.sales-page {
+  min-height: 100vh !important;
+  background: #0f172a !important;
+  padding: 24px 18px !important;
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+}
+
+.sales-panel {
+  max-width: 1120px !important;
+  margin: 0 auto !important;
+  padding: 28px !important;
+  border-radius: 22px !important;
+  background: #ffffff !important;
+  border: 1px solid #d8e3f3 !important;
+  box-shadow: 0 18px 48px rgba(15, 23, 42, 0.16) !important;
+}
+
+.sales-header {
+  align-items: flex-start !important;
+  margin-bottom: 24px !important;
+}
+
+.sales-eyebrow {
+  font-size: 0.72rem !important;
+  letter-spacing: 0.09em !important;
+  color: #2563eb !important;
+}
+
+.sales-header h1 {
+  font-size: clamp(1.75rem, 2.2vw, 2.25rem) !important;
+  margin-bottom: 8px !important;
+  letter-spacing: -0.04em !important;
+  color: #0f172a !important;
+}
+
+.sales-header p {
+  max-width: 680px !important;
+  font-size: 0.92rem !important;
+  line-height: 1.5 !important;
+  color: #52637a !important;
+}
+
+.primary-btn,
+.dark-btn,
+.ghost-btn {
+  min-height: 42px !important;
+  padding: 0 16px !important;
+  border-radius: 12px !important;
+  font-size: 0.86rem !important;
+  font-weight: 800 !important;
+}
+
+.sales-kpis {
+  gap: 16px !important;
+  margin-bottom: 22px !important;
+}
+
+.sales-kpi {
+  min-height: 96px !important;
+  padding: 16px !important;
+  border-radius: 16px !important;
+  background: #f8fafc !important;
+}
+
+.sales-kpi span {
+  font-size: 0.7rem !important;
+}
+
+.sales-kpi strong {
+  font-size: clamp(1.35rem, 1.8vw, 1.75rem) !important;
+  margin: 7px 0 4px !important;
+}
+
+.sales-kpi small {
+  font-size: 0.8rem !important;
+}
+
+.sales-toolbar {
+  margin-bottom: 20px !important;
+}
+
+.sales-search {
+  height: 42px !important;
+  font-size: 0.86rem !important;
+  border-radius: 12px !important;
+}
+
+.sales-table-card {
+  border-radius: 16px !important;
+}
+
+.sales-table-card th {
+  padding: 12px 16px !important;
+  font-size: 0.74rem !important;
+  background: #eef5ff !important;
+}
+
+.sales-table-card td {
+  padding: 13px 16px !important;
+  font-size: 0.88rem !important;
+}
+
+/* Modal más compacto y profesional */
+
+.modal-backdrop {
+  background: rgba(15, 23, 42, 0.64) !important;
+  padding: 18px !important;
+}
+
+.sales-modal,
+.refined-modal {
+  width: min(500px, 94vw) !important;
+  max-height: 92vh !important;
+  overflow-y: auto !important;
+  padding: 24px !important;
+  border-radius: 20px !important;
+  background: #ffffff !important;
+  box-shadow: 0 28px 72px rgba(15, 23, 42, 0.28) !important;
+}
+
+.modal-head h2,
+.sales-modal h2 {
+  font-size: 1.55rem !important;
+  margin-bottom: 6px !important;
+  line-height: 1.1 !important;
+  color: #0f172a !important;
+}
+
+.modal-head p,
+.sales-modal p {
+  max-width: 410px !important;
+  margin-bottom: 18px !important;
+  font-size: 0.88rem !important;
+  line-height: 1.42 !important;
+  color: #64748b !important;
+}
+
+.form-grid {
+  gap: 12px !important;
+}
+
+.form-field label,
+.sales-modal label {
+  font-size: 0.82rem !important;
+  margin-bottom: 6px !important;
+  color: #334155 !important;
+}
+
+.clean-select,
+.sales-modal select {
+  height: 40px !important;
+  border-radius: 10px !important;
+  font-size: 0.86rem !important;
+  font-weight: 700 !important;
+  background: #f8fafc !important;
+  color: #0f172a !important;
+}
+
+.stock-note {
+  margin: -2px 0 8px !important;
+  font-size: 0.78rem !important;
+  color: #64748b !important;
+}
+
+.stock-note strong {
+  color: #1e3a8a !important;
+}
+
+.quantity-control {
+  grid-template-columns: 38px 1fr 38px !important;
+  gap: 8px !important;
+}
+
+.quantity-control button {
+  width: 38px !important;
+  height: 38px !important;
+  border-radius: 10px !important;
+  font-size: 1.05rem !important;
+  background: #eef5ff !important;
+  color: #1e3a8a !important;
+}
+
+.quantity-control input {
+  height: 38px !important;
+  border-radius: 10px !important;
+  font-size: 0.94rem !important;
+  font-weight: 800 !important;
+}
+
+.quantity-control input::-webkit-outer-spin-button,
+.quantity-control input::-webkit-inner-spin-button {
+  -webkit-appearance: none !important;
+  margin: 0 !important;
+}
+
+.quantity-control input[type="number"] {
+  -moz-appearance: textfield !important;
+}
+
+.modal-total,
+.compact-total {
+  margin-top: 16px !important;
+  padding: 12px 14px !important;
+  border-radius: 13px !important;
+}
+
+.modal-total span,
+.compact-total span {
+  font-size: 0.86rem !important;
+}
+
+.modal-total strong,
+.compact-total strong {
+  font-size: 1.32rem !important;
+}
+
+.modal-actions,
+.compact-actions {
+  margin-top: 18px !important;
+  gap: 10px !important;
+}
+
+.compact-actions .primary-btn,
+.compact-actions .dark-btn {
+  height: 42px !important;
+  min-width: 132px !important;
+  font-size: 0.86rem !important;
+  border-radius: 12px !important;
+}
+
+@media (max-width: 760px) {
+  .sales-page {
+    padding: 14px !important;
+  }
+
+  .sales-panel {
+    padding: 20px !important;
+    border-radius: 18px !important;
+  }
+
+  .sales-header {
+    flex-direction: column !important;
+  }
+
+  .sales-actions {
+    width: 100% !important;
+  }
+
+  .sales-kpis {
+    grid-template-columns: 1fr !important;
+  }
+
+  .sales-toolbar {
+    flex-direction: column !important;
+  }
+
+  .sales-table-card {
+    overflow-x: auto !important;
+  }
+
+  .sales-table-card table {
+    min-width: 720px !important;
+  }
+
+  .sales-modal,
+  .refined-modal {
+    width: 96vw !important;
+    padding: 20px !important;
+  }
+
+  .modal-actions,
+  .compact-actions {
+    flex-direction: column-reverse !important;
+  }
+
+  .compact-actions .primary-btn,
+  .compact-actions .dark-btn {
+    width: 100% !important;
+  }
+}
+
+/* =========================================================
+   RELEASE CANDIDATE 10/10 - Ventas TFM
+   Ajustes finales: sobriedad, feedback, responsive y trazabilidad
+   ========================================================= */
+
+.sales-panel {
+  max-width: 1080px !important;
+  padding: 26px !important;
+}
+
+.sales-header h1 {
+  font-size: clamp(1.65rem, 2vw, 2.12rem) !important;
+}
+
+.sales-header p {
+  font-size: 0.9rem !important;
+}
+
+.sales-kpi strong {
+  font-size: clamp(1.28rem, 1.65vw, 1.62rem) !important;
+}
+
+.sales-toolbar {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) 128px !important;
+  align-items: center !important;
+}
+
+.sales-search {
+  width: 100% !important;
+}
+
+.success-alert {
+  background: #ecfdf5;
+  border: 1px solid #bbf7d0;
+  border-radius: 13px;
+  padding: 12px 14px;
+  color: #166534;
+  font-weight: 800;
+  font-size: 0.86rem;
+  margin-bottom: 18px;
+}
+
+.sales-modal,
+.refined-modal {
+  width: min(480px, 94vw) !important;
+  padding: 22px !important;
+  border-radius: 19px !important;
+}
+
+.modal-head h2,
+.sales-modal h2 {
+  font-size: 1.42rem !important;
+}
+
+.modal-head p,
+.sales-modal p {
+  max-width: 380px !important;
+  font-size: 0.84rem !important;
+  margin-bottom: 16px !important;
+}
+
+.clean-select,
+.sales-modal select {
+  height: 38px !important;
+  font-size: 0.84rem !important;
+}
+
+.form-field label,
+.sales-modal label {
+  font-size: 0.8rem !important;
+}
+
+.stock-note {
+  margin: 2px 0 10px !important;
+  padding: 7px 10px !important;
+  background: #f8fafc !important;
+  border: 1px dashed #cbd5e1 !important;
+  border-radius: 10px !important;
+  text-align: left !important;
+  font-size: 0.76rem !important;
+}
+
+.quantity-control {
+  grid-template-columns: 36px 1fr 36px !important;
+}
+
+.quantity-control button {
+  width: 36px !important;
+  height: 36px !important;
+}
+
+.quantity-control input {
+  height: 36px !important;
+  font-size: 0.9rem !important;
+}
+
+.modal-total,
+.compact-total {
+  padding: 11px 13px !important;
+}
+
+.modal-total strong,
+.compact-total strong {
+  font-size: 1.22rem !important;
+}
+
+.compact-actions .primary-btn,
+.compact-actions .dark-btn {
+  height: 40px !important;
+  min-width: 124px !important;
+  font-size: 0.84rem !important;
+}
+
+@media (max-width: 760px) {
+  .sales-toolbar {
+    grid-template-columns: 1fr !important;
+  }
+
+  .sales-panel {
+    padding: 18px !important;
+  }
+
+  .sales-header h1 {
+    font-size: 1.65rem !important;
+  }
+
+  .sales-modal,
+  .refined-modal {
+    width: 96vw !important;
+    padding: 18px !important;
+  }
+}
+
+/* =========================================================
+   Módulos Productos y Clientes - UI profesional TFM
+   Coherente con Ventas y Analítica Comercial
+   ========================================================= */
+
+.module-page {
+  min-height: 100vh;
+  background: #0f172a;
+  padding: 24px 18px;
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.module-panel {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 26px;
+  border-radius: 22px;
+  background: #ffffff;
+  border: 1px solid #d8e3f3;
+  box-shadow: 0 18px 48px rgba(15, 23, 42, 0.16);
+}
+
+.module-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.module-eyebrow {
+  color: #2563eb;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.module-header h1 {
+  font-size: clamp(1.65rem, 2vw, 2.12rem);
+  line-height: 1.05;
+  margin: 0 0 8px;
+  color: #0f172a;
+  letter-spacing: -0.04em;
+}
+
+.module-header p {
+  max-width: 690px;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: #52637a;
+  margin: 0;
+}
+
+.module-kpis {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 22px;
+}
+
+.module-kpi {
+  min-height: 96px;
+  border: 1px solid #dbeafe;
+  border-radius: 16px;
+  background: #f8fafc;
+  padding: 16px;
+}
+
+.module-kpi span {
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  color: #64748b;
+  text-transform: uppercase;
+  font-weight: 800;
+}
+
+.module-kpi strong {
+  display: block;
+  margin: 7px 0 4px;
+  font-size: clamp(1.28rem, 1.65vw, 1.62rem);
+  color: #1e3a8a;
+  letter-spacing: -0.03em;
+}
+
+.module-kpi small {
+  font-size: 0.8rem;
+  color: #64748b;
+  font-weight: 700;
+}
+
+.module-toolbar {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 128px;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.module-search {
+  width: 100%;
+  height: 42px;
+  border: 1px solid #cbd5e1;
+  border-radius: 12px;
+  padding: 0 16px;
+  font-size: 0.86rem;
+  background: #f8fafc;
+  color: #0f172a;
+}
+
+.module-table-card {
+  border: 1px solid #dbeafe;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #ffffff;
+}
+
+.module-table-card table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.module-table-card th {
+  padding: 12px 16px;
+  background: #eef5ff;
+  color: #1e3a8a;
+  font-size: 0.74rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  text-align: left;
+}
+
+.module-table-card td {
+  padding: 13px 16px;
+  color: #1f2937;
+  border-top: 1px solid #e5e7eb;
+  font-size: 0.88rem;
+}
+
+.strong-cell {
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.stock-pill {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: 6px 11px;
+  font-size: 0.76rem;
+  font-weight: 800;
+}
+
+.stock-pill.ok {
+  background: #eff6ff;
+  color: #1e3a8a;
+}
+
+.stock-pill.low {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+@media (max-width: 900px) {
+  .module-header {
+    flex-direction: column;
+  }
+
+  .module-kpis {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .module-toolbar {
+    grid-template-columns: 1fr;
+  }
+
+  .module-table-card {
+    overflow-x: auto;
+  }
+
+  .module-table-card table {
+    min-width: 760px;
+  }
+}
+
+@media (max-width: 560px) {
+  .module-page {
+    padding: 14px;
+  }
+
+  .module-panel {
+    padding: 18px;
+    border-radius: 18px;
+  }
+
+  .module-kpis {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =========================================================
+   Corrección final Productos / Clientes - Release TFM
+   Evita solapamiento, añade acciones y mejora lectura tabular
+   ========================================================= */
+
+.module-actions {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.professional-table {
+  table-layout: fixed;
+  width: 100%;
+}
+
+.professional-table th,
+.professional-table td {
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.truncate-cell {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.products-table th:nth-child(1),
+.products-table td:nth-child(1) {
+  width: 34%;
+}
+
+.products-table th:nth-child(2),
+.products-table td:nth-child(2) {
+  width: 18%;
+}
+
+.products-table th:nth-child(3),
+.products-table td:nth-child(3) {
+  width: 15%;
+  text-align: right;
+}
+
+.products-table th:nth-child(4),
+.products-table td:nth-child(4) {
+  width: 20%;
+  text-align: center;
+}
+
+.products-table th:nth-child(5),
+.products-table td:nth-child(5) {
+  width: 13%;
+  text-align: center;
+}
+
+.clients-table th:nth-child(1),
+.clients-table td:nth-child(1) {
+  width: 24%;
+}
+
+.clients-table th:nth-child(2),
+.clients-table td:nth-child(2) {
+  width: 16%;
+}
+
+.clients-table th:nth-child(3),
+.clients-table td:nth-child(3) {
+  width: 17%;
+}
+
+.clients-table th:nth-child(4),
+.clients-table td:nth-child(4) {
+  width: 30%;
+}
+
+.clients-table th:nth-child(5),
+.clients-table td:nth-child(5) {
+  width: 13%;
+  text-align: center;
+}
+
+.clean-input {
+  width: 100%;
+  height: 38px;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  padding: 0 12px;
+  background: #f8fafc;
+  color: #0f172a;
+  font-size: 0.84rem;
+  font-weight: 700;
+  outline: none;
+}
+
+.clean-input:focus {
+  border-color: #60a5fa;
+  box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.25);
+}
+
+.form-two-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.module-table-card td {
+  min-height: 52px;
+}
+
+.module-table-card tr:hover td {
+  background: #f8fafc;
+}
+
+@media (max-width: 900px) {
+  .module-actions {
+    width: 100%;
+  }
+
+  .module-actions .primary-btn,
+  .module-actions .dark-btn {
+    flex: 1;
+  }
+
+  .professional-table th,
+  .professional-table td {
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 560px) {
+  .module-actions {
+    flex-direction: column;
+  }
+
+  .form-two-cols {
+    grid-template-columns: 1fr;
+  }
+
+  .module-actions .primary-btn,
+  .module-actions .dark-btn {
+    width: 100%;
+  }
+}
+
+/* ===== Pulido 10/10 Productos - TFM ===== */
+
+.products-table tbody tr {
+  transition: background 0.15s ease;
+}
+
+.products-table tbody tr:hover td {
+  background: #f8fbff !important;
+}
+
+.products-table .amount-cell {
+  font-variant-numeric: tabular-nums;
+}
+
+.stock-pill.ok,
+.stock-pill.low,
+.status-pill.active,
+.status-pill.inactive {
+  min-width: 104px;
+  justify-content: center;
+}
+
+.module-kpi strong {
+  font-variant-numeric: tabular-nums;
+}
+
+.module-header p {
+  max-width: 720px !important;
+}
+
+/* ===== Estado comercial calculado - Productos ===== */
+
+.status-pill.warning {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.status-pill.critical {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.products-table th:nth-child(5),
+.products-table td:nth-child(5) {
+  width: 15%;
+  text-align: center;
+}
+
+.products-table th:nth-child(1),
+.products-table td:nth-child(1) {
+  width: 32%;
+}
+
+.status-pill {
+  min-width: 112px;
+  justify-content: center;
+}
+
+/* ===== Ajuste final columna Estado Comercial ===== */
+
+.products-table th:nth-child(1),
+.products-table td:nth-child(1) {
+  width: 29% !important;
+}
+
+.products-table th:nth-child(2),
+.products-table td:nth-child(2) {
+  width: 17% !important;
+}
+
+.products-table th:nth-child(3),
+.products-table td:nth-child(3) {
+  width: 14% !important;
+  text-align: right !important;
+}
+
+.products-table th:nth-child(4),
+.products-table td:nth-child(4) {
+  width: 18% !important;
+  text-align: center !important;
+}
+
+.products-table th:nth-child(5),
+.products-table td:nth-child(5) {
+  width: 22% !important;
+  text-align: center !important;
+}
+
+.products-table th:nth-child(5) {
+  white-space: nowrap !important;
+  overflow: visible !important;
+  text-overflow: initial !important;
+}
+
+.products-table .status-pill {
+  min-width: 118px !important;
+}
+
+/* ===== Disponibilidad comercial - Productos ===== */
+
+.products-table th:nth-child(5),
+.products-table td:nth-child(5) {
+  width: 20% !important;
+  text-align: center !important;
+}
+
+.products-table th:nth-child(1),
+.products-table td:nth-child(1) {
+  width: 31% !important;
+}
+
+.products-table .status-pill.active::before {
+  content: "●";
+  font-size: 0.6rem;
+  margin-right: 7px;
+}
+
+.products-table .status-pill.warning::before {
+  content: "●";
+  font-size: 0.6rem;
+  margin-right: 7px;
+}
+
+.products-table .status-pill.critical::before {
+  content: "●";
+  font-size: 0.6rem;
+  margin-right: 7px;
+}
+
+.products-table .status-pill {
+  min-width: 116px !important;
+}
+
+/* ===== Leyenda profesional de disponibilidad ===== */
+
+.availability-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: -6px 0 16px;
+}
+
+.legend-item {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: 7px 12px;
+  font-size: 0.76rem;
+  font-weight: 800;
+  border: 1px solid transparent;
+}
+
+.legend-ok {
+  background: #dcfce7;
+  color: #166534;
+  border-color: #bbf7d0;
+}
+
+.legend-warning {
+  background: #fef3c7;
+  color: #92400e;
+  border-color: #fde68a;
+}
+
+.legend-critical {
+  background: #fee2e2;
+  color: #991b1b;
+  border-color: #fecaca;
+}
+
+.products-table .status-pill.active {
+  background: #dcfce7 !important;
+  color: #166534 !important;
+}
+
+.products-table .status-pill.warning {
+  background: #fef3c7 !important;
+  color: #92400e !important;
+}
+
+.products-table .status-pill.critical {
+  background: #fee2e2 !important;
+  color: #991b1b !important;
+}
+
+/* ===== Leyenda compacta de disponibilidad ===== */
+
+.compact-legend {
+  display: flex !important;
+  align-items: center !important;
+  flex-wrap: wrap !important;
+  gap: 7px !important;
+  margin: -4px 0 14px !important;
+  padding: 0 !important;
+  font-size: 0.78rem !important;
+  font-weight: 700 !important;
+  color: #64748b !important;
+}
+
+.compact-legend .legend-title {
+  color: #334155 !important;
+  font-weight: 900 !important;
+}
+
+.legend-dot {
+  width: 8px !important;
+  height: 8px !important;
+  border-radius: 999px !important;
+  display: inline-block !important;
+}
+
+.legend-ok-dot {
+  background: #16a34a !important;
+}
+
+.legend-warning-dot {
+  background: #d97706 !important;
+}
+
+.legend-critical-dot {
+  background: #dc2626 !important;
+}
+
+.legend-separator {
+  color: #94a3b8 !important;
+  margin: 0 2px !important;
+}
+
+/* Neutraliza la leyenda anterior tipo píldora si quedó CSS previo */
+.availability-legend .legend-item {
+  padding: 0 !important;
+  background: transparent !important;
+  border: 0 !important;
+}
+
+/* =========================================================
+   TFM UA - Pulido UI/UX Analítica Comercial
+   Objetivo: dashboard más ejecutivo, compacto y defendible
+   ========================================================= */
+
+.analytics-page {
+  padding: 28px 24px;
+}
+
+.analytics-shell {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 34px 42px 46px;
+  border-radius: 26px;
+}
+
+.analytics-header {
+  align-items: flex-start;
+  gap: 24px;
+  margin-bottom: 34px;
+}
+
+.analytics-header h1 {
+  font-size: clamp(2.05rem, 3.4vw, 3.15rem);
+  line-height: 1.03;
+  letter-spacing: -0.045em;
+  margin-bottom: 10px;
+}
+
+.analytics-header p {
+  max-width: 920px;
+  margin: 0 auto;
+  font-size: clamp(1.02rem, 1.55vw, 1.28rem);
+  line-height: 1.45;
+  color: #53627a;
+}
+
+.analytics-header .dark-button,
+.analytics-header button {
+  min-height: 54px;
+  padding: 0 28px;
+  border-radius: 14px;
+  font-size: 1rem;
+  font-weight: 800;
+}
+
+/* KPIs superiores: más sobrios y menos altos */
+.analytics-page .kpi-grid {
+  gap: 22px;
+  margin-bottom: 28px;
+}
+
+.analytics-page .kpi-grid.four {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.analytics-page .kpi-grid.three {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.analytics-page .kpi-card {
+  min-height: 150px;
+  padding: 26px 22px;
+  border-radius: 18px;
+}
+
+.analytics-page .kpi-card span {
+  font-size: 0.86rem;
+  letter-spacing: 0.14em;
+  line-height: 1.45;
+  margin-bottom: 12px;
+}
+
+.analytics-page .kpi-card strong {
+  font-size: clamp(2rem, 3.1vw, 2.75rem);
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+}
+
+.analytics-page .kpi-card small {
+  margin-top: 10px;
+  font-size: 0.95rem;
+  line-height: 1.35;
+  color: #66758d;
+}
+
+/* Tarjeta de señal comercial: menos pesada */
+.signal-card {
+  padding: 26px 34px;
+  margin: 22px 0 28px;
+  border-radius: 18px;
+}
+
+.signal-card span {
+  font-size: 0.88rem;
+  letter-spacing: 0.18em;
+}
+
+.signal-card h2 {
+  font-size: clamp(1.6rem, 2.6vw, 2.35rem);
+  margin: 8px 0 12px;
+  line-height: 1.1;
+}
+
+.signal-card p {
+  font-size: 1.04rem;
+  line-height: 1.45;
+}
+
+/* Estado comercial: mantiene protagonismo sin verse tosco */
+.health-card {
+  padding: 30px 32px;
+  margin: 26px 0 32px;
+  border-radius: 18px;
+}
+
+.health-card h2 {
+  font-size: clamp(1.65rem, 2.55vw, 2.35rem);
+  margin-bottom: 8px;
+  letter-spacing: -0.025em;
+}
+
+.health-card strong {
+  font-size: clamp(3.2rem, 5vw, 4.5rem);
+  line-height: 0.98;
+  letter-spacing: -0.055em;
+}
+
+.health-card p {
+  font-size: 1.22rem;
+  margin-top: 8px;
+  color: #526176;
+}
+
+.badge-row {
+  margin-top: 26px;
+  gap: 12px;
+}
+
+.badge-row span {
+  padding: 10px 18px;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  font-weight: 800;
+}
+
+/* Secciones internas */
+.section-card,
+.executive-card {
+  padding: 30px 34px;
+  margin: 28px 0;
+  border-radius: 18px;
+}
+
+.section-card h2,
+.executive-card h2,
+.action-section h2 {
+  font-size: clamp(1.65rem, 2.4vw, 2.35rem);
+  line-height: 1.12;
+  margin-bottom: 16px;
+  letter-spacing: -0.035em;
+}
+
+.section-card > p,
+.executive-card p,
+.action-section > p {
+  font-size: 1.03rem;
+  line-height: 1.5;
+  color: #53627a;
+}
+
+.source-pill {
+  padding: 14px 18px;
+  margin: 24px 0 26px;
+  border-radius: 14px;
+  font-size: 0.95rem;
+}
+
+/* Fórmula: tarjetas más equilibradas */
+.formula-grid {
+  gap: 18px;
+}
+
+.formula-card {
+  min-height: 178px;
+  padding: 22px 16px;
+  border-radius: 16px;
+}
+
+.formula-card span {
+  font-size: 0.82rem;
+  letter-spacing: 0.14em;
+  line-height: 1.45;
+}
+
+.formula-card strong {
+  font-size: 1.9rem;
+  margin: 10px 0 6px;
+}
+
+.formula-card small,
+.formula-card p {
+  font-size: 0.95rem;
+  line-height: 1.35;
+}
+
+.final-score {
+  margin-top: 10px;
+  font-size: 1.05rem;
+}
+
+.scale-row {
+  gap: 16px;
+  margin-top: 22px;
+}
+
+.scale-row span {
+  min-height: 56px;
+  padding: 14px 18px;
+  border-radius: 14px;
+  font-size: 0.95rem;
+}
+
+/* Trazabilidad */
+.pipeline-row {
+  gap: 14px;
+  margin: 24px 0;
+}
+
+.pipeline-row span {
+  min-height: 76px;
+  padding: 18px 14px;
+  border-radius: 14px;
+  font-size: 0.96rem;
+}
+
+.trace-grid {
+  gap: 18px;
+}
+
+.trace-grid article {
+  min-height: 142px;
+  padding: 24px 18px;
+  border-radius: 16px;
+}
+
+.trace-grid article span {
+  display: block;
+  margin-bottom: 8px;
+  letter-spacing: 0.14em;
+}
+
+/* Comparación mensual */
+.comparison-grid {
+  gap: 22px;
+}
+
+.comparison-grid article {
+  min-height: 144px;
+  padding: 26px 20px;
+  border-radius: 16px;
+}
+
+.comparison-grid article span {
+  font-size: 0.9rem;
+  letter-spacing: 0.14em;
+}
+
+.comparison-grid article strong {
+  font-size: clamp(2rem, 3vw, 2.65rem);
+}
+
+.comparison-grid article p {
+  font-size: 1rem;
+}
+
+/* Gráficas: imagen más contenida y elegante */
+.chart-grid {
+  gap: 28px;
+  margin: 30px 0;
+}
+
+.chart-card {
+  padding: 30px 28px;
+  border-radius: 18px;
+}
+
+.chart-card h2 {
+  font-size: clamp(1.65rem, 2.3vw, 2.3rem);
+  margin-bottom: 14px;
+}
+
+.chart-card p {
+  font-size: 1.02rem;
+  line-height: 1.45;
+}
+
+.chart-card img {
+  width: 100%;
+  max-height: 310px;
+  object-fit: contain;
+  margin: 24px auto 22px;
+  border-radius: 14px;
+}
+
+.chart-note {
+  padding: 16px 18px;
+  border-radius: 14px;
+  font-size: 0.98rem;
+  line-height: 1.45;
+}
+
+.wide-chart {
+  width: 100%;
+  max-height: 470px;
+  object-fit: contain;
+  margin: 24px auto;
+  border-radius: 14px;
+}
+
+.model-note,
+.warning-note {
+  padding: 16px 20px;
+  border-radius: 14px;
+  font-size: 0.98rem;
+  line-height: 1.45;
+}
+
+/* Reglas y acciones */
+.rules-grid,
+.action-grid {
+  gap: 22px;
+}
+
+.rules-grid article,
+.action-grid article {
+  min-height: 168px;
+  padding: 24px 18px;
+  border-radius: 16px;
+}
+
+.rules-grid article span {
+  letter-spacing: 0.14em;
+  font-size: 0.82rem;
+}
+
+.rules-grid article strong,
+.action-grid article h3 {
+  font-size: 1.18rem;
+  line-height: 1.25;
+}
+
+.active-rules {
+  gap: 18px;
+}
+
+.active-rules article {
+  min-height: 130px;
+  padding: 22px 24px;
+  border-radius: 16px;
+  font-size: 1rem;
+}
+
+.ranking-list {
+  gap: 14px;
+}
+
+.ranking-list div {
+  min-height: 58px;
+  padding: 16px 24px;
+  border-radius: 14px;
+  font-size: 1rem;
+}
+
+.action-section {
+  padding: 26px 34px 34px;
+  margin: 30px 0;
+}
+
+.conclusion-card {
+  padding: 28px 34px;
+  border-radius: 18px;
+}
+
+.conclusion-card h2 {
+  font-size: clamp(1.65rem, 2.35vw, 2.3rem);
+  margin-bottom: 14px;
+}
+
+.conclusion-card p {
+  font-size: 1.03rem;
+  line-height: 1.5;
+}
+
+/* Corrección de textos pegados en trazabilidad */
+.trace-grid article span + strong,
+.trace-grid article span {
+  word-spacing: normal;
+}
+
+.trace-grid article span {
+  color: #6b7890;
+}
+
+.trace-grid article strong {
+  display: block;
+}
+
+/* Responsive real para capturas y defensa */
+@media (max-width: 1100px) {
+  .analytics-page .kpi-grid.four,
+  .analytics-page .kpi-grid.three,
+  .chart-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .formula-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .pipeline-row {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .trace-grid,
+  .rules-grid,
+  .action-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 720px) {
+  .analytics-page {
+    padding: 16px;
+  }
+
+  .analytics-shell {
+    padding: 24px 18px 32px;
+    border-radius: 20px;
+  }
+
+  .analytics-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .analytics-header .dark-button,
+  .analytics-header button {
+    width: 100%;
+  }
+
+  .analytics-page .kpi-grid.four,
+  .analytics-page .kpi-grid.three,
+  .chart-grid,
+  .formula-grid,
+  .comparison-grid,
+  .pipeline-row,
+  .trace-grid,
+  .rules-grid,
+  .action-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .health-card strong {
+    font-size: 3.1rem;
+  }
+
+  .section-card,
+  .executive-card,
+  .action-section,
+  .conclusion-card {
+    padding: 24px 18px;
+  }
+}
+
+/* =========================================================
+   TFM UA - Analítica Comercial Compacta / Ejecutiva
+   Corrige exceso de tamaño en títulos, KPIs y tarjetas
+   ========================================================= */
+
+.analytics-page {
+  padding: 18px 20px !important;
+}
+
+.analytics-shell {
+  max-width: 1220px !important;
+  padding: 26px 36px 36px !important;
+  border-radius: 22px !important;
+}
+
+.analytics-header {
+  margin-bottom: 26px !important;
+}
+
+.analytics-header h1 {
+  font-size: clamp(2rem, 3vw, 2.75rem) !important;
+  line-height: 1.05 !important;
+  margin-bottom: 8px !important;
+  letter-spacing: -0.04em !important;
+}
+
+.analytics-header p {
+  font-size: 1.05rem !important;
+  line-height: 1.35 !important;
+  max-width: 850px !important;
+}
+
+.analytics-header .dark-button,
+.analytics-header button {
+  min-height: 48px !important;
+  padding: 0 24px !important;
+  font-size: 0.95rem !important;
+  border-radius: 12px !important;
+}
+
+/* KPIs superiores */
+.analytics-page .kpi-grid {
+  gap: 18px !important;
+  margin-bottom: 24px !important;
+}
+
+.analytics-page .kpi-card {
+  min-height: 122px !important;
+  padding: 20px 18px !important;
+  border-radius: 16px !important;
+}
+
+.analytics-page .kpi-card span {
+  font-size: 0.76rem !important;
+  letter-spacing: 0.13em !important;
+  margin-bottom: 8px !important;
+}
+
+.analytics-page .kpi-card strong {
+  font-size: clamp(1.75rem, 2.5vw, 2.25rem) !important;
+  line-height: 1.05 !important;
+}
+
+.analytics-page .kpi-card small {
+  font-size: 0.86rem !important;
+  margin-top: 8px !important;
+  line-height: 1.25 !important;
+}
+
+/* Corrige símbolo € separado en facturación */
+.analytics-page .kpi-card strong {
+  white-space: nowrap !important;
+}
+
+/* Bloque tendencia */
+.signal-card {
+  padding: 22px 28px !important;
+  margin: 18px 0 24px !important;
+  border-radius: 16px !important;
+}
+
+.signal-card span {
+  font-size: 0.76rem !important;
+  letter-spacing: 0.16em !important;
+}
+
+.signal-card h2 {
+  font-size: clamp(1.45rem, 2.2vw, 2rem) !important;
+  margin: 6px 0 10px !important;
+}
+
+.signal-card p {
+  font-size: 0.98rem !important;
+  line-height: 1.4 !important;
+}
+
+/* Estado comercial */
+.health-card {
+  padding: 24px 28px !important;
+  margin: 22px 0 26px !important;
+  border-radius: 16px !important;
+}
+
+.health-card h2 {
+  font-size: clamp(1.55rem, 2.2vw, 2rem) !important;
+  margin-bottom: 6px !important;
+}
+
+.health-card strong {
+  font-size: clamp(2.7rem, 4vw, 3.7rem) !important;
+  line-height: 1 !important;
+}
+
+.health-card p {
+  font-size: 1rem !important;
+  margin-top: 6px !important;
+}
+
+.badge-row {
+  margin-top: 20px !important;
+  gap: 10px !important;
+}
+
+.badge-row span {
+  padding: 8px 14px !important;
+  font-size: 0.78rem !important;
+}
+
+/* Secciones generales */
+.section-card,
+.executive-card,
+.action-section,
+.conclusion-card {
+  padding: 24px 28px !important;
+  margin: 24px 0 !important;
+  border-radius: 16px !important;
+}
+
+.section-card h2,
+.executive-card h2,
+.action-section h2,
+.conclusion-card h2,
+.chart-card h2 {
+  font-size: clamp(1.45rem, 2.2vw, 2rem) !important;
+  line-height: 1.12 !important;
+  margin-bottom: 12px !important;
+}
+
+.section-card > p,
+.executive-card p,
+.action-section > p,
+.conclusion-card p,
+.chart-card p {
+  font-size: 0.98rem !important;
+  line-height: 1.42 !important;
+}
+
+/* Cálculo ponderado */
+.source-pill {
+  padding: 12px 16px !important;
+  margin: 18px 0 22px !important;
+  font-size: 0.86rem !important;
+}
+
+.formula-grid {
+  gap: 14px !important;
+}
+
+.formula-card {
+  min-height: 145px !important;
+  padding: 18px 12px !important;
+  border-radius: 14px !important;
+}
+
+.formula-card span {
+  font-size: 0.72rem !important;
+  letter-spacing: 0.12em !important;
+}
+
+.formula-card strong {
+  font-size: 1.55rem !important;
+  margin: 8px 0 4px !important;
+}
+
+.formula-card small,
+.formula-card p {
+  font-size: 0.82rem !important;
+  line-height: 1.25 !important;
+}
+
+.final-score {
+  font-size: 0.95rem !important;
+  margin-top: 8px !important;
+}
+
+.scale-row {
+  gap: 12px !important;
+  margin-top: 18px !important;
+}
+
+.scale-row span {
+  min-height: 46px !important;
+  padding: 11px 14px !important;
+  font-size: 0.85rem !important;
+}
+
+/* Trazabilidad */
+.pipeline-row {
+  gap: 12px !important;
+  margin: 18px 0 !important;
+}
+
+.pipeline-row span {
+  min-height: 60px !important;
+  padding: 14px 12px !important;
+  font-size: 0.85rem !important;
+}
+
+.trace-grid {
+  gap: 14px !important;
+}
+
+.trace-grid article {
+  min-height: 112px !important;
+  padding: 18px 14px !important;
+  border-radius: 14px !important;
+}
+
+.trace-grid article span {
+  font-size: 0.75rem !important;
+  letter-spacing: 0.12em !important;
+  margin-bottom: 6px !important;
+}
+
+.trace-grid article strong {
+  font-size: 0.95rem !important;
+}
+
+/* Comparación */
+.comparison-grid {
+  gap: 18px !important;
+}
+
+.comparison-grid article {
+  min-height: 120px !important;
+  padding: 20px 16px !important;
+}
+
+.comparison-grid article span {
+  font-size: 0.78rem !important;
+}
+
+.comparison-grid article strong {
+  font-size: 1.9rem !important;
+}
+
+.comparison-grid article p {
+  font-size: 0.9rem !important;
+}
+
+/* KPIs secundarios */
+.analytics-page .kpi-grid.three .kpi-card {
+  min-height: 150px !important;
+}
+
+.analytics-page .kpi-grid.three .kpi-card strong {
+  font-size: clamp(1.8rem, 2.7vw, 2.35rem) !important;
+  line-height: 1.08 !important;
+}
+
+/* Producto líder no debe verse gigante */
+.analytics-page .kpi-grid.three .kpi-card:first-child strong {
+  font-size: clamp(1.55rem, 2.1vw, 2rem) !important;
+  line-height: 1.08 !important;
+}
+
+/* Gráficas */
+.chart-grid {
+  gap: 22px !important;
+  margin: 24px 0 !important;
+}
+
+.chart-card {
+  padding: 24px 22px !important;
+  border-radius: 16px !important;
+}
+
+.chart-card img {
+  max-height: 260px !important;
+  margin: 18px auto !important;
+}
+
+.chart-note {
+  padding: 13px 16px !important;
+  font-size: 0.88rem !important;
+}
+
+/* Regresión */
+.wide-chart {
+  max-height: 400px !important;
+  margin: 18px auto !important;
+}
+
+.model-note,
+.warning-note {
+  padding: 13px 16px !important;
+  font-size: 0.88rem !important;
+}
+
+/* Reglas, ranking y acciones */
+.rules-grid,
+.action-grid {
+  gap: 16px !important;
+}
+
+.rules-grid article,
+.action-grid article {
+  min-height: 140px !important;
+  padding: 20px 16px !important;
+}
+
+.rules-grid article span {
+  font-size: 0.72rem !important;
+}
+
+.rules-grid article strong,
+.action-grid article h3 {
+  font-size: 1.02rem !important;
+}
+
+.rules-grid article p,
+.action-grid article p {
+  font-size: 0.9rem !important;
+  line-height: 1.35 !important;
+}
+
+.active-rules {
+  gap: 14px !important;
+}
+
+.active-rules article {
+  min-height: 105px !important;
+  padding: 18px 20px !important;
+  font-size: 0.9rem !important;
+}
+
+.ranking-list div {
+  min-height: 50px !important;
+  padding: 13px 20px !important;
+  font-size: 0.92rem !important;
+}
+
+/* Conclusión final */
+.conclusion-card {
+  padding: 22px 28px !important;
+}
+
+.conclusion-card h2 {
+  font-size: clamp(1.55rem, 2.2vw, 2.05rem) !important;
+}
+
+
+/* =========================================================
+   TFM UA - Analítica Comercial refinada final
+   Menos tosco, más ejecutivo, mejor para memoria y defensa
+   ========================================================= */
+
+.analytics-shell {
+  max-width: 1180px !important;
+  padding: 22px 32px 32px !important;
+}
+
+.analytics-header h1 {
+  font-size: clamp(1.85rem, 2.45vw, 2.35rem) !important;
+  letter-spacing: -0.035em !important;
+}
+
+.analytics-header p {
+  font-size: 0.98rem !important;
+  max-width: 780px !important;
+  line-height: 1.35 !important;
+}
+
+.analytics-header img,
+.analytics-header svg {
+  max-height: 46px !important;
+}
+
+/* KPIs cabecera */
+.analytics-page .kpi-grid {
+  gap: 16px !important;
+}
+
+.analytics-page .kpi-card {
+  min-height: 108px !important;
+  padding: 17px 16px !important;
+  border-radius: 14px !important;
+}
+
+.analytics-page .kpi-card span {
+  font-size: 0.68rem !important;
+  letter-spacing: 0.12em !important;
+  margin-bottom: 6px !important;
+}
+
+.analytics-page .kpi-card strong {
+  font-size: clamp(1.55rem, 2.1vw, 2rem) !important;
+}
+
+.analytics-page .kpi-card small {
+  font-size: 0.78rem !important;
+  margin-top: 6px !important;
+}
+
+/* Tendencia */
+.signal-card {
+  padding: 18px 24px !important;
+  margin: 16px 0 20px !important;
+}
+
+.signal-card span {
+  font-size: 0.68rem !important;
+}
+
+.signal-card h2 {
+  font-size: clamp(1.3rem, 1.9vw, 1.7rem) !important;
+}
+
+.signal-card p {
+  font-size: 0.92rem !important;
+}
+
+/* Estado comercial */
+.health-card {
+  padding: 20px 24px !important;
+  margin: 20px 0 22px !important;
+}
+
+.health-card h2 {
+  font-size: clamp(1.35rem, 1.9vw, 1.7rem) !important;
+}
+
+.health-card strong {
+  font-size: clamp(2.35rem, 3.4vw, 3.1rem) !important;
+}
+
+.health-card p {
+  font-size: 0.94rem !important;
+}
+
+.badge-row span {
+  padding: 7px 12px !important;
+  font-size: 0.72rem !important;
+}
+
+/* Títulos de secciones */
+.section-card h2,
+.executive-card h2,
+.action-section h2,
+.conclusion-card h2,
+.chart-card h2 {
+  font-size: clamp(1.35rem, 1.95vw, 1.75rem) !important;
+  margin-bottom: 10px !important;
+}
+
+.section-card,
+.executive-card,
+.action-section,
+.conclusion-card,
+.chart-card {
+  padding: 20px 24px !important;
+  margin: 20px 0 !important;
+  border-radius: 14px !important;
+}
+
+.section-card > p,
+.executive-card p,
+.action-section > p,
+.conclusion-card p,
+.chart-card p {
+  font-size: 0.9rem !important;
+  line-height: 1.38 !important;
+}
+
+/* Cálculo ponderado */
+.formula-card {
+  min-height: 128px !important;
+  padding: 15px 10px !important;
+}
+
+.formula-card span {
+  font-size: 0.64rem !important;
+}
+
+.formula-card strong {
+  font-size: 1.35rem !important;
+}
+
+.formula-card small,
+.formula-card p {
+  font-size: 0.76rem !important;
+}
+
+.source-pill {
+  font-size: 0.78rem !important;
+  padding: 10px 14px !important;
+}
+
+/* Escalas */
+.scale-row span {
+  min-height: 40px !important;
+  font-size: 0.78rem !important;
+  padding: 9px 12px !important;
+}
+
+/* Trazabilidad */
+.pipeline-row span {
+  min-height: 52px !important;
+  font-size: 0.78rem !important;
+  padding: 12px 10px !important;
+}
+
+.trace-grid article {
+  min-height: 96px !important;
+  padding: 14px 12px !important;
+}
+
+.trace-grid article span {
+  font-size: 0.66rem !important;
+}
+
+.trace-grid article strong {
+  font-size: 0.84rem !important;
+}
+
+/* Comparación y KPIs secundarios */
+.comparison-grid article {
+  min-height: 104px !important;
+  padding: 16px 14px !important;
+}
+
+.comparison-grid article strong {
+  font-size: 1.6rem !important;
+}
+
+.analytics-page .kpi-grid.three .kpi-card {
+  min-height: 122px !important;
+}
+
+.analytics-page .kpi-grid.three .kpi-card strong {
+  font-size: clamp(1.45rem, 2vw, 1.85rem) !important;
+}
+
+.analytics-page .kpi-grid.three .kpi-card:first-child strong {
+  font-size: clamp(1.35rem, 1.8vw, 1.65rem) !important;
+  white-space: normal !important;
+}
+
+/* Gráficas */
+.chart-card img {
+  max-height: 230px !important;
+  margin: 14px auto !important;
+}
+
+.chart-note,
+.model-note,
+.warning-note {
+  font-size: 0.8rem !important;
+  padding: 11px 14px !important;
+}
+
+/* Reglas y acciones */
+.rules-grid article,
+.action-grid article {
+  min-height: 118px !important;
+  padding: 16px 14px !important;
+}
+
+.rules-grid article strong,
+.action-grid article h3 {
+  font-size: 0.94rem !important;
+}
+
+.rules-grid article p,
+.action-grid article p {
+  font-size: 0.82rem !important;
+}
+
+.ranking-list div {
+  min-height: 44px !important;
+  font-size: 0.84rem !important;
+  padding: 11px 16px !important;
+}
+
+/* Conclusión final */
+.conclusion-card {
+  padding: 20px 24px !important;
+}
+
+.conclusion-card h2 {
+  font-size: clamp(1.35rem, 1.9vw, 1.75rem) !important;
+}
+
+
+/* =========================================================
+   TFM UA - Analítica Comercial Ultra Fina
+   Ajuste específico para cabecera, KPIs y comparación mensual
+   ========================================================= */
+
+.analytics-shell {
+  max-width: 1120px !important;
+  padding: 18px 28px 30px !important;
+}
+
+.analytics-header {
+  margin-bottom: 20px !important;
+}
+
+.analytics-header h1 {
+  font-size: clamp(1.75rem, 2.2vw, 2.15rem) !important;
+  line-height: 1.05 !important;
+}
+
+.analytics-header p {
+  font-size: 0.92rem !important;
+  max-width: 720px !important;
+}
+
+.analytics-header .dark-button,
+.analytics-header button {
+  min-height: 42px !important;
+  padding: 0 20px !important;
+  font-size: 0.86rem !important;
+}
+
+/* KPIs superiores más sobrios */
+.analytics-page .kpi-grid {
+  gap: 14px !important;
+  margin-bottom: 18px !important;
+}
+
+.analytics-page .kpi-card {
+  min-height: 92px !important;
+  padding: 14px 12px !important;
+  border-radius: 13px !important;
+}
+
+.analytics-page .kpi-card span {
+  font-size: 0.62rem !important;
+  letter-spacing: 0.11em !important;
+}
+
+.analytics-page .kpi-card strong {
+  font-size: clamp(1.35rem, 1.75vw, 1.7rem) !important;
+}
+
+.analytics-page .kpi-card small {
+  font-size: 0.72rem !important;
+}
+
+/* Bloque crecimiento */
+.signal-card {
+  padding: 16px 22px !important;
+  min-height: auto !important;
+}
+
+.signal-card h2 {
+  font-size: clamp(1.2rem, 1.6vw, 1.45rem) !important;
+}
+
+.signal-card p {
+  font-size: 0.86rem !important;
+}
+
+/* Estado comercial menos gigante */
+.health-card {
+  padding: 18px 22px !important;
+}
+
+.health-card h2 {
+  font-size: clamp(1.25rem, 1.7vw, 1.5rem) !important;
+}
+
+.health-card strong {
+  font-size: clamp(2rem, 3vw, 2.6rem) !important;
+}
+
+.health-card p {
+  font-size: 0.86rem !important;
+}
+
+.badge-row {
+  gap: 8px !important;
+  margin-top: 14px !important;
+}
+
+.badge-row span {
+  padding: 6px 10px !important;
+  font-size: 0.66rem !important;
+}
+
+/* Comparación mensual */
+.comparison-grid article {
+  min-height: 88px !important;
+  padding: 14px 12px !important;
+}
+
+.comparison-grid article span {
+  font-size: 0.68rem !important;
+  letter-spacing: 0.12em !important;
+}
+
+.comparison-grid article strong {
+  font-size: clamp(1.35rem, 1.9vw, 1.65rem) !important;
+}
+
+.comparison-grid article p {
+  font-size: 0.78rem !important;
+}
+
+/* Tarjetas secundarias: producto líder, estabilidad, confianza */
+.analytics-page .kpi-grid.three {
+  gap: 14px !important;
+}
+
+.analytics-page .kpi-grid.three .kpi-card {
+  min-height: 102px !important;
+  padding: 14px 12px !important;
+}
+
+.analytics-page .kpi-grid.three .kpi-card strong {
+  font-size: clamp(1.3rem, 1.8vw, 1.65rem) !important;
+  line-height: 1.05 !important;
+}
+
+.analytics-page .kpi-grid.three .kpi-card:first-child strong {
+  font-size: clamp(1.15rem, 1.55vw, 1.42rem) !important;
+  line-height: 1.08 !important;
+}
+
+/* Títulos de bloques siguientes */
+.section-card h2,
+.chart-card h2,
+.action-section h2,
+.conclusion-card h2 {
+  font-size: clamp(1.25rem, 1.7vw, 1.55rem) !important;
+}
+
+.section-card,
+.chart-card,
+.action-section,
+.conclusion-card {
+  padding: 18px 22px !important;
+}
+
+
+/* =========================================================
+   TFM UA - Analítica Comercial: orden visual final
+   ========================================================= */
+
+.analytics-shell {
+  max-width: 1080px !important;
+  padding-top: 14px !important;
+}
+
+.analytics-page .kpi-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+}
+
+.analytics-page .kpi-card {
+  min-height: 84px !important;
+  padding: 12px 14px !important;
+}
+
+.analytics-page .kpi-card strong {
+  font-size: 1.55rem !important;
+}
+
+.analytics-page .kpi-card span {
+  font-size: 0.58rem !important;
+}
+
+.analytics-page .kpi-card small {
+  font-size: 0.68rem !important;
+}
+
+/* Bloque tendencia: más horizontal, menos protagonista */
+.signal-card {
+  padding: 14px 22px !important;
+  margin: 14px 0 !important;
+  text-align: center !important;
+}
+
+.signal-card h2 {
+  font-size: 1.35rem !important;
+  margin: 4px 0 8px !important;
+}
+
+.signal-card p {
+  font-size: 0.82rem !important;
+}
+
+/* Estado comercial: compactar */
+.health-card {
+  padding: 16px 22px !important;
+  margin: 14px 0 18px !important;
+}
+
+.health-card h2 {
+  font-size: 1.38rem !important;
+  margin-bottom: 6px !important;
+}
+
+.health-card strong {
+  font-size: 2.35rem !important;
+  line-height: 1 !important;
+}
+
+.health-card p {
+  font-size: 0.82rem !important;
+  margin-top: 4px !important;
+}
+
+.badge-row {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  justify-content: center !important;
+  gap: 7px !important;
+  margin-top: 12px !important;
+}
+
+.badge-row span {
+  padding: 5px 9px !important;
+  font-size: 0.62rem !important;
+  border-radius: 999px !important;
+}
+
+/* Comparación mensual: menos bloque, más tabla ejecutiva */
+.section-card {
+  padding: 16px 20px !important;
+  margin: 16px 0 !important;
+}
+
+.section-card h2 {
+  font-size: 1.42rem !important;
+  margin-bottom: 14px !important;
+}
+
+.comparison-grid {
+  gap: 12px !important;
+}
+
+.comparison-grid article {
+  min-height: 76px !important;
+  padding: 12px 10px !important;
+}
+
+.comparison-grid article strong {
+  font-size: 1.45rem !important;
+}
+
+.comparison-grid article p {
+  font-size: 0.72rem !important;
+}
+
+/* KPIs secundarios debajo de comparación */
+.analytics-page .kpi-grid.three .kpi-card {
+  min-height: 88px !important;
+  padding: 12px 10px !important;
+}
+
+.analytics-page .kpi-grid.three .kpi-card strong {
+  font-size: 1.45rem !important;
+}
+
+.analytics-page .kpi-grid.three .kpi-card:first-child strong {
+  font-size: 1.22rem !important;
+  white-space: nowrap !important;
+}
+
+.analytics-page .kpi-grid.three .kpi-card span {
+  font-size: 0.58rem !important;
+}
+
+.analytics-page .kpi-grid.three .kpi-card small {
+  font-size: 0.68rem !important;
+}
+
+/* Separación visual más limpia */
+.analytics-page section + section {
+  margin-top: 16px !important;
+}
+
+
+/* =========================================================
+   Analítica Comercial - Refinamiento UI/UX final TFM
+   ========================================================= */
+
+.analytics-shell {
+  max-width: 1180px !important;
+  padding: 18px 22px 36px !important;
+}
+
+.analytics-page header h1 {
+  font-size: 2.35rem !important;
+  line-height: 1.05 !important;
+}
+
+.analytics-page header p {
+  font-size: 1.02rem !important;
+  line-height: 1.35 !important;
+  max-width: 780px !important;
+  margin: 8px auto 0 !important;
+}
+
+/* KPIs superiores: más compactos y uniformes */
+.analytics-page .kpi-grid {
+  gap: 16px !important;
+  margin-top: 22px !important;
+}
+
+.analytics-page .kpi-card {
+  min-height: 112px !important;
+  padding: 18px 16px !important;
+  border-radius: 16px !important;
+}
+
+.analytics-page .kpi-card span {
+  font-size: 0.72rem !important;
+  letter-spacing: 0.12em !important;
+}
+
+.analytics-page .kpi-card strong {
+  font-size: 1.85rem !important;
+  line-height: 1.1 !important;
+}
+
+.analytics-page .kpi-card small {
+  font-size: 0.78rem !important;
+  line-height: 1.25 !important;
+}
+
+/* Bloques principales con menos peso visual */
+.signal-card,
+.health-card,
+.section-card {
+  border-radius: 16px !important;
+  border: 1px solid #bfdbfe !important;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.035) !important;
+}
+
+.signal-card {
+  padding: 18px 24px !important;
+  margin: 20px 0 !important;
+}
+
+.signal-card h2 {
+  font-size: 1.45rem !important;
+}
+
+.signal-card p {
+  font-size: 0.92rem !important;
+  line-height: 1.35 !important;
+}
+
+/* Estado 76/100: reducir protagonismo y mejorar lectura */
+.health-card {
+  padding: 20px 24px 22px !important;
+  margin: 18px 0 20px !important;
+}
+
+.health-card h2 {
+  font-size: 1.55rem !important;
+  margin-bottom: 4px !important;
+}
+
+.health-card strong {
+  font-size: 2.55rem !important;
+  line-height: 1 !important;
+  font-weight: 800 !important;
+}
+
+.health-card p {
+  font-size: 0.92rem !important;
+  margin: 6px 0 0 !important;
+}
+
+.badge-row {
+  margin-top: 16px !important;
+  gap: 9px !important;
+}
+
+.badge-row span {
+  font-size: 0.72rem !important;
+  padding: 7px 12px !important;
+}
+
+/* Secciones analíticas: más aire, menos saturación */
+.section-card {
+  padding: 22px 24px !important;
+  margin: 22px 0 !important;
+}
+
+.section-card h2 {
+  font-size: 1.65rem !important;
+  line-height: 1.15 !important;
+  margin-bottom: 14px !important;
+}
+
+.section-card > p {
+  font-size: 0.95rem !important;
+  line-height: 1.45 !important;
+}
+
+/* Cards internas más ordenadas */
+.comparison-grid,
+.analytics-detail-grid {
+  gap: 16px !important;
+}
+
+.comparison-grid article,
+.analytics-detail-grid article {
+  min-height: 104px !important;
+  padding: 16px 14px !important;
+  border-radius: 15px !important;
+}
+
+.comparison-grid article span,
+.analytics-detail-grid article span {
+  font-size: 0.72rem !important;
+  letter-spacing: 0.12em !important;
+}
+
+.comparison-grid article strong,
+.analytics-detail-grid article strong {
+  font-size: 1.75rem !important;
+  line-height: 1.1 !important;
+}
+
+.comparison-grid article p,
+.analytics-detail-grid article p {
+  font-size: 0.82rem !important;
+  line-height: 1.25 !important;
+}
+
+/* Producto líder: evitar que se vea enorme */
+.analytics-detail-grid article:first-child strong {
+  font-size: 1.35rem !important;
+  line-height: 1.15 !important;
+  white-space: normal !important;
+}
+
+/* Gráficos: mejor encuadre */
+.chart-card img {
+  max-height: 260px !important;
+  object-fit: contain !important;
+}
+
+.chart-card {
+  padding: 22px !important;
+}
+
+.chart-card h2 {
+  font-size: 1.65rem !important;
+}
+
+.chart-card p {
+  font-size: 0.95rem !important;
+}
+
+/* Plan de acción */
+.action-grid article {
+  min-height: 128px !important;
+  padding: 16px !important;
+}
+
+.action-grid h3 {
+  font-size: 1.05rem !important;
+}
+
+.action-grid p {
+  font-size: 0.88rem !important;
+  line-height: 1.35 !important;
+}
+
+/* Conclusión final */
+.conclusion-card {
+  padding: 22px 26px !important;
+}
+
+.conclusion-card h2 {
+  font-size: 1.55rem !important;
+}
+
+.conclusion-card p {
+  font-size: 0.95rem !important;
+  line-height: 1.45 !important;
+}
+
+
+/* =========================================================
+   Analítica Comercial - Balance visual final
+   ========================================================= */
+
+/* Menos protagonismo al bloque 76/100 */
+.health-card {
+  display: grid !important;
+  grid-template-columns: 1fr auto !important;
+  align-items: center !important;
+  text-align: left !important;
+  padding: 18px 26px !important;
+  gap: 18px !important;
+}
+
+.health-card h2 {
+  font-size: 1.35rem !important;
+  margin: 0 !important;
+}
+
+.health-card strong {
+  font-size: 2.05rem !important;
+  line-height: 1 !important;
+}
+
+.health-card p {
+  font-size: 0.86rem !important;
+  margin: 4px 0 0 !important;
+}
+
+.health-card .badge-row {
+  grid-column: 1 / -1 !important;
+  justify-content: flex-start !important;
+  margin-top: 8px !important;
+  gap: 8px !important;
+}
+
+.health-card .badge-row span {
+  font-size: 0.66rem !important;
+  padding: 6px 10px !important;
+}
+
+/* Reducir altura de cards KPI superiores */
+.analytics-page .kpi-card {
+  min-height: 96px !important;
+  padding: 14px 16px !important;
+}
+
+.analytics-page .kpi-card strong {
+  font-size: 1.6rem !important;
+}
+
+.analytics-page .kpi-card span {
+  font-size: 0.66rem !important;
+}
+
+.analytics-page .kpi-card small {
+  font-size: 0.72rem !important;
+}
+
+/* Ordenar segunda captura */
+.section-card {
+  padding: 18px 22px !important;
+}
+
+.section-card h2 {
+  font-size: 1.42rem !important;
+  margin-bottom: 12px !important;
+}
+
+.section-card > p {
+  font-size: 0.9rem !important;
+  line-height: 1.4 !important;
+}
+
+.comparison-grid article,
+.analytics-detail-grid article {
+  min-height: 86px !important;
+  padding: 12px 14px !important;
+}
+
+.comparison-grid article strong,
+.analytics-detail-grid article strong {
+  font-size: 1.45rem !important;
+}
+
+.analytics-detail-grid article:first-child strong {
+  font-size: 1.15rem !important;
+}
+
+/* Más equilibrio vertical */
+.analytics-page section + section {
+  margin-top: 14px !important;
+}
+
+
+/* =========================================================
+   Analítica Comercial - Pulido final TFM
+   ========================================================= */
+
+.analytics-page {
+  gap: 16px !important;
+}
+
+.analytics-page .card,
+.analytics-page .section-card {
+  border-width: 1px !important;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.035) !important;
+}
+
+/* Títulos más sobrios */
+.analytics-page h2 {
+  font-size: 1.45rem !important;
+  line-height: 1.15 !important;
+  margin-bottom: 10px !important;
+}
+
+.analytics-page h3 {
+  font-size: 1.05rem !important;
+}
+
+/* Cards inferiores menos altas */
+.analytics-detail-grid article,
+.rules-grid article,
+.action-grid article {
+  min-height: 104px !important;
+  padding: 16px 18px !important;
+}
+
+/* Trazabilidad más compacta */
+.trace-flow {
+  gap: 12px !important;
+}
+
+.trace-flow .trace-step {
+  padding: 14px 16px !important;
+  min-height: 58px !important;
+}
+
+.trace-detail-grid article {
+  min-height: 88px !important;
+  padding: 16px !important;
+}
+
+/* Plan de acción más fino */
+.action-grid article p {
+  font-size: 0.9rem !important;
+  line-height: 1.35 !important;
+}
+
+.action-grid article h3 {
+  font-size: 1rem !important;
+  margin-bottom: 8px !important;
+}
+
+/* Conclusión: menos volumen, más ejecutivo */
+.conclusion-card {
+  padding: 22px 28px !important;
+}
+
+.conclusion-card h2 {
+  font-size: 1.55rem !important;
+}
+
+.conclusion-card p {
+  font-size: 0.94rem !important;
+  line-height: 1.45 !important;
+}
+

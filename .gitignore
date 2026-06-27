@@ -3,3 +3,22 @@ node_modules/
 *.sqlite
 src/db/database.sqlite
 .DS_Store
+
+# Frontend / build
+intelligent-sales-frontend/node_modules/
+intelligent-sales-frontend/dist/
+
+# Backups locales
+*.bak
+*.bak.*
+*.backup
+*.backup.*
+
+# Bases SQLite locales y backups
+*.sqlite
+*.sqlite.*
+src/db/*.sqlite
+src/db/*.sqlite.*
+
+# Sistema
+.DS_Store

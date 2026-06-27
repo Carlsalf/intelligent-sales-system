@@ -1,0 +1,171 @@
+{
+  "ventas_analizadas": 15,
+  "facturacion_acumulada": 1155.5,
+  "ticket_medio": 77.03,
+  "variacion_mensual": 78.4,
+  "estado_comercial": 76,
+  "indice_comercial": 76,
+  "salud_comercial": "Buena",
+  "tendencia": "ascendente",
+  "producto_lider": "Hilo poliéster blanco",
+  "producto_lider_unidades": 48,
+  "participacion_producto_lider": 24.1,
+  "mejor_mes": "2026-05",
+  "mejor_mes_facturacion": 399.0,
+  "estabilidad_comercial": "Baja",
+  "coeficiente_variacion": 44.5,
+  "confianza_analitica": "Media",
+  "pendiente_mensual": 70.33,
+  "mes_anterior": "2026-04",
+  "facturacion_mes_anterior": 223.6,
+  "mes_actual": "2026-05",
+  "facturacion_mes_actual": 399.0,
+  "diferencia_mensual": 175.4,
+  "componentes_indice": {
+    "variacion_mensual": {
+      "puntos": 35,
+      "peso": "40%",
+      "valor": 78.4
+    },
+    "estabilidad_comercial": {
+      "puntos": 8,
+      "peso": "20%",
+      "valor": "Baja"
+    },
+    "producto_lider": {
+      "puntos": 12,
+      "peso": "15%",
+      "valor": "Hilo poliéster blanco (24.1%)"
+    },
+    "calidad_historico": {
+      "puntos": 11,
+      "peso": "15%",
+      "valor": "Media"
+    },
+    "pendiente_mensual": {
+      "puntos": 10,
+      "peso": "10%",
+      "valor": 70.33
+    }
+  },
+  "ventas_mes": [
+    {
+      "mes": "2026-01",
+      "ventas": 3,
+      "facturacion": 117.7
+    },
+    {
+      "mes": "2026-02",
+      "ventas": 3,
+      "facturacion": 207.6
+    },
+    {
+      "mes": "2026-03",
+      "ventas": 3,
+      "facturacion": 207.6
+    },
+    {
+      "mes": "2026-04",
+      "ventas": 3,
+      "facturacion": 223.6
+    },
+    {
+      "mes": "2026-05",
+      "ventas": 3,
+      "facturacion": 399.0
+    }
+  ],
+  "top_productos": [
+    {
+      "producto": "Hilo poliéster blanco",
+      "unidades": 48,
+      "facturacion": 115.2
+    },
+    {
+      "producto": "Cinta elástica textil",
+      "unidades": 48,
+      "facturacion": 86.4
+    },
+    {
+      "producto": "Hilo algodón negro",
+      "unidades": 22,
+      "facturacion": 61.6
+    },
+    {
+      "producto": "Polo básico algodón",
+      "unidades": 13,
+      "facturacion": 162.5
+    },
+    {
+      "producto": "Tela drill industrial",
+      "unidades": 13,
+      "facturacion": 128.7
+    },
+    {
+      "producto": "Tela algodón premium",
+      "unidades": 13,
+      "facturacion": 110.5
+    },
+    {
+      "producto": "Polera deportiva",
+      "unidades": 12,
+      "facturacion": 226.8
+    },
+    {
+      "producto": "Gorra bordada",
+      "unidades": 11,
+      "facturacion": 82.5
+    },
+    {
+      "producto": "Algodón pima",
+      "unidades": 10,
+      "facturacion": 112.0
+    },
+    {
+      "producto": "Algodón Open - Negro",
+      "unidades": 5,
+      "facturacion": 42.5
+    },
+    {
+      "producto": "Tela jersey",
+      "unidades": 4,
+      "facturacion": 26.8
+    }
+  ],
+  "top_categorias": [
+    {
+      "categoria": "Prendas",
+      "unidades": 25,
+      "facturacion": 389.3
+    },
+    {
+      "categoria": "Algodón",
+      "unidades": 28,
+      "facturacion": 265.0
+    },
+    {
+      "categoria": "Hilos",
+      "unidades": 70,
+      "facturacion": 176.8
+    },
+    {
+      "categoria": "Accesorios",
+      "unidades": 59,
+      "facturacion": 168.9
+    },
+    {
+      "categoria": "Textiles",
+      "unidades": 17,
+      "facturacion": 155.5
+    }
+  ],
+  "trazabilidad": [
+    "SQLite",
+    "Python/Pandas",
+    "Cálculo de KPIs",
+    "Motor de reglas",
+    "JSON analítico",
+    "Dashboard React"
+  ],
+  "limitacion": "La línea de tendencia se utiliza como referencia visual descriptiva. No representa un modelo predictivo robusto ni una estimación futura definitiva."
+}
