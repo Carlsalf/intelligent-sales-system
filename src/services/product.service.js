@@ -1,88 +1,102 @@
-const { listProductos, createProducto, updateProducto, softDeleteProducto } = require("../repositories/product.repo");
+const repo = require("../repositories/product.repo");
 
-function asNumber(value, name) {
-  const n = Number(value);
-  if (!Number.isFinite(n)) {
-    const err = new Error(`${name} inválido`);
+function validateProductPayload(payload) {
+  const nombre = String(payload.nombre || "").trim();
+  const precio = Number(payload.precio);
+  const stock = Number(payload.stock);
+
+  if (!nombre) {
+    const err = new Error("El nombre del producto es obligatorio.");
     err.status = 400;
     throw err;
   }
-  return n;
+
+  if (!Number.isFinite(precio) || precio <= 0 || precio > 99999.99) {
+    const err = new Error("El precio debe ser mayor que 0 y menor o igual a 99999.99.");
+    err.status = 400;
+    throw err;
+  }
+
+  if (!Number.isInteger(stock) || stock < 0 || stock > 9999) {
+    const err = new Error("El stock debe ser un número entero entre 0 y 9999 unidades.");
+    err.status = 400;
+    throw err;
+  }
+
+  return { nombre, precio, stock };
+}
+
+async function resolveCategoria(payload) {
+  if (payload.id_categoria) {
+    return Number(payload.id_categoria);
+  }
+
+  if (payload.categoria) {
+    const categoria = await repo.findCategoriaByName(String(payload.categoria).trim());
+
+    if (!categoria) {
+      const err = new Error("La categoría indicada no existe en el catálogo.");
+      err.status = 400;
+      throw err;
+    }
+
+    return categoria.id_categoria;
+  }
+
+  const err = new Error("Debe indicar id_categoria o categoria.");
+  err.status = 400;
+  throw err;
 }
 
 async function getAll() {
-  return listProductos();
+  return repo.listProductos();
 }
 
-async function add(body) {
-  const nombre = (body?.nombre || "").trim();
-  if (!nombre) {
-    const err = new Error("nombre es requerido");
-    err.status = 400;
-    throw err;
-  }
+async function add(payload) {
+  const base = validateProductPayload(payload);
+  const id_categoria = await resolveCategoria(payload);
 
-  const precio = asNumber(body?.precio, "precio");
-  if (precio < 0) {
-    const err = new Error("precio no puede ser negativo");
-    err.status = 400;
-    throw err;
-  }
+  const created = await repo.createProducto({
+    ...base,
+    id_categoria,
+  });
 
-  const stock = body?.stock === undefined ? 0 : asNumber(body.stock, "stock");
-  if (!Number.isInteger(stock) || stock < 0) {
-    const err = new Error("stock debe ser entero >= 0");
-    err.status = 400;
-    throw err;
-  }
-
-  const id_categoria = asNumber(body?.id_categoria, "id_categoria");
-  if (!Number.isInteger(id_categoria) || id_categoria <= 0) {
-    const err = new Error("id_categoria inválido");
-    err.status = 400;
-    throw err;
-  }
-
-  return createProducto({ nombre, precio, stock, id_categoria });
+  return repo.getProductoById(created.id_producto);
 }
 
-async function edit(id, body) {
-  const id_producto = asNumber(id, "id_producto");
-  if (!Number.isInteger(id_producto) || id_producto <= 0) {
-    const err = new Error("id_producto inválido");
-    err.status = 400;
-    throw err;
-  }
+async function edit(id, payload) {
+  const base = validateProductPayload(payload);
+  const id_categoria = await resolveCategoria(payload);
 
-  const nombre = (body?.nombre || "").trim();
-  if (!nombre) {
-    const err = new Error("nombre es requerido");
-    err.status = 400;
-    throw err;
-  }
+  const result = await repo.updateProducto(Number(id), {
+    ...base,
+    id_categoria,
+  });
 
-  const precio = asNumber(body?.precio, "precio");
-  const stock = asNumber(body?.stock, "stock");
-  const id_categoria = asNumber(body?.id_categoria, "id_categoria");
-
-  const result = await updateProducto(id_producto, { nombre, precio, stock, id_categoria });
-  if (result.changes === 0) {
-    const err = new Error("Producto no encontrado");
+  if (!result.changes) {
+    const err = new Error("Producto no encontrado o sin cambios aplicados.");
     err.status = 404;
     throw err;
   }
-  return { message: "Producto actualizado" };
+
+  return repo.getProductoById(Number(id));
 }
 
 async function remove(id) {
-  const id_producto = asNumber(id, "id_producto");
-  const result = await softDeleteProducto(id_producto);
-  if (result.changes === 0) {
-    const err = new Error("Producto no encontrado");
+  const result = await repo.softDeleteProducto(Number(id));
+
+  if (!result.changes) {
+    const err = new Error("Producto no encontrado.");
     err.status = 404;
     throw err;
   }
-  return { message: "Producto eliminado (lógico)" };
+
+  return { deleted: true, id_producto: Number(id) };
 }
 
-module.exports = { getAll, add, edit, remove };
+module.exports = {
+  getAll,
+  add,
+  edit,
+  remove,
+};

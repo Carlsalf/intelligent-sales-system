@@ -1,4 +1,4 @@
-const { createVentaWithDetalles, listVentas } = require("../repositories/sale.repo");
+const { createVentaWithDetalles, listVentas, getVentaById, cancelVenta } = require("../repositories/sale.repo");
 
 async function createVenta(body, user) {
   const id_cliente = body?.id_cliente ? Number(body.id_cliente) : null;
@@ -25,4 +25,42 @@ async function list() {
   return listVentas();
 }
 
-module.exports = { createVenta, list };
+async function detail(id) {
+  const id_venta = Number(id);
+
+  if (!Number.isInteger(id_venta) || id_venta <= 0) {
+    const err = new Error("Venta inválida");
+    err.status = 400;
+    throw err;
+  }
+
+  const venta = await getVentaById(id_venta);
+
+  if (!venta) {
+    const err = new Error("Venta no encontrada");
+    err.status = 404;
+    throw err;
+  }
+
+  return venta;
+}
+
+async function cancel(id) {
+  const id_venta = Number(id);
+
+  if (!Number.isInteger(id_venta) || id_venta <= 0) {
+    const err = new Error("Venta inválida");
+    err.status = 400;
+    throw err;
+  }
+
+  try {
+    return await cancelVenta(id_venta);
+  } catch (e) {
+    const err = new Error(e.message || "No fue posible anular la venta.");
+    err.status = 400;
+    throw err;
+  }
+}
+
+module.exports = { createVenta, list, detail, cancel };

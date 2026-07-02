@@ -1,0 +1,692 @@
+.sales-page {
+  width: min(1320px, calc(100vw - 96px));
+  margin: 0 auto;
+  padding: 38px 0 56px;
+  min-height: calc(100vh - 90px);
+  background:
+    radial-gradient(circle at top left, rgba(96, 165, 250, 0.08), transparent 34%),
+    #f8fafc;
+  color: #172033;
+  box-sizing: border-box;
+}
+
+.sales-page * {
+  box-sizing: border-box;
+}
+
+.sales-page .module-kicker {
+  margin: 0 0 12px;
+  color: #2f80ed;
+  font-size: 0.76rem;
+  font-weight: 900;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.sales-page h1 {
+  margin: 0;
+  color: #0f172a;
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  line-height: 1.05;
+  letter-spacing: -0.055em;
+}
+
+.sales-page .module-description {
+  max-width: 920px;
+  margin: 16px 0 20px;
+  color: #64748b;
+  font-size: 1rem;
+  line-height: 1.65;
+}
+
+.sales-page .module-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+
+.sales-page .primary-button,
+.sales-page .secondary-button,
+.sales-page .danger-button,
+.sales-page .dark-button {
+  min-height: 38px;
+  border-radius: 12px;
+  padding: 9px 16px;
+  border: 1px solid transparent;
+  font-size: 0.86rem;
+  font-weight: 750;
+  cursor: pointer;
+  white-space: nowrap;
+  box-shadow: none;
+}
+
+.sales-page .primary-button {
+  background: #3b82f6;
+  color: #ffffff;
+  border-color: #3b82f6;
+}
+
+.sales-page .secondary-button {
+  background: #f8fbff;
+  color: #1e3a5f;
+  border-color: #dbeafe;
+}
+
+.sales-page .danger-button {
+  background: #fff5f5;
+  color: #dc2626;
+  border-color: #fecaca;
+}
+
+.sales-page .dark-button {
+  background: #0f172a;
+  color: #ffffff;
+  border-color: #0f172a;
+}
+
+.sales-page .module-stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(170px, 1fr));
+  gap: 14px;
+  margin: 18px 0 20px;
+}
+
+.sales-page .stat-card {
+  min-height: 104px;
+  background: #fcfdff;
+  border: 1px solid #e5e7eb;
+  border-radius: 20px;
+  padding: 18px 20px;
+  box-shadow: 0 8px 22px rgba(15, 23, 42, 0.05);
+}
+
+.sales-page .stat-card span {
+  display: block;
+  color: #64748b;
+  font-weight: 850;
+  margin-bottom: 8px;
+}
+
+.sales-page .stat-card strong {
+  display: block;
+  color: #0f172a;
+  font-size: 1.85rem;
+  line-height: 1;
+}
+
+.sales-page .stat-card small {
+  display: block;
+  margin-top: 10px;
+  color: #16a34a;
+  font-weight: 800;
+}
+
+.sales-page .module-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin: 0 0 18px;
+}
+
+.sales-page .module-toolbar input {
+  width: min(420px, 100%);
+  height: 46px;
+  border: 1px solid #dbe3ef;
+  border-radius: 999px;
+  padding: 0 17px;
+  color: #172033;
+  background: #ffffff;
+  font-size: 0.96rem;
+}
+
+.sales-page .segmented-filter,
+.sales-page .sales-filter,
+.sales-page .filter-tabs {
+  display: flex;
+  gap: 8px;
+  background: #ffffff;
+  border: 1px solid #dbe7f6;
+  border-radius: 14px;
+  padding: 4px;
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.04);
+}
+
+.sales-page .segmented-filter button,
+.sales-page .sales-filter button,
+.sales-page .filter-tabs button {
+  border: 0;
+  border-radius: 10px;
+  padding: 8px 14px;
+  background: transparent;
+  color: #334155;
+  font-weight: 850;
+  box-shadow: none;
+}
+
+.sales-page .segmented-filter button.active,
+.sales-page .sales-filter button.active,
+.sales-page .filter-tabs button.active {
+  background: #3b82f6;
+  color: #ffffff;
+}
+
+.sales-page .table-card,
+.sales-page .sales-table-card,
+.sales-page .module-table-card {
+  width: 100%;
+  overflow-x: auto;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 18px;
+  box-shadow: 0 14px 32px rgba(15, 23, 42, 0.055);
+}
+
+.sales-page table {
+  width: 100%;
+  min-width: 1120px;
+  border-collapse: collapse;
+  table-layout: auto;
+}
+
+.sales-page th {
+  background: #f1f5f9;
+  color: #1e3a8a;
+  font-size: 0.75rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 12px 14px;
+  text-align: left;
+}
+
+.sales-page td {
+  padding: 13px 14px;
+  border-top: 1px solid #e5e7eb;
+  color: #334155;
+  font-weight: 600;
+  vertical-align: middle;
+  text-align: left;
+}
+
+.sales-page .status-badge,
+.sales-page .status-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 108px;
+  border-radius: 999px;
+  padding: 7px 12px;
+  font-size: 0.8rem;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.sales-page .status-success,
+.sales-page .active {
+  background: #dcfce7;
+  color: #166534;
+  border: 1px solid #86efac;
+}
+
+.sales-page .status-warning,
+.sales-page .warning {
+  background: #fef3c7;
+  color: #92400e;
+  border: 1px solid #fbbf24;
+}
+
+.sales-page .status-empty,
+.sales-page .inactive,
+.sales-page .critical {
+  background: #fee2e2;
+  color: #991b1b;
+  border: 1px solid #fca5a5;
+}
+
+.sales-page .row-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-start;
+  min-width: 210px;
+}
+
+.sales-page .row-actions button {
+  height: 34px;
+  padding: 7px 12px;
+  border-radius: 10px;
+  font-size: 0.78rem;
+}
+
+.sales-page .row-actions .secondary-button {
+  background: #eef5ff;
+  color: #1d4ed8;
+  border: 1px solid #dbeafe;
+}
+
+.sales-page .row-actions .danger-button {
+  background: #fff5f5;
+  color: #dc2626;
+  border: 1px solid #fecaca;
+}
+
+.sales-page .toast-success,
+.sales-page .form-error {
+  border-radius: 14px;
+  padding: 12px 16px;
+  margin: 12px 0;
+  font-weight: 800;
+}
+
+.sales-page .toast-success {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.sales-page .form-error {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.sales-page .modal-backdrop,
+.sales-page .sales-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  background: rgba(15, 23, 42, 0.62);
+  display: grid;
+  place-items: center;
+  padding: 20px;
+}
+
+.sales-page .modal-card,
+.sales-page .sales-modal,
+.sales-page .sales-modal-card {
+  width: min(680px, 100%);
+  background: #ffffff;
+  border-radius: 22px;
+  padding: 22px;
+  box-shadow: 0 24px 80px rgba(15, 23, 42, 0.28);
+}
+
+.sales-page .modal-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: flex-start;
+  margin-bottom: 18px;
+}
+
+.sales-page .modal-header h2 {
+  margin: 6px 0 0;
+  color: #0f172a;
+  font-size: 1.35rem;
+}
+
+.sales-page .entity-form,
+.sales-page .sales-form {
+  display: grid;
+  gap: 14px;
+}
+
+.sales-page .entity-form label,
+.sales-page .sales-form label {
+  display: grid;
+  gap: 7px;
+  color: #334155;
+  font-weight: 800;
+}
+
+.sales-page input,
+.sales-page select {
+  height: 46px;
+  border: 1px solid #dbe3ef;
+  border-radius: 12px;
+  padding: 0 13px;
+  background: #ffffff;
+  color: #172033;
+}
+
+.sales-page .form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+@media (max-width: 900px) {
+  .sales-page {
+    width: 100%;
+    padding: 26px 18px 44px;
+  }
+
+  .sales-page .module-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .sales-page .module-toolbar {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .sales-page .module-toolbar input {
+    width: 100%;
+  }
+
+  .sales-page .segmented-filter,
+  .sales-page .sales-filter,
+  .sales-page .filter-tabs {
+    width: 100%;
+    overflow-x: auto;
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 760px) {
+  .sales-page {
+    padding: 20px 16px 36px;
+  }
+
+  .sales-page .module-kicker {
+    font-size: 0.72rem;
+    line-height: 1.4;
+  }
+
+  .sales-page h1 {
+    font-size: 1.85rem;
+    line-height: 1.08;
+  }
+
+  .sales-page .module-description {
+    font-size: 0.94rem;
+    line-height: 1.55;
+  }
+
+  .sales-page .module-actions,
+  .sales-page .form-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .sales-page .primary-button,
+  .sales-page .secondary-button,
+  .sales-page .danger-button,
+  .sales-page .dark-button {
+    width: 100%;
+  }
+
+  .sales-page .module-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .sales-page .table-card,
+  .sales-page .sales-table-card,
+  .sales-page .module-table-card {
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+    overflow: visible;
+  }
+
+  .sales-page table,
+  .sales-page thead,
+  .sales-page tbody,
+  .sales-page tr,
+  .sales-page td {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .sales-page table {
+    min-width: 0;
+  }
+
+  .sales-page thead {
+    display: none;
+  }
+
+  .sales-page tr {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 18px;
+    padding: 16px;
+    margin-bottom: 14px;
+    box-shadow: 0 12px 28px rgba(15, 23, 42, 0.06);
+  }
+
+  .sales-page td {
+    display: grid;
+    grid-template-columns: 108px minmax(0, 1fr);
+    align-items: center;
+    gap: 12px;
+    padding: 9px 0;
+    border: 0;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    line-height: 1.35;
+    font-size: 0.92rem;
+  }
+
+  .sales-page td::before {
+    display: block;
+    color: #64748b;
+    font-size: 0.68rem;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .sales-page td:nth-child(1)::before { content: "Venta"; }
+  .sales-page td:nth-child(2)::before { content: "Fecha"; }
+  .sales-page td:nth-child(3)::before { content: "Cliente"; }
+  .sales-page td:nth-child(4)::before { content: "Items"; }
+  .sales-page td:nth-child(5)::before { content: "Total"; }
+  .sales-page td:nth-child(6)::before { content: "Estado"; }
+  .sales-page td:nth-child(7)::before { content: "Acciones"; }
+
+  .sales-page .status-badge,
+  .sales-page .status-pill {
+    justify-self: start;
+    width: auto;
+    min-width: 104px;
+    max-width: max-content;
+  }
+
+  .sales-page .row-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    width: 100%;
+    min-width: 0;
+  }
+
+  .sales-page .row-actions button {
+    width: 100%;
+    height: 42px;
+    white-space: nowrap;
+  }
+}
+
+/* =========================================================
+   VENTAS · AISLAMIENTO FINAL CONTRA CSS GLOBAL
+   ========================================================= */
+
+.sales-page {
+  background:
+    radial-gradient(circle at top left, rgba(96, 165, 250, 0.08), transparent 34%),
+    #f8fafc !important;
+  color: #172033 !important;
+}
+
+.sales-page .module-kicker,
+.sales-page h1,
+.sales-page .module-description {
+  text-align: left !important;
+}
+
+.sales-page h1 {
+  display: block !important;
+  color: #0f172a !important;
+}
+
+.sales-page .module-description {
+  color: #64748b !important;
+}
+
+.sales-page .module-actions,
+.sales-page .module-stats,
+.sales-page .module-toolbar,
+.sales-page .table-card,
+.sales-page .sales-table-card,
+.sales-page .module-table-card {
+  position: relative !important;
+}
+
+.sales-page .primary-button {
+  background: #3b82f6 !important;
+  color: #ffffff !important;
+  border: 1px solid #3b82f6 !important;
+}
+
+.sales-page .secondary-button {
+  background: #f8fbff !important;
+  color: #1e3a5f !important;
+  border: 1px solid #dbeafe !important;
+}
+
+.sales-page .danger-button {
+  background: #fff5f5 !important;
+  color: #dc2626 !important;
+  border: 1px solid #fecaca !important;
+}
+
+.sales-page .stat-card {
+  background: #fcfdff !important;
+  border: 1px solid #e5e7eb !important;
+}
+
+.sales-page .table-card,
+.sales-page .sales-table-card,
+.sales-page .module-table-card {
+  background: #ffffff !important;
+  border: 1px solid #e5e7eb !important;
+}
+
+/* =========================================================
+   VENTAS · RESPONSIVE COMPACTO PROFESIONAL FINAL
+   ========================================================= */
+
+@media (max-width: 760px) {
+  .sales-page {
+    padding: 18px 14px 32px !important;
+  }
+
+  .sales-page .module-description {
+    margin-bottom: 16px !important;
+  }
+
+  .sales-page .module-actions {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 10px !important;
+    margin-bottom: 14px !important;
+  }
+
+  .sales-page .module-actions button {
+    height: 40px !important;
+    min-height: 40px !important;
+    padding: 0 12px !important;
+    font-size: 0.82rem !important;
+  }
+
+  .sales-page .module-stats {
+    gap: 10px !important;
+    margin: 14px 0 16px !important;
+  }
+
+  .sales-page .stat-card {
+    padding: 14px 16px !important;
+    min-height: auto !important;
+    border-radius: 16px !important;
+  }
+
+  .sales-page .stat-card strong {
+    font-size: 1.7rem !important;
+  }
+
+  .sales-page .stat-card small {
+    margin-top: 5px !important;
+  }
+
+  .sales-page .module-toolbar {
+    gap: 10px !important;
+    margin-bottom: 14px !important;
+  }
+
+  .sales-page .module-toolbar input {
+    height: 42px !important;
+    font-size: 0.86rem !important;
+  }
+
+  .sales-page .segmented-filter,
+  .sales-page .sales-filter,
+  .sales-page .filter-tabs {
+    padding: 4px !important;
+    gap: 6px !important;
+    border-radius: 14px !important;
+  }
+
+  .sales-page .segmented-filter button,
+  .sales-page .sales-filter button,
+  .sales-page .filter-tabs button {
+    height: 36px !important;
+    padding: 0 12px !important;
+    font-size: 0.76rem !important;
+    border-radius: 10px !important;
+  }
+
+  .sales-page tr {
+    padding: 12px 14px !important;
+    margin-bottom: 12px !important;
+    border-radius: 16px !important;
+  }
+
+  .sales-page td {
+    display: grid !important;
+    grid-template-columns: 82px minmax(0, 1fr) !important;
+    align-items: center !important;
+    gap: 10px !important;
+    padding: 5px 0 !important;
+    border: 0 !important;
+    font-size: 0.8rem !important;
+    line-height: 1.25 !important;
+  }
+
+  .sales-page td::before {
+    font-size: 0.58rem !important;
+    letter-spacing: 0.07em !important;
+  }
+
+  .sales-page .status-badge,
+  .sales-page .status-pill {
+    min-width: 92px !important;
+    padding: 6px 10px !important;
+    font-size: 0.72rem !important;
+  }
+
+  .sales-page .row-actions {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 8px !important;
+    margin-top: 4px !important;
+  }
+
+  .sales-page .row-actions button {
+    height: 36px !important;
+    font-size: 0.76rem !important;
+    border-radius: 10px !important;
+  }
+}

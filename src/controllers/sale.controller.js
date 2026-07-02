@@ -18,4 +18,22 @@ async function list(req, res, next) {
   }
 }
 
-module.exports = { create, list };
+async function detail(req, res, next) {
+  try {
+    const data = await service.detail(req.params.id);
+    res.json(data);
+  } catch (e) {
+    next(e);
+  }
+}
+
+async function cancel(req, res, next) {
+  try {
+    const data = await service.cancel(req.params.id);
+    res.json(data);
+  } catch (e) {
+    next(e);
+  }
+}
+
+module.exports = { create, list, detail, cancel };

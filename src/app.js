@@ -8,6 +8,8 @@ const categoryRoutes = require("./routes/category.routes");
 const productRoutes = require("./routes/product.routes");
 const clientRoutes = require("./routes/client.routes");
 const saleRoutes = require("./routes/sale.routes");
+const userManagementRoutes = require("./routes/user-management.routes");
+const analyticsRoutes = require("./routes/analytics.routes");
 
 const app = express();
 
@@ -27,8 +29,12 @@ app.use("/api/auth", authRoutes);
 app.use("/api/me", meRoutes);
 app.use("/api/categorias", categoryRoutes);
 app.use("/api/productos", productRoutes);
+app.use("/api/products", productRoutes);
 app.use("/api/clientes", clientRoutes);
+app.use("/api/clients", clientRoutes);
 app.use("/api/ventas", saleRoutes);
+app.use("/api/users", userManagementRoutes);
+app.use("/api/analytics", analyticsRoutes);
 
 // 404
 app.use((req, res) => {

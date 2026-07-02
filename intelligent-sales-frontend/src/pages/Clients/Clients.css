@@ -1,0 +1,835 @@
+.clients-page {
+  width: min(1320px, calc(100vw - 96px));
+  margin: 0 auto;
+  padding: 38px 0 56px;
+  min-height: calc(100vh - 90px);
+  background:
+    radial-gradient(circle at top left, rgba(96, 165, 250, 0.08), transparent 34%),
+    #f8fafc;
+  color: #172033;
+  box-sizing: border-box;
+}
+
+.clients-page * {
+  box-sizing: border-box;
+}
+
+.clients-page .module-kicker {
+  margin: 0 0 12px;
+  color: #2f80ed;
+  font-size: 0.76rem;
+  font-weight: 900;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.clients-page h1 {
+  margin: 0;
+  color: #0f172a;
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  line-height: 1.05;
+  letter-spacing: -0.055em;
+}
+
+.clients-page .module-description {
+  max-width: 920px;
+  margin: 16px 0 26px;
+  color: #64748b;
+  font-size: 1rem;
+  line-height: 1.65;
+}
+
+.clients-page .module-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 22px;
+}
+
+.clients-page .primary-button,
+.clients-page .secondary-button,
+.clients-page .danger-button {
+  border: 0;
+  border-radius: 999px;
+  padding: 11px 18px;
+  font-weight: 850;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.clients-page .primary-button {
+  background: #2563eb;
+  color: #ffffff;
+  box-shadow: 0 8px 18px rgba(37, 99, 235, 0.16);
+}
+
+.clients-page .secondary-button {
+  background: #eef6ff;
+  color: #102033;
+  border: 1px solid #dbeafe;
+}
+
+.clients-page .danger-button {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.clients-page .module-stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(170px, 1fr));
+  gap: 16px;
+  margin: 22px 0 24px;
+}
+
+.clients-page .stat-card {
+  background: #fcfdff;
+  border: 1px solid #e5e7eb;
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 12px 26px rgba(15, 23, 42, 0.045);
+}
+
+.clients-page .stat-card span {
+  display: block;
+  color: #64748b;
+  font-weight: 850;
+  margin-bottom: 8px;
+}
+
+.clients-page .stat-card strong {
+  display: block;
+  color: #0f172a;
+  font-size: 1.9rem;
+  line-height: 1;
+}
+
+.clients-page .stat-card small {
+  display: block;
+  margin-top: 10px;
+  color: #16a34a;
+  font-weight: 800;
+}
+
+.clients-page .module-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin: 0 0 18px;
+}
+
+.clients-page .module-toolbar input {
+  width: min(420px, 100%);
+  height: 46px;
+  border: 1px solid #dbe3ef;
+  border-radius: 999px;
+  padding: 0 17px;
+  color: #172033;
+  background: #ffffff;
+  font-size: 0.96rem;
+}
+
+.clients-page .table-card {
+  width: 100%;
+  overflow-x: auto;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 20px;
+  box-shadow: 0 14px 32px rgba(15, 23, 42, 0.055);
+}
+
+.clients-page table {
+  width: 100%;
+  min-width: 1080px;
+  border-collapse: collapse;
+  table-layout: auto;
+}
+
+.clients-page th {
+  background: #f1f5f9;
+  color: #1e3a8a;
+  font-size: 0.75rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 14px;
+  text-align: left;
+}
+
+.clients-page td {
+  padding: 14px;
+  border-top: 1px solid #e5e7eb;
+  color: #334155;
+  font-weight: 600;
+  vertical-align: middle;
+  text-align: left;
+}
+
+.clients-page td:first-child {
+  font-weight: 850;
+  color: #26364d;
+}
+
+.clients-page .status-badge,
+.clients-page .status-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 94px;
+  border-radius: 999px;
+  padding: 7px 12px;
+  font-size: 0.8rem;
+  font-weight: 900;
+}
+
+.clients-page .status-success,
+.clients-page .active {
+  background: #dcfce7;
+  color: #166534;
+  border: 1px solid #86efac;
+}
+
+.clients-page .status-warning,
+.clients-page .warning {
+  background: #fef3c7;
+  color: #92400e;
+  border: 1px solid #fbbf24;
+}
+
+.clients-page .status-empty,
+.clients-page .inactive,
+.clients-page .critical {
+  background: #fee2e2;
+  color: #991b1b;
+  border: 1px solid #fca5a5;
+}
+
+.clients-page .row-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-start;
+  min-width: 170px;
+}
+
+.clients-page .row-actions button {
+  padding: 8px 12px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+}
+
+.clients-page .toast-success,
+.clients-page .form-error {
+  border-radius: 14px;
+  padding: 12px 16px;
+  margin: 12px 0;
+  font-weight: 800;
+}
+
+.clients-page .toast-success {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.clients-page .form-error {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.clients-page .modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  background: rgba(15, 23, 42, 0.62);
+  display: grid;
+  place-items: center;
+  padding: 20px;
+}
+
+.clients-page .modal-card {
+  width: min(580px, 100%);
+  background: #ffffff;
+  border-radius: 22px;
+  padding: 22px;
+  box-shadow: 0 24px 80px rgba(15, 23, 42, 0.28);
+}
+
+.clients-page .modal-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: flex-start;
+  margin-bottom: 18px;
+}
+
+.clients-page .modal-header span {
+  color: #2f80ed;
+  font-weight: 900;
+  font-size: 0.74rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.clients-page .modal-header h2 {
+  margin: 6px 0 0;
+  color: #0f172a;
+  font-size: 1.35rem;
+}
+
+.clients-page .modal-header > button {
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  background: #f1f5f9;
+  color: #0f172a;
+  font-size: 1.4rem;
+}
+
+.clients-page .entity-form {
+  display: grid;
+  gap: 14px;
+}
+
+.clients-page .entity-form label {
+  display: grid;
+  gap: 7px;
+  color: #334155;
+  font-weight: 800;
+}
+
+.clients-page .entity-form input,
+.clients-page .entity-form select {
+  height: 46px;
+  border: 1px solid #dbe3ef;
+  border-radius: 12px;
+  padding: 0 13px;
+  background: #ffffff;
+  color: #172033;
+}
+
+.clients-page .form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+@media (max-width: 900px) {
+  .clients-page {
+    width: 100%;
+    padding: 26px 18px 44px;
+  }
+
+  .clients-page .module-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .clients-page .module-toolbar {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .clients-page .module-toolbar input {
+    width: 100%;
+  }
+}
+
+@media (max-width: 760px) {
+  .clients-page {
+    padding: 20px 16px 36px;
+  }
+
+  .clients-page h1 {
+    font-size: 1.85rem;
+  }
+
+  .clients-page .module-actions,
+  .clients-page .form-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .clients-page .primary-button,
+  .clients-page .secondary-button,
+  .clients-page .danger-button {
+    width: 100%;
+  }
+
+  .clients-page .module-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .clients-page .table-card {
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+    overflow: visible;
+  }
+
+  .clients-page table,
+  .clients-page thead,
+  .clients-page tbody,
+  .clients-page tr,
+  .clients-page td {
+    display: block;
+    width: 100%;
+    min-width: 0;
+  }
+
+  .clients-page table {
+    min-width: 0;
+  }
+
+  .clients-page thead {
+    display: none;
+  }
+
+  .clients-page tr {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 18px;
+    padding: 14px;
+    margin-bottom: 14px;
+    box-shadow: 0 12px 28px rgba(15, 23, 42, 0.06);
+  }
+
+  .clients-page td {
+    display: grid;
+    grid-template-columns: 108px 1fr;
+    gap: 12px;
+    align-items: center;
+    padding: 8px 0;
+    border: 0;
+    font-size: 0.92rem;
+  }
+
+  .clients-page td::before {
+    color: #64748b;
+    font-size: 0.68rem;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .clients-page td:nth-child(1)::before { content: "Cliente"; }
+  .clients-page td:nth-child(2)::before { content: "Documento"; }
+  .clients-page td:nth-child(3)::before { content: "Teléfono"; }
+  .clients-page td:nth-child(4)::before { content: "Correo"; }
+  .clients-page td:nth-child(5)::before { content: "Estado"; }
+  .clients-page td:nth-child(6)::before { content: "Acciones"; }
+
+  .clients-page .row-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    min-width: 0;
+  }
+
+  .clients-page .row-actions button {
+    width: 100%;
+    height: 42px;
+  }
+}
+
+/* =========================================================
+   CLIENTES · CIERRE PRO 10/10 TFM
+   ========================================================= */
+
+@media (min-width: 1024px) {
+  .clients-page {
+    width: min(1320px, calc(100vw - 96px)) !important;
+    max-width: 1320px !important;
+    padding-top: 38px !important;
+  }
+
+  .clients-page .module-kicker,
+  .clients-page h1,
+  .clients-page .module-description {
+    text-align: left !important;
+    max-width: 940px;
+  }
+
+  .clients-page h1 {
+    font-size: 2.7rem !important;
+  }
+
+  .clients-page .module-stats {
+    gap: 14px !important;
+    margin: 20px 0 22px !important;
+  }
+
+  .clients-page .stat-card {
+    min-height: 104px !important;
+    padding: 18px 20px !important;
+  }
+
+  .clients-page .stat-card strong {
+    font-size: 1.85rem !important;
+  }
+
+  .clients-page .table-card {
+    border-radius: 18px !important;
+  }
+
+  .clients-page table {
+    min-width: 1120px !important;
+  }
+
+  .clients-page th {
+    padding: 12px 14px !important;
+  }
+
+  .clients-page td {
+    padding: 13px 14px !important;
+  }
+
+  .clients-page th:nth-child(1),
+  .clients-page td:nth-child(1) {
+    width: 20% !important;
+  }
+
+  .clients-page th:nth-child(2),
+  .clients-page td:nth-child(2) {
+    width: 15% !important;
+  }
+
+  .clients-page th:nth-child(3),
+  .clients-page td:nth-child(3) {
+    width: 15% !important;
+  }
+
+  .clients-page th:nth-child(4),
+  .clients-page td:nth-child(4) {
+    width: 25% !important;
+  }
+
+  .clients-page th:nth-child(5),
+  .clients-page td:nth-child(5) {
+    width: 11% !important;
+  }
+
+  .clients-page th:nth-child(6),
+  .clients-page td:nth-child(6) {
+    width: 14% !important;
+  }
+
+  .clients-page td:first-child {
+    white-space: normal !important;
+    line-height: 1.25 !important;
+  }
+
+  .clients-page .row-actions {
+    min-width: 180px !important;
+  }
+
+  .clients-page .row-actions button {
+    padding: 8px 13px !important;
+  }
+}
+
+/* Filtros tipo segmented control */
+.clients-page .segmented-filter,
+.clients-page .client-filters,
+.clients-page .filter-tabs {
+  display: flex;
+  gap: 8px;
+  background: #ffffff;
+  border: 1px solid #dbe7f6;
+  border-radius: 16px;
+  padding: 6px;
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.04);
+}
+
+.clients-page .segmented-filter button,
+.clients-page .client-filters button,
+.clients-page .filter-tabs button {
+  border: 0 !important;
+  border-radius: 12px !important;
+  padding: 10px 15px !important;
+  background: transparent !important;
+  color: #334155 !important;
+  font-weight: 850 !important;
+  box-shadow: none !important;
+}
+
+.clients-page .segmented-filter button.active,
+.clients-page .client-filters button.active,
+.clients-page .filter-tabs button.active {
+  background: #2563eb !important;
+  color: #ffffff !important;
+}
+
+/* Responsive móvil PRO */
+@media (max-width: 760px) {
+  .clients-page {
+    padding: 20px 16px 36px !important;
+  }
+
+  .clients-page .module-kicker {
+    font-size: 0.72rem !important;
+    line-height: 1.4 !important;
+  }
+
+  .clients-page h1 {
+    font-size: 1.85rem !important;
+    line-height: 1.08 !important;
+  }
+
+  .clients-page .module-description {
+    font-size: 0.94rem !important;
+    line-height: 1.55 !important;
+  }
+
+  .clients-page .module-toolbar {
+    gap: 12px !important;
+  }
+
+  .clients-page .segmented-filter,
+  .clients-page .client-filters,
+  .clients-page .filter-tabs {
+    width: 100% !important;
+    overflow-x: auto !important;
+    justify-content: flex-start !important;
+  }
+
+  .clients-page .segmented-filter button,
+  .clients-page .client-filters button,
+  .clients-page .filter-tabs button {
+    white-space: nowrap !important;
+    flex: 0 0 auto !important;
+  }
+
+  .clients-page tr {
+    padding: 14px !important;
+    border-radius: 18px !important;
+  }
+
+  .clients-page td {
+    grid-template-columns: 112px 1fr !important;
+    gap: 12px !important;
+    padding: 8px 0 !important;
+    font-size: 0.92rem !important;
+    overflow-wrap: anywhere !important;
+  }
+
+  .clients-page td::before {
+    font-size: 0.68rem !important;
+  }
+
+  .clients-page .status-badge,
+  .clients-page .status-pill {
+    justify-self: start !important;
+    min-width: 96px !important;
+  }
+
+  .clients-page .row-actions {
+    grid-template-columns: 1fr 1fr !important;
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  .clients-page .row-actions button {
+    width: 100% !important;
+    height: 42px !important;
+    font-size: 0.86rem !important;
+  }
+}
+
+/* =========================================================
+   CLIENTES · FIX RESPONSIVE FINAL IPHONE
+   ========================================================= */
+
+@media (max-width: 760px) {
+  .clients-page .table-card {
+    width: 100% !important;
+    background: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
+    overflow: visible !important;
+  }
+
+  .clients-page table,
+  .clients-page thead,
+  .clients-page tbody,
+  .clients-page tr,
+  .clients-page td {
+    display: block !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+  }
+
+  .clients-page table {
+    min-width: 0 !important;
+  }
+
+  .clients-page thead {
+    display: none !important;
+  }
+
+  .clients-page tr {
+    background: #ffffff !important;
+    border: 1px solid #e5e7eb !important;
+    border-radius: 18px !important;
+    padding: 16px !important;
+    margin-bottom: 14px !important;
+    box-shadow: 0 12px 28px rgba(15, 23, 42, 0.06) !important;
+  }
+
+  .clients-page td {
+    display: grid !important;
+    grid-template-columns: 118px minmax(0, 1fr) !important;
+    align-items: center !important;
+    gap: 12px !important;
+    padding: 9px 0 !important;
+    border: 0 !important;
+    text-align: left !important;
+    white-space: normal !important;
+    word-break: normal !important;
+    overflow-wrap: anywhere !important;
+    line-height: 1.35 !important;
+  }
+
+  .clients-page td::before {
+    display: block !important;
+    color: #64748b !important;
+    font-size: 0.68rem !important;
+    font-weight: 900 !important;
+    letter-spacing: 0.08em !important;
+    text-transform: uppercase !important;
+    white-space: nowrap !important;
+  }
+
+  .clients-page td:nth-child(1)::before { content: "Cliente"; }
+  .clients-page td:nth-child(2)::before { content: "Documento"; }
+  .clients-page td:nth-child(3)::before { content: "Teléfono"; }
+  .clients-page td:nth-child(4)::before { content: "Correo"; }
+  .clients-page td:nth-child(5)::before { content: "Estado"; }
+  .clients-page td:nth-child(6)::before { content: "Acciones"; }
+
+  .clients-page td:nth-child(1),
+  .clients-page td:nth-child(2),
+  .clients-page td:nth-child(3),
+  .clients-page td:nth-child(4),
+  .clients-page td:nth-child(5),
+  .clients-page td:nth-child(6) {
+    width: 100% !important;
+  }
+
+  .clients-page .status-badge,
+  .clients-page .status-pill {
+    justify-self: start !important;
+    width: auto !important;
+    min-width: 96px !important;
+    max-width: max-content !important;
+    white-space: nowrap !important;
+  }
+
+  .clients-page .row-actions {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 10px !important;
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  .clients-page .row-actions button {
+    width: 100% !important;
+    height: 42px !important;
+    white-space: nowrap !important;
+  }
+}
+
+/* =========================================================
+   CLIENTES · PULIDO FINAL UI/UX PRO
+   ========================================================= */
+
+@media (min-width: 761px) {
+  .clients-page {
+    padding-top: 32px !important;
+  }
+
+  .clients-page .module-description {
+    margin-bottom: 20px !important;
+  }
+
+  .clients-page .module-actions {
+    margin-bottom: 18px !important;
+  }
+
+  .clients-page .module-stats {
+    margin: 18px 0 20px !important;
+  }
+
+  .clients-page .primary-button,
+  .clients-page .secondary-button,
+  .clients-page .danger-button {
+    min-height: 38px !important;
+    padding: 9px 16px !important;
+    border-radius: 12px !important;
+    font-size: 0.86rem !important;
+    box-shadow: none !important;
+  }
+
+  .clients-page .primary-button {
+    background: #3b82f6 !important;
+    color: #ffffff !important;
+    border: 1px solid #3b82f6 !important;
+  }
+
+  .clients-page .secondary-button {
+    background: #f8fbff !important;
+    color: #1e3a5f !important;
+    border: 1px solid #dbeafe !important;
+  }
+
+  .clients-page .danger-button {
+    background: #fff5f5 !important;
+    color: #dc2626 !important;
+    border: 1px solid #fecaca !important;
+  }
+
+  .clients-page .stat-card {
+    box-shadow: 0 8px 22px rgba(15, 23, 42, 0.05) !important;
+  }
+
+  .clients-page .segmented-filter,
+  .clients-page .client-filters,
+  .clients-page .filter-tabs {
+    padding: 4px !important;
+    border-radius: 14px !important;
+  }
+
+  .clients-page .segmented-filter button,
+  .clients-page .client-filters button,
+  .clients-page .filter-tabs button {
+    padding: 8px 14px !important;
+    border-radius: 10px !important;
+    font-size: 0.84rem !important;
+  }
+
+  .clients-page .segmented-filter button.active,
+  .clients-page .client-filters button.active,
+  .clients-page .filter-tabs button.active {
+    background: #3b82f6 !important;
+    color: #ffffff !important;
+  }
+
+  .clients-page .row-actions .secondary-button {
+    background: #eef5ff !important;
+    color: #1d4ed8 !important;
+    border: 1px solid #dbeafe !important;
+  }
+
+  .clients-page .row-actions .danger-button {
+    background: #fff5f5 !important;
+    color: #dc2626 !important;
+    border: 1px solid #fecaca !important;
+  }
+
+  .clients-page .row-actions button {
+    height: 34px !important;
+    padding: 7px 12px !important;
+    border-radius: 10px !important;
+    font-size: 0.78rem !important;
+  }
+}

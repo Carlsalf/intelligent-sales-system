@@ -1,6 +1,16 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const { getUserByEmail } = require("../repositories/user.repo");
+const { getUserByEmail, getUserById } = require("../repositories/user.repo");
+
+function publicUser(user) {
+  return {
+    id_usuario: user.id_usuario,
+    nombre: user.nombre,
+    email: user.email,
+    id_rol: user.id_rol,
+    rol: user.rol,
+  };
+}
 
 async function login(email, password) {
   const user = await getUserByEmail(email);
@@ -18,27 +28,31 @@ async function login(email, password) {
     throw err;
   }
 
-  if (!process.env.JWT_SECRET) {
-    const err = new Error("JWT_SECRET no configurado");
-    err.status = 500;
-    throw err;
-  }
-
   const token = jwt.sign(
-    { id_usuario: user.id_usuario, id_rol: user.id_rol, email: user.email },
+    {
+      id_usuario: user.id_usuario,
+      id_rol: user.id_rol,
+      rol: user.rol,
+      nombre: user.nombre,
+      email: user.email,
+    },
     process.env.JWT_SECRET,
     { expiresIn: process.env.JWT_EXPIRES_IN || "2h" }
   );
 
-  return {
-    token,
-    user: {
-      id_usuario: user.id_usuario,
-      nombre: user.nombre,
-      email: user.email,
-      id_rol: user.id_rol,
-    },
-  };
+  return { token, user: publicUser(user) };
 }
 
-module.exports = { login };
+async function me(id_usuario) {
+  const user = await getUserById(id_usuario);
+
+  if (!user || user.estado !== 1) {
+    const err = new Error("Usuario no encontrado");
+    err.status = 404;
+    throw err;
+  }
+
+  return publicUser(user);
+}
+
+module.exports = { login, me };
