@@ -9,6 +9,24 @@ function run(db, sql, params = []) {
   });
 }
 
+function tableInfo(db, table) {
+  return new Promise((resolve, reject) => {
+    db.all(`PRAGMA table_info(${table})`, [], (err, rows) => {
+      if (err) return reject(err);
+      resolve(rows || []);
+    });
+  });
+}
+
+async function ensureColumn(db, table, column, definition) {
+  const columns = await tableInfo(db, table);
+  const exists = columns.some((c) => c.name === column);
+
+  if (!exists) {
+    await run(db, `ALTER TABLE ${table} ADD COLUMN ${column} ${definition}`);
+  }
+}
+
 async function initDb() {
   const db = getDb();
 
@@ -65,6 +83,10 @@ async function initDb() {
     ");"
   );
 
+  // Migraciones inventario: reserva y compromiso de stock
+  await ensureColumn(db, "producto", "stock_reservado", "INTEGER NOT NULL DEFAULT 0");
+  await ensureColumn(db, "producto", "stock_comprometido", "INTEGER NOT NULL DEFAULT 0");
+
   // Cliente
   await run(
     db,
@@ -96,6 +118,12 @@ async function initDb() {
       "FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario)" +
     ");"
   );
+
+  // Migraciones venta/pedido: estado, entrega y pago simulado
+  await ensureColumn(db, "venta", "estado_pedido", "TEXT NOT NULL DEFAULT 'REGISTRADO'");
+  await ensureColumn(db, "venta", "tipo_entrega", "TEXT NOT NULL DEFAULT 'RECOJO_ALMACEN'");
+  await ensureColumn(db, "venta", "fecha_entrega_estimada", "TEXT");
+  await ensureColumn(db, "venta", "pago_estado", "TEXT NOT NULL DEFAULT 'SIMULADO_PAGADO'");
 
   // Detalle venta
   await run(
