@@ -33,6 +33,7 @@ app.use("/api/products", productRoutes);
 app.use("/api/clientes", clientRoutes);
 app.use("/api/clients", clientRoutes);
 app.use("/api/ventas", saleRoutes);
+app.use("/api/sales", saleRoutes);
 app.use("/api/users", userManagementRoutes);
 app.use("/api/analytics", analyticsRoutes);
 

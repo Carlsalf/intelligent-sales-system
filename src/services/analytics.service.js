@@ -5,6 +5,29 @@ function percentChange(previous, current) {
   return Number((((current - previous) / previous) * 100).toFixed(2));
 }
 
+/**
+ * Proyección comercial simple.
+ * Regla de negocio:
+ * - Se calcula como promedio móvil de los dos últimos periodos comerciales disponibles.
+ * - No corresponde a Machine Learning.
+ * - Sirve como estimación descriptiva inicial para planificación gerencial.
+ */
+function calculateSimpleProjection(ventasPorMes = []) {
+  if (!Array.isArray(ventasPorMes) || ventasPorMes.length === 0) return 0;
+
+  const sorted = [...ventasPorMes].sort((a, b) =>
+    String(a.mes).localeCompare(String(b.mes))
+  );
+
+  const lastPeriods = sorted.slice(-2);
+
+  const projection =
+    lastPeriods.reduce((sum, item) => sum + Number(item.facturacion || 0), 0) /
+    lastPeriods.length;
+
+  return Number(projection.toFixed(2));
+}
+
 function buildRecommendations({ variacion, topProductos, ventasPorMes }) {
   const recomendaciones = [];
 
@@ -53,9 +76,7 @@ async function getSummary() {
     tendencia === "estable" ? 74 :
     58;
 
-  const proyeccionSimple = Number(
-    ((Number(last.facturacion || 0) + Number(previous.facturacion || 0)) / 2).toFixed(2)
-  );
+  const proyeccionSimple = calculateSimpleProjection(ventasPorMes);
 
   return {
     periodo: "Enero - Junio 2026",

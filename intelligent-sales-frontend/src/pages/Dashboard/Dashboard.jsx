@@ -35,14 +35,14 @@ function Dashboard({ onNavigate }) {
         api.get("/clients"),
         api.get("/ventas"),
         api.get("/analytics/summary"),
-        api.get("/auth/me"),
+        api.get("/me"),
       ]);
 
       setProducts(productsRes.data || []);
       setClients(clientsRes.data || []);
       setSales(salesRes.data || []);
       setAnalytics(analyticsRes.data || null);
-      setCurrentUser(meRes.data || null);
+      setCurrentUser(meRes.data.user || null);
       setUpdatedAt(new Date().toLocaleString("es-ES"));
     } catch (err) {
       console.error("Error cargando dashboard:", err.response?.data || err.message);

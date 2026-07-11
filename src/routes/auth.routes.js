@@ -1,8 +1,11 @@
-const router = require("express").Router();
-const { loginController, meController } = require("../controllers/auth.controller");
-const { authJwt } = require("../middlewares/authJwt");
+const express = require("express");
+const { loginController } = require("../controllers/auth.controller");
+
+const router = express.Router();
 
 router.post("/login", loginController);
-router.get("/me", authJwt, meController);
+
+// Temporalmente desactivado para pruebas
+// router.get("/me", authJwt, meController);
 
 module.exports = router;

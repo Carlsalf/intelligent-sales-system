@@ -22,3 +22,6 @@ src/db/*.sqlite.*
 
 # Sistema
 .DS_Store
+
+# Local development backups
+backups/

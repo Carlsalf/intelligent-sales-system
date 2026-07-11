@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import api from "../../services/api";
+import "./Analytics.css";
 
 function money(value) {
   return `€ ${Number(value || 0).toFixed(2)}`;
@@ -29,43 +30,11 @@ function trendLabel(value) {
   return "Estabilidad";
 }
 
-function trendClass(value) {
-  if (value === "ascendente") return "status-success";
-  if (value === "descendente") return "status-empty";
-  return "status-warning";
-}
-
 function healthClass(score) {
   if (score >= 85) return "excellent";
   if (score >= 70) return "good";
   if (score >= 50) return "warning";
   return "risk";
-}
-
-function rankBadge(index) {
-  return ["🥇", "🥈", "🥉"][index] || String(index + 1);
-}
-
-function priorityLabel(index) {
-  return ["Alta", "Media", "Seguimiento"][index] || "Seguimiento";
-}
-
-function priorityClass(index) {
-  return ["high", "medium", "low"][index] || "low";
-}
-
-function buildDonutGradient(months) {
-  const colors = ["#2563eb", "#38bdf8", "#22c55e", "#f59e0b", "#8b5cf6", "#ef4444"];
-  let current = 0;
-
-  const segments = months.map((month, index) => {
-    const start = current;
-    const end = current + Number(month.percentage || 0);
-    current = end;
-    return `${colors[index % colors.length]} ${start}% ${end}%`;
-  });
-
-  return `radial-gradient(circle at center, #fff 0 42%, transparent 43%), conic-gradient(${segments.join(", ")})`;
 }
 
 const initialAnalytics = {
@@ -121,7 +90,7 @@ export default function Analytics() {
 
     const points = data.ventas_mes.map((month, index) => {
       const x = data.ventas_mes.length <= 1 ? 0 : (index / (data.ventas_mes.length - 1)) * 100;
-      const y = 92 - ((Number(month.facturacion || 0) - min) / range) * 72;
+      const y = 90 - ((Number(month.facturacion || 0) - min) / range) * 68;
       return { ...month, x, y };
     });
 
@@ -131,7 +100,6 @@ export default function Analytics() {
       area: points.length
         ? `M ${points[0].x} 96 ${points.map((p) => `L ${p.x} ${p.y}`).join(" ")} L ${points[points.length - 1].x} 96 Z`
         : "",
-      max,
     };
   }, [data.ventas_mes]);
 
@@ -140,13 +108,15 @@ export default function Analytics() {
     return [...data.ventas_mes].sort((a, b) => Number(b.facturacion) - Number(a.facturacion))[0];
   }, [data.ventas_mes]);
 
-  const monthlyDistribution = useMemo(() => {
-    const total = data.ventas_mes.reduce((sum, item) => sum + Number(item.facturacion || 0), 0) || 1;
-    return data.ventas_mes.map((item) => ({
-      ...item,
-      percentage: Number(((Number(item.facturacion || 0) / total) * 100).toFixed(1)),
-    }));
+  const worstMonth = useMemo(() => {
+    if (!data.ventas_mes.length) return null;
+    return [...data.ventas_mes].sort((a, b) => Number(a.facturacion) - Number(b.facturacion))[0];
   }, [data.ventas_mes]);
+
+  const totalMes = data.ventas_mes.reduce((sum, item) => sum + Number(item.facturacion || 0), 0) || 1;
+  const totalProductos = data.top_productos.reduce((sum, item) => sum + Number(item.facturacion || 0), 0) || 1;
+  const totalClientes = data.top_clientes.reduce((sum, item) => sum + Number(item.facturacion || 0), 0) || 1;
+  const totalVentas = data.ventas_mes.reduce((sum, item) => sum + Number(item.ventas || 0), 0);
 
   const insight = useMemo(() => {
     if (!bestMonth) return "Aún no existe histórico suficiente para generar una lectura ejecutiva.";
@@ -154,113 +124,69 @@ export default function Analytics() {
       return `${monthLabel(bestMonth.mes)} fue el mejor periodo comercial con ${money(bestMonth.facturacion)}. ${monthLabel(data.mes_actual)} presenta una caída de ${pct(data.variacion_mensual)}, por lo que conviene reforzar acciones comerciales y revisar la rotación de productos.`;
     }
     if (data.tendencia === "ascendente") {
-      return `${monthLabel(data.mes_actual)} mejora frente al periodo anterior. La recomendación principal es mantener stock disponible y consolidar los clientes con mayor facturación.`;
+      return `${monthLabel(data.mes_actual)} mejora frente al periodo anterior. Se recomienda mantener stock disponible y consolidar los clientes con mayor facturación.`;
     }
-    return `La evolución comercial se mantiene estable. Se recomienda controlar ticket promedio, productos líderes y cartera de clientes recurrentes.`;
+    return "La evolución comercial se mantiene estable. Se recomienda controlar ticket promedio, productos líderes y cartera de clientes recurrentes.";
   }, [bestMonth, data]);
 
-  const donutGradient = useMemo(() => buildDonutGradient(monthlyDistribution), [monthlyDistribution]);
-
-  const totalMonthlySales = data.ventas_mes.reduce((sum, item) => sum + Number(item.ventas || 0), 0);
-
-  const worstMonth = useMemo(() => {
-    if (!data.ventas_mes.length) return null;
-    return [...data.ventas_mes].sort((a, b) => Number(a.facturacion) - Number(b.facturacion))[0];
-  }, [data.ventas_mes]);
-
-  const topProductTotal = data.top_productos.reduce((sum, item) => sum + Number(item.facturacion || 0), 0) || 1;
-  const topClientTotal = data.top_clientes.reduce((sum, item) => sum + Number(item.facturacion || 0), 0) || 1;
+  const executiveState =
+    Number(data.indice_comercial) >= 85 ? "Excelente" :
+    Number(data.indice_comercial) >= 70 ? "Saludable" :
+    Number(data.indice_comercial) >= 50 ? "Atención" : "Riesgo";
 
   const trendArrow = Number(data.variacion_mensual) < 0 ? "↓" : Number(data.variacion_mensual) > 0 ? "↑" : "→";
-  const executiveState = Number(data.indice_comercial) >= 85
-    ? "Excelente"
-    : Number(data.indice_comercial) >= 70
-      ? "Saludable"
-      : Number(data.indice_comercial) >= 50
-        ? "Atención"
-        : "Riesgo";
 
   return (
-    <main className="module-page analytics-elite-page">
-      <section className="analytics-hero">
-        <div>
-          <p className="module-kicker">Analítica comercial · Reglas de negocio · Apoyo a decisiones</p>
-          <h1>Panel Ejecutivo de Analítica</h1>
-          <p className="module-description">
-            Indicadores clave, evolución comercial, recomendaciones y preparación para modelos predictivos.
-          </p>
-        </div>
-
-        <div className="analytics-toolbar">
+    <main className="analytics-pro-page">
+      <section className="analytics-topbar-pro">
+        <div className="search-box-pro">Buscar en analítica...</div>
+        <div className="topbar-actions-pro">
           <span>{data.periodo}</span>
-          <button className="primary-button" onClick={loadAnalytics} disabled={loading}>
+          <button onClick={loadAnalytics} disabled={loading}>
             {loading ? "Actualizando..." : "Actualizar datos"}
           </button>
         </div>
       </section>
 
-      {error && <p className="form-error">{error}</p>}
+      <section className="executive-hero-pro">
+        <div className="hero-icon-pro">▥</div>
+        <div>
+          <p>Analítica comercial · Reglas de negocio · Apoyo a decisiones</p>
+          <h1>Panel Ejecutivo de Analítica</h1>
+          <span>Vista gerencial para supervisar ventas, clientes, productos, desempeño comercial y preparación para modelos predictivos.</span>
+        </div>
 
-      <section className="elite-kpi-grid">
-        <article className="elite-kpi-card blue">
-          <div className="kpi-icon">▣</div>
-          <div>
-            <span>Ventas analizadas</span>
-            <strong>{loading ? "…" : data.ventas_analizadas}</strong>
-            <small>{totalMonthlySales} operaciones históricas agrupadas</small>
-          </div>
-        </article>
-
-        <article className="elite-kpi-card green">
-          <div className="kpi-icon">€</div>
-          <div>
-            <span>Facturación acumulada</span>
-            <strong>{loading ? "…" : money(data.facturacion_acumulada)}</strong>
-            <small>Ingresos confirmados · ventas no anuladas</small>
-          </div>
-        </article>
-
-        <article className="elite-kpi-card purple">
-          <div className="kpi-icon">◇</div>
-          <div>
-            <span>Ticket promedio</span>
-            <strong>{loading ? "…" : money(data.ticket_medio)}</strong>
-            <small>Indicador de rendimiento comercial</small>
-          </div>
-        </article>
-
-        <article className="elite-kpi-card orange">
-          <div className="kpi-icon">↘</div>
-          <div>
-            <span>Variación mensual</span>
-            <strong>{loading ? "…" : pct(data.variacion_mensual)}</strong>
-            <small>{monthLabel(data.mes_anterior)} vs {monthLabel(data.mes_actual)}</small>
-          </div>
-        </article>
-
-        <article className={`elite-kpi-card health ${healthClass(Number(data.indice_comercial))}`}>
-          <div className="kpi-icon">◎</div>
-          <div>
-            <span>Índice comercial</span>
-            <strong>{loading ? "…" : `${data.indice_comercial} / 100`}</strong>
-            <small>Semáforo ejecutivo: {data.salud_comercial}</small>
-          </div>
-        </article>
+        <div className="hero-sparkline">
+          <svg viewBox="0 0 100 48" preserveAspectRatio="none">
+            <polyline points="4,36 22,27 40,25 58,14 76,25 96,18" />
+            <circle cx="58" cy="14" r="2.2" />
+          </svg>
+          <small>Tendencia comercial</small>
+        </div>
       </section>
 
-      <section className="analytics-dashboard-grid">
-        <article className="elite-card line-card">
-          <div className="elite-card-header">
+      {error && <p className="analytics-error">{error}</p>}
+
+      <section className="kpi-row-pro">
+        <KpiCard label="Ventas analizadas" value={data.ventas_analizadas} meta={`${totalVentas} operaciones agrupadas`} tone="blue" icon="▣" />
+        <KpiCard label="Facturación acumulada" value={money(data.facturacion_acumulada)} meta="Ingresos confirmados" tone="green" icon="€" />
+        <KpiCard label="Ticket promedio" value={money(data.ticket_medio)} meta="Rendimiento comercial" tone="purple" icon="◇" />
+        <KpiCard label="Variación mensual" value={pct(data.variacion_mensual)} meta={`${monthLabel(data.mes_anterior)} vs ${monthLabel(data.mes_actual)}`} tone="red" icon="↘" />
+        <KpiCard label="Índice comercial" value={`${data.indice_comercial}/100`} meta={`Estado: ${data.salud_comercial}`} tone={healthClass(Number(data.indice_comercial))} icon="◎" />
+      </section>
+
+      <section className="analytics-main-pro">
+        <article className="panel-pro chart-panel-pro">
+          <div className="panel-heading-pro">
             <div>
               <span>Evolución de facturación</span>
               <h2>Facturación por mes</h2>
             </div>
-            <span className={`status-badge ${trendClass(data.tendencia)}`}>
-              {trendLabel(data.tendencia)}
-            </span>
+            <strong className="status-chip-pro">{trendLabel(data.tendencia)}</strong>
           </div>
 
-          <div className="line-chart-box">
+          <div className="chart-stage-pro">
+            <div className="grid-lines" />
             <svg viewBox="0 0 100 100" preserveAspectRatio="none">
               <path className="line-area" d={chart.area} />
               <path className="line-stroke" d={chart.path} />
@@ -268,159 +194,108 @@ export default function Analytics() {
                 <circle key={point.mes} cx={point.x} cy={point.y} r="1.6" className="line-dot" />
               ))}
             </svg>
-
-            <div className="line-axis">
-              {data.ventas_mes.map((month) => (
-                <span key={month.mes}>{monthLabel(month.mes)}</span>
-              ))}
-            </div>
           </div>
 
-          <div className="chart-values-row">
+          <div className="month-axis-pro">
             {data.ventas_mes.map((month) => (
-              <span key={month.mes}>{money(month.facturacion)}</span>
+              <div key={month.mes}>
+                <span>{monthLabel(month.mes)}</span>
+                <strong>{money(month.facturacion)}</strong>
+              </div>
             ))}
           </div>
 
-          <div className="chart-highlight-row">
-            <span>Mejor mes: <strong>{monthLabel(bestMonth?.mes)} · {money(bestMonth?.facturacion)}</strong></span>
-            <span>Menor mes: <strong>{monthLabel(worstMonth?.mes)} · {money(worstMonth?.facturacion)}</strong></span>
+          <div className="chart-insights-pro">
+            <div>Mejor mes: <strong>{monthLabel(bestMonth?.mes)} · {money(bestMonth?.facturacion)}</strong></div>
+            <div>Menor mes: <strong>{monthLabel(worstMonth?.mes)} · {money(worstMonth?.facturacion)}</strong></div>
           </div>
 
-          <p className="insight-box executive-insight">
-            <strong>Conclusión ejecutiva:</strong> {insight}
-          </p>
+          <p className="executive-note-pro"><strong>Conclusión ejecutiva:</strong> {insight}</p>
         </article>
 
-        <article className="elite-card comparison-card">
+        <article className="panel-pro comparison-panel-pro">
           <span>Comparación del último periodo</span>
           <h2>{monthLabel(data.mes_actual)}</h2>
 
-          <div className={`variation-hero ${Number(data.variacion_mensual) < 0 ? "down" : "up"}`}>
-            <strong>{trendArrow}</strong>
-            <div>
-              <span>{pct(data.variacion_mensual)}</span>
+          <div className="variation-card-pro">
+            <div>{trendArrow}</div>
+            <section>
+              <strong>{pct(data.variacion_mensual)}</strong>
               <small>{trendLabel(data.tendencia)}</small>
-            </div>
+            </section>
           </div>
 
-          <div className="comparison-pro-list">
-            <div>
-              <span>Mes anterior</span>
-              <strong>{money(data.facturacion_mes_anterior)}</strong>
-            </div>
-            <div>
-              <span>Mes actual</span>
-              <strong>{money(data.facturacion_mes_actual)}</strong>
-            </div>
-            <div>
-              <span>Diferencia</span>
-              <strong>{money(Number(data.facturacion_mes_actual) - Number(data.facturacion_mes_anterior))}</strong>
-            </div>
+          <div className="comparison-list-pro">
+            <div><span>Mes anterior</span><strong>{money(data.facturacion_mes_anterior)}</strong></div>
+            <div><span>Mes actual</span><strong>{money(data.facturacion_mes_actual)}</strong></div>
+            <div><span>Diferencia</span><strong className="negative">{money(Number(data.facturacion_mes_actual) - Number(data.facturacion_mes_anterior))}</strong></div>
           </div>
         </article>
 
-        <article className="elite-card executive-dark-card">
+        <article className="executive-summary-pro">
           <span>Resumen ejecutivo</span>
           <h2>{trendLabel(data.tendencia)} comercial</h2>
 
-          <div className="executive-state-pill">
+          <div className="state-box-pro">
             <small>Estado general</small>
             <strong>{executiveState}</strong>
           </div>
 
           <p>{insight}</p>
 
-          <div>
-            <small>Índice comercial</small>
-            <strong>{data.indice_comercial}/100</strong>
-          </div>
-
-          <div>
-            <small>Proyección simple próximo mes</small>
-            <strong>{money(data.proyeccion_siguiente_mes)}</strong>
+          <div className="summary-metrics-pro">
+            <div><small>Índice comercial</small><strong>{data.indice_comercial}/100</strong></div>
+            <div><small>Proyección siguiente mes</small><strong>{money(data.proyeccion_siguiente_mes)}</strong></div>
           </div>
         </article>
       </section>
 
-      <section className="analytics-dashboard-grid lower">
-        <article className="elite-card donut-card">
+      <section className="analytics-secondary-pro">
+        <article className="panel-pro">
           <span>Distribución mensual</span>
           <h2>Participación de facturación</h2>
-
-          <div className="donut-layout">
-            <div className="donut-ring" style={{ background: donutGradient }}>
-              <strong>{money(data.facturacion_acumulada)}</strong>
-              <span>Total</span>
-            </div>
-
-            <div className="donut-legend">
-              {monthlyDistribution.map((month) => (
+          <div className="distribution-pro">
+            {data.ventas_mes
+              .map((m) => ({ ...m, percentage: ((Number(m.facturacion || 0) / totalMes) * 100).toFixed(1) }))
+              .sort((a, b) => Number(b.percentage) - Number(a.percentage))
+              .map((month) => (
                 <div key={month.mes}>
-                  <span>{monthLabel(month.mes)}</span>
-                  <strong>{month.percentage}%</strong>
+                  <section><strong>{monthLabel(month.mes)}</strong><span>{month.percentage}%</span></section>
+                  <progress value={month.percentage} max="100" />
                 </div>
               ))}
-            </div>
           </div>
         </article>
 
-        <article className="elite-card table-card">
-          <span>Top productos</span>
-          <h2>Mayor rotación</h2>
-          <div className="pro-ranking">
-            {data.top_productos.map((item, index) => (
-              <div key={item.producto}>
-                <span className="rank-medal">{rankBadge(index)}</span>
-                <strong>{item.producto}</strong>
-                <small>{item.unidades} unid.</small>
-                <small>{money(item.facturacion)} · {((Number(item.facturacion || 0) / topProductTotal) * 100).toFixed(1)}%</small>
-                <div><i style={{ width: `${(Number(item.facturacion || 0) / topProductTotal) * 100}%` }} /></div>
-              </div>
-            ))}
-          </div>
-        </article>
+        <RankingCard label="Top productos" title="Mayor rotación" items={data.top_productos} total={totalProductos} nameKey="producto" metaKey="unidades" metaSuffix="unid." />
+        <RankingCard label="Top clientes" title="Mayor facturación" items={data.top_clientes} total={totalClientes} nameKey="cliente" metaKey="ventas" metaSuffix="ventas" />
 
-        <article className="elite-card table-card">
-          <span>Top clientes</span>
-          <h2>Mayor facturación</h2>
-          <div className="pro-ranking">
-            {data.top_clientes.map((item, index) => (
-              <div key={item.cliente}>
-                <span className="rank-medal">{rankBadge(index)}</span>
-                <strong>{item.cliente}</strong>
-                <small>{item.ventas} ventas</small>
-                <small>{money(item.facturacion)} · {((Number(item.facturacion || 0) / topClientTotal) * 100).toFixed(1)}%</small>
-                <div><i style={{ width: `${(Number(item.facturacion || 0) / topClientTotal) * 100}%` }} /></div>
-              </div>
-            ))}
-          </div>
-        </article>
-
-        <article className="elite-card recommendations-card">
+        <article className="panel-pro recommendations-panel-pro">
           <span>Recomendaciones clave</span>
           <h2>Acciones para gerencia</h2>
-          <div className="recommendation-pro-list">
+
+          <div className="recommendations-pro">
             {data.recomendaciones.map((item, index) => (
-              <div key={item} className={`priority-item ${priorityClass(index)}`}>
-                <strong>{priorityLabel(index)}</strong>
+              <div key={item} className={`priority-${index}`}>
+                <strong>{["Alta prioridad", "Media prioridad", "Seguimiento"][index] || "Seguimiento"}</strong>
                 <p>{item}</p>
               </div>
             ))}
           </div>
 
-          <div className="projection-mini-card">
+          <div className="projection-pro">
             <span>Proyección simple</span>
             <strong>{money(data.proyeccion_siguiente_mes)}</strong>
           </div>
         </article>
       </section>
 
-      <section className="bottom-analytics-grid">
-        <article className="elite-card flow-card">
+      <section className="analytics-bottom-pro">
+        <article className="panel-pro">
           <span>Trazabilidad de negocio</span>
           <h2>Cómo se convierte la venta en decisión</h2>
-          <div className="flow-timeline">
+
+          <div className="flow-pro">
             {data.trazabilidad_negocio.map((step, index) => (
               <div key={step}>
                 <strong>{index + 1}</strong>
@@ -430,40 +305,64 @@ export default function Analytics() {
           </div>
         </article>
 
-        <article className="elite-card ia-card">
+        <article className="panel-pro ia-panel-pro">
           <span>Evolución futura</span>
           <h2>Preparación para modelos predictivos</h2>
           <p>{data.evolucion_futura_ia}</p>
 
-          <div className="ai-roadmap">
-            <div className="done">
-              <strong>1</strong>
-              <span>Analítica descriptiva</span>
-              <small>Implementado</small>
-            </div>
-            <div className="done">
-              <strong>2</strong>
-              <span>Reglas de negocio</span>
-              <small>Implementado</small>
-            </div>
-            <div>
-              <strong>3</strong>
-              <span>Predicción de demanda</span>
-              <small>Preparado</small>
-            </div>
-            <div>
-              <strong>4</strong>
-              <span>Segmentación de clientes</span>
-              <small>Preparado</small>
-            </div>
-            <div>
-              <strong>5</strong>
-              <span>Recomendaciones IA</span>
-              <small>Preparado</small>
-            </div>
+          <div className="ai-roadmap-pro">
+            {["Analítica descriptiva", "Reglas de negocio", "Predicción de demanda", "Segmentación de clientes", "Recomendaciones IA"].map((item, index) => (
+              <div key={item} className={index < 2 ? "done" : ""}>
+                <strong>{index + 1}</strong>
+                <span>{item}</span>
+                <small>{index < 2 ? "Implementado" : "Preparado"}</small>
+              </div>
+            ))}
           </div>
         </article>
       </section>
     </main>
+  );
+}
+
+function KpiCard({ label, value, meta, tone, icon }) {
+  return (
+    <article className={`kpi-card-pro ${tone}`}>
+      <div className="kpi-icon-pro">{icon}</div>
+      <section>
+        <span>{label}</span>
+        <strong>{value}</strong>
+        <small>{meta}</small>
+      </section>
+    </article>
+  );
+}
+
+function RankingCard({ label, title, items, total, nameKey, metaKey, metaSuffix }) {
+  return (
+    <article className="panel-pro ranking-panel-pro">
+      <span>{label}</span>
+      <h2>{title}</h2>
+
+      <div className="ranking-list-pro">
+        {items.map((item, index) => {
+          const percentage = ((Number(item.facturacion || 0) / total) * 100).toFixed(1);
+          return (
+            <div className="ranking-row-pro" key={item[nameKey]}>
+              <b>{index + 1}</b>
+              <section>
+                <strong>{item[nameKey]}</strong>
+                <small>{item[metaKey]} {metaSuffix}</small>
+              </section>
+              <aside>
+                <strong>{money(item.facturacion)}</strong>
+                <small>{percentage}%</small>
+              </aside>
+              <progress value={percentage} max="100" />
+            </div>
+          );
+        })}
+      </div>
+    </article>
   );
 }

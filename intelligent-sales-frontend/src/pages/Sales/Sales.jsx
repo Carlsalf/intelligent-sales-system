@@ -55,7 +55,7 @@ export default function Sales() {
         api.get("/ventas"),
         api.get("/clients"),
         api.get("/products"),
-        api.get("/auth/me"),
+        api.get("/me"),
       ]);
 
       setSales(normalizeArray(ventasRes.data));
