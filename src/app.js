@@ -12,6 +12,7 @@ const userManagementRoutes = require("./routes/user-management.routes");
 const analyticsRoutes = require("./routes/analytics.routes");
 const cartRoutes = require("./routes/cart.routes");
 const checkoutRoutes = require("./routes/checkout.routes");
+const storeRoutes = require("./routes/store.routes");
 
 const app = express();
 
@@ -41,6 +42,7 @@ app.use("/api/analytics", analyticsRoutes);
 app.use("/api/cart", cartRoutes);
 app.use("/api/carrito", cartRoutes);
 app.use("/api/checkout", checkoutRoutes);
+app.use("/api/store", storeRoutes);
 
 // 404
 app.use((req, res) => {
