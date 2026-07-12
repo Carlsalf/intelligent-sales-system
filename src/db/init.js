@@ -102,6 +102,55 @@ async function initDb() {
     ");"
   );
 
+  // Carrito de compras
+  await run(
+    db,
+    "CREATE TABLE IF NOT EXISTS carrito (" +
+      "id_carrito INTEGER PRIMARY KEY AUTOINCREMENT," +
+      "id_cliente INTEGER NOT NULL," +
+      "estado TEXT NOT NULL DEFAULT 'ABIERTO'," +
+      "created_at TEXT DEFAULT (datetime('now'))," +
+      "updated_at TEXT DEFAULT (datetime('now'))," +
+      "converted_at TEXT," +
+      "FOREIGN KEY (id_cliente) REFERENCES cliente(id_cliente)" +
+    ");"
+  );
+
+  // Un cliente solo puede mantener un carrito abierto
+  await run(
+    db,
+    "CREATE UNIQUE INDEX IF NOT EXISTS uq_carrito_cliente_abierto " +
+    "ON carrito(id_cliente) WHERE estado = 'ABIERTO';"
+  );
+
+  // Detalle del carrito
+  await run(
+    db,
+    "CREATE TABLE IF NOT EXISTS detalle_carrito (" +
+      "id_detalle_carrito INTEGER PRIMARY KEY AUTOINCREMENT," +
+      "id_carrito INTEGER NOT NULL," +
+      "id_producto INTEGER NOT NULL," +
+      "cantidad INTEGER NOT NULL CHECK (cantidad > 0)," +
+      "created_at TEXT DEFAULT (datetime('now'))," +
+      "updated_at TEXT DEFAULT (datetime('now'))," +
+      "FOREIGN KEY (id_carrito) REFERENCES carrito(id_carrito)," +
+      "FOREIGN KEY (id_producto) REFERENCES producto(id_producto)," +
+      "UNIQUE (id_carrito, id_producto)" +
+    ");"
+  );
+
+  await run(
+    db,
+    "CREATE INDEX IF NOT EXISTS idx_detalle_carrito_carrito " +
+    "ON detalle_carrito(id_carrito);"
+  );
+
+  await run(
+    db,
+    "CREATE INDEX IF NOT EXISTS idx_detalle_carrito_producto " +
+    "ON detalle_carrito(id_producto);"
+  );
+
   // Venta (cabecera)
   await run(
     db,
@@ -139,6 +188,35 @@ async function initDb() {
       "FOREIGN KEY (id_venta) REFERENCES venta(id_venta)," +
       "FOREIGN KEY (id_producto) REFERENCES producto(id_producto)" +
     ");"
+  );
+
+  // Migraciones detalle_venta: cumplimiento por línea
+  await ensureColumn(
+    db,
+    "detalle_venta",
+    "tipo_cumplimiento",
+    "TEXT NOT NULL DEFAULT 'RESERVED'"
+  );
+
+  await ensureColumn(
+    db,
+    "detalle_venta",
+    "cantidad_reservada",
+    "INTEGER NOT NULL DEFAULT 0"
+  );
+
+  await ensureColumn(
+    db,
+    "detalle_venta",
+    "cantidad_comprometida",
+    "INTEGER NOT NULL DEFAULT 0"
+  );
+
+  await ensureColumn(
+    db,
+    "detalle_venta",
+    "fecha_disponibilidad_estimada",
+    "TEXT"
   );
 
   // Seeds roles
