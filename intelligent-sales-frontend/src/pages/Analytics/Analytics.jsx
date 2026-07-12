@@ -59,6 +59,11 @@ const initialAnalytics = {
   evolucion_futura_ia: "",
 };
 
+async function fetchAnalyticsSummary() {
+  const response = await api.get("/analytics/summary");
+  return { ...initialAnalytics, ...response.data };
+}
+
 export default function Analytics() {
   const [data, setData] = useState(initialAnalytics);
   const [loading, setLoading] = useState(true);
@@ -68,8 +73,9 @@ export default function Analytics() {
     try {
       setLoading(true);
       setError("");
-      const response = await api.get("/analytics/summary");
-      setData({ ...initialAnalytics, ...response.data });
+
+      const analytics = await fetchAnalyticsSummary();
+      setData(analytics);
     } catch (err) {
       console.error("Error al cargar analítica:", err.response?.data || err.message);
       setError("No se pudo cargar el análisis comercial. Inténtelo nuevamente.");
@@ -79,7 +85,38 @@ export default function Analytics() {
   }
 
   useEffect(() => {
-    loadAnalytics();
+    let cancelled = false;
+
+    async function loadInitialAnalytics() {
+      try {
+        const analytics = await fetchAnalyticsSummary();
+
+        if (!cancelled) {
+          setData(analytics);
+        }
+      } catch (err) {
+        console.error(
+          "Error al cargar analítica:",
+          err.response?.data || err.message
+        );
+
+        if (!cancelled) {
+          setError(
+            "No se pudo cargar el análisis comercial. Inténtelo nuevamente."
+          );
+        }
+      } finally {
+        if (!cancelled) {
+          setLoading(false);
+        }
+      }
+    }
+
+    void loadInitialAnalytics();
+
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   const chart = useMemo(() => {

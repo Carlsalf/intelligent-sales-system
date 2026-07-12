@@ -26,7 +26,7 @@ function Login({ onLoginSuccess }) {
 
       localStorage.setItem("token", token);
       onLoginSuccess?.();
-    } catch (err) {
+    } catch {
       setError("Credenciales inválidas o backend no disponible.");
     } finally {
       setLoading(false);

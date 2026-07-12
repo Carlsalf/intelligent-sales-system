@@ -27,10 +27,9 @@ function Dashboard({ onNavigate }) {
   const [updatedAt, setUpdatedAt] = useState("");
   const [profileOpen, setProfileOpen] = useState(false);
 
-  async function loadDashboard() {
-    try {
-      setLoading(true);
-      const [productsRes, clientsRes, salesRes, analyticsRes, meRes] = await Promise.all([
+  async function fetchDashboardData() {
+    const [productsRes, clientsRes, salesRes, analyticsRes, meRes] =
+      await Promise.all([
         api.get("/productos"),
         api.get("/clients"),
         api.get("/ventas"),
@@ -38,21 +37,67 @@ function Dashboard({ onNavigate }) {
         api.get("/me"),
       ]);
 
-      setProducts(productsRes.data || []);
-      setClients(clientsRes.data || []);
-      setSales(salesRes.data || []);
-      setAnalytics(analyticsRes.data || null);
-      setCurrentUser(meRes.data.user || null);
-      setUpdatedAt(new Date().toLocaleString("es-ES"));
+    return {
+      products: productsRes.data || [],
+      clients: clientsRes.data || [],
+      sales: salesRes.data || [],
+      analytics: analyticsRes.data || null,
+      currentUser: meRes.data.user || null,
+      updatedAt: new Date().toLocaleString("es-ES"),
+    };
+  }
+
+  function applyDashboardData(data) {
+    setProducts(data.products);
+    setClients(data.clients);
+    setSales(data.sales);
+    setAnalytics(data.analytics);
+    setCurrentUser(data.currentUser);
+    setUpdatedAt(data.updatedAt);
+  }
+
+  async function loadDashboard() {
+    try {
+      setLoading(true);
+      const data = await fetchDashboardData();
+      applyDashboardData(data);
     } catch (err) {
-      console.error("Error cargando dashboard:", err.response?.data || err.message);
+      console.error(
+        "Error cargando dashboard:",
+        err.response?.data || err.message
+      );
     } finally {
       setLoading(false);
     }
   }
 
   useEffect(() => {
-    loadDashboard();
+    let cancelled = false;
+
+    async function loadInitialDashboard() {
+      try {
+        const data = await fetchDashboardData();
+
+        if (!cancelled) {
+          applyDashboardData(data);
+        }
+      } catch (err) {
+        console.error(
+          "Error cargando dashboard:",
+          err.response?.data || err.message
+        );
+      } finally {
+        if (!cancelled) {
+          setLoading(false);
+        }
+      }
+    }
+
+    void loadInitialDashboard();
+
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   const stats = useMemo(() => {
@@ -154,7 +199,7 @@ function Dashboard({ onNavigate }) {
             className="profile-trigger"
             onClick={() => setProfileOpen((value) => !value)}
           >
-            <div className="profile-avatar">{initials(currentUser?.nombre, currentUser)}</div>
+            <div className="profile-avatar">{initials(currentUser)}</div>
             <div>
               <strong>{currentUser?.nombre?.replace("Administrador TFM", "Administrador del Sistema") || "Usuario del sistema"}</strong>
               <span>{roleLabel(currentUser)}</span>
@@ -207,7 +252,7 @@ function Dashboard({ onNavigate }) {
           <h2>Perfil y permisos</h2>
 
           <div className="enterprise-user-line">
-            <div className="enterprise-avatar">{initials(currentUser?.nombre, currentUser)}</div>
+            <div className="enterprise-avatar">{initials(currentUser)}</div>
             <div>
               <strong>{currentUser?.nombre?.replace("Administrador TFM", "Administrador del Sistema") || "Usuario del sistema"}</strong>
               <small>{roleLabel(currentUser)}</small>

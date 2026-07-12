@@ -1,5 +1,4 @@
 import { useEffect, useMemo, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import api from "../../services/api";
 import "./Clients.css";
 
@@ -17,9 +16,35 @@ function normalizeArray(data, key) {
   return [];
 }
 
-export default function Clients() {
-  const navigate = useNavigate();
+function isMissing(value) {
+  return (
+    value === null ||
+    value === undefined ||
+    String(value).trim() === ""
+  );
+}
 
+function isClientInactive(client) {
+  return Number(client?.estado) === 0;
+}
+
+function isClientIncomplete(client) {
+  return (
+    !isClientInactive(client) &&
+    (
+      isMissing(client?.documento) ||
+      isMissing(client?.telefono) ||
+      isMissing(client?.email)
+    )
+  );
+}
+
+async function fetchClients() {
+  const response = await api.get("/clients");
+  return normalizeArray(response.data, "clientes");
+}
+
+export default function Clients() {
   const [clients, setClients] = useState([]);
   const [query, setQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState("todos");
@@ -36,28 +61,58 @@ export default function Clients() {
     try {
       setLoading(true);
       setError("");
-      const response = await api.get("/clients");
-      setClients(normalizeArray(response.data, "clientes"));
+
+      const data = await fetchClients();
+      setClients(data);
     } catch (err) {
-      console.error("Error al cargar clientes:", err.response?.data || err.message);
+      console.error(
+        "Error al cargar clientes:",
+        err.response?.data || err.message
+      );
       setClients([]);
-      setError("No se pudieron cargar los clientes. Inténtelo nuevamente.");
+      setError(
+        "No se pudieron cargar los clientes. Inténtelo nuevamente."
+      );
     } finally {
       setLoading(false);
     }
   }
 
   useEffect(() => {
-    loadData();
+    let cancelled = false;
+
+    async function loadInitialClients() {
+      try {
+        const data = await fetchClients();
+
+        if (!cancelled) {
+          setClients(data);
+        }
+      } catch (err) {
+        console.error(
+          "Error al cargar clientes:",
+          err.response?.data || err.message
+        );
+
+        if (!cancelled) {
+          setClients([]);
+          setError(
+            "No se pudieron cargar los clientes. Inténtelo nuevamente."
+          );
+        }
+      } finally {
+        if (!cancelled) {
+          setLoading(false);
+        }
+      }
+    }
+
+    void loadInitialClients();
+
+    return () => {
+      cancelled = true;
+    };
   }, []);
-
-  const isMissing = (value) => value === null || value === undefined || String(value).trim() === "";
-
-  const isClientInactive = (client) => Number(client.estado) === 0;
-
-  const isClientIncomplete = (client) =>
-    !isClientInactive(client) &&
-    (isMissing(client.documento) || isMissing(client.telefono) || isMissing(client.email));
 
   const filteredClients = useMemo(() => {
     const q = query.toLowerCase().trim();

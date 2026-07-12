@@ -14,29 +14,54 @@ function App() {
   const [authenticated, setAuthenticated] = useState(false);
   const [checkingSession, setCheckingSession] = useState(true);
 
-  async function validateSession() {
+  async function checkSession() {
     const token = localStorage.getItem("token");
 
     if (!token) {
-      setAuthenticated(false);
-      setCheckingSession(false);
-      return;
+      return {
+        authenticated: false,
+        clearToken: false,
+      };
     }
 
     try {
       await api.get("/auth/me");
-      setAuthenticated(true);
-      setCurrentPage("dashboard");
+
+      return {
+        authenticated: true,
+        clearToken: false,
+      };
     } catch {
-      localStorage.removeItem("token");
-      setAuthenticated(false);
-    } finally {
-      setCheckingSession(false);
+      return {
+        authenticated: false,
+        clearToken: true,
+      };
     }
   }
 
   useEffect(() => {
-    validateSession();
+    let cancelled = false;
+
+    async function validateInitialSession() {
+      const result = await checkSession();
+
+      if (cancelled) return;
+
+      if (result.clearToken) {
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+      }
+
+      setAuthenticated(result.authenticated);
+      setCurrentPage("dashboard");
+      setCheckingSession(false);
+    }
+
+    void validateInitialSession();
+
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   function handleLoginSuccess() {

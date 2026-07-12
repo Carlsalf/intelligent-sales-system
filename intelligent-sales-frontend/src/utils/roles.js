@@ -48,6 +48,6 @@ export function permissionSummary(user) {
   return "Permisos estándar";
 }
 
-export function initials(name = "", user = null) {
+export function initials(user = null) {
   return roleCode(user);
 }
