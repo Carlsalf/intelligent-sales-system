@@ -102,7 +102,75 @@ async function initDb() {
     ");"
   );
 
-  // Carrito de compras
+  //   // Cuenta digital del cliente eCommerce
+  await run(
+    db,
+    "CREATE TABLE IF NOT EXISTS cliente_cuenta (" +
+      "id_cliente_cuenta INTEGER PRIMARY KEY AUTOINCREMENT," +
+      "id_cliente INTEGER NOT NULL UNIQUE," +
+      "email TEXT NOT NULL COLLATE NOCASE UNIQUE," +
+      "password_hash TEXT NOT NULL," +
+      "estado INTEGER NOT NULL DEFAULT 1 CHECK (estado IN (0, 1))," +
+      "email_verificado INTEGER NOT NULL DEFAULT 0 CHECK (email_verificado IN (0, 1))," +
+      "ultimo_acceso TEXT," +
+      "created_at TEXT DEFAULT (datetime('now'))," +
+      "updated_at TEXT DEFAULT (datetime('now'))," +
+      "FOREIGN KEY (id_cliente) REFERENCES cliente(id_cliente)" +
+    ");"
+  );
+
+  await run(
+    db,
+    "CREATE INDEX IF NOT EXISTS idx_cliente_cuenta_cliente " +
+    "ON cliente_cuenta(id_cliente);"
+  );
+
+  await run(
+    db,
+    "CREATE INDEX IF NOT EXISTS idx_cliente_cuenta_email " +
+    "ON cliente_cuenta(email);"
+  );
+
+  // Direcciones del cliente eCommerce
+  await run(
+    db,
+    "CREATE TABLE IF NOT EXISTS cliente_direccion (" +
+      "id_direccion INTEGER PRIMARY KEY AUTOINCREMENT," +
+      "id_cliente INTEGER NOT NULL," +
+      "alias TEXT NOT NULL DEFAULT 'Principal'," +
+      "destinatario TEXT NOT NULL," +
+      "telefono TEXT NOT NULL," +
+      "direccion_linea_1 TEXT NOT NULL," +
+      "direccion_linea_2 TEXT," +
+      "ciudad TEXT NOT NULL," +
+      "provincia TEXT NOT NULL," +
+      "codigo_postal TEXT NOT NULL," +
+      "pais TEXT NOT NULL DEFAULT 'España'," +
+      "referencia TEXT," +
+      "es_principal INTEGER NOT NULL DEFAULT 0 CHECK (es_principal IN (0,1))," +
+      "estado INTEGER NOT NULL DEFAULT 1 CHECK (estado IN (0,1))," +
+      "created_at TEXT DEFAULT (datetime('now'))," +
+      "updated_at TEXT DEFAULT (datetime('now'))," +
+      "FOREIGN KEY (id_cliente) REFERENCES cliente(id_cliente)" +
+    ");"
+  );
+
+  await run(
+    db,
+    "CREATE INDEX IF NOT EXISTS idx_cliente_direccion_cliente " +
+    "ON cliente_direccion(id_cliente);"
+  );
+
+  await run(
+    db,
+    "CREATE UNIQUE INDEX IF NOT EXISTS uq_cliente_direccion_principal " +
+    "ON cliente_direccion(id_cliente) " +
+    "WHERE es_principal = 1 AND estado = 1;"
+  );
+
+// Carrito de compras
+
+
   await run(
     db,
     "CREATE TABLE IF NOT EXISTS carrito (" +
@@ -112,7 +180,8 @@ async function initDb() {
       "created_at TEXT DEFAULT (datetime('now'))," +
       "updated_at TEXT DEFAULT (datetime('now'))," +
       "converted_at TEXT," +
-      "FOREIGN KEY (id_cliente) REFERENCES cliente(id_cliente)" +
+    
+  "FOREIGN KEY (id_cliente) REFERENCES cliente(id_cliente)" +
     ");"
   );
 
@@ -173,6 +242,42 @@ async function initDb() {
   await ensureColumn(db, "venta", "tipo_entrega", "TEXT NOT NULL DEFAULT 'RECOJO_ALMACEN'");
   await ensureColumn(db, "venta", "fecha_entrega_estimada", "TEXT");
   await ensureColumn(db, "venta", "pago_estado", "TEXT NOT NULL DEFAULT 'SIMULADO_PAGADO'");
+
+  await ensureColumn(
+    db,
+    "venta",
+    "id_cliente_cuenta",
+    "INTEGER"
+  );
+
+  await ensureColumn(
+    db,
+    "venta",
+    "canal_venta",
+    "TEXT NOT NULL DEFAULT 'BACKOFFICE'"
+  );
+
+  await ensureColumn(
+    db,
+    "venta",
+    "direccion_entrega_snapshot",
+    "TEXT"
+  );
+
+  await run(
+    db,
+    "CREATE INDEX IF NOT EXISTS idx_venta_cliente_cuenta " +
+    "ON venta(id_cliente_cuenta);"
+  );
+
+  await run(
+    db,
+    "CREATE INDEX IF NOT EXISTS idx_venta_canal " +
+    "ON venta(canal_venta);"
+  );
+
+
+
 
   // Detalle venta
   await run(

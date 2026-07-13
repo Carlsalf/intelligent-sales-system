@@ -3,7 +3,10 @@ const { getDb } = require("../db/connection");
 function run(db, sql, params = []) {
   return new Promise((resolve, reject) => {
     db.run(sql, params, function (error) {
-      if (error) return reject(error);
+      if (error) {
+        return reject(error);
+      }
+
       resolve({
         lastID: this.lastID,
         changes: this.changes,
@@ -15,7 +18,10 @@ function run(db, sql, params = []) {
 function get(db, sql, params = []) {
   return new Promise((resolve, reject) => {
     db.get(sql, params, (error, row) => {
-      if (error) return reject(error);
+      if (error) {
+        return reject(error);
+      }
+
       resolve(row || null);
     });
   });
@@ -24,7 +30,10 @@ function get(db, sql, params = []) {
 function all(db, sql, params = []) {
   return new Promise((resolve, reject) => {
     db.all(sql, params, (error, rows) => {
-      if (error) return reject(error);
+      if (error) {
+        return reject(error);
+      }
+
       resolve(rows || []);
     });
   });
@@ -42,7 +51,12 @@ async function getOpenCartSnapshot(id_cliente) {
   try {
     const cart = await get(
       db,
-      `SELECT id_carrito, id_cliente, estado, created_at, updated_at
+      `SELECT
+         id_carrito,
+         id_cliente,
+         estado,
+         created_at,
+         updated_at
        FROM carrito
        WHERE id_cliente = ?
          AND estado = 'ABIERTO'
@@ -50,7 +64,9 @@ async function getOpenCartSnapshot(id_cliente) {
       [id_cliente]
     );
 
-    if (!cart) return null;
+    if (!cart) {
+      return null;
+    }
 
     const items = await all(
       db,
@@ -84,7 +100,10 @@ async function getOpenCartSnapshot(id_cliente) {
 async function persistCheckout({
   id_carrito,
   id_cliente,
+  id_cliente_cuenta = null,
   id_usuario,
+  canal_venta = "BACKOFFICE",
+  direccion_entrega_snapshot = null,
   tipo_entrega,
   pago_estado,
   total,
@@ -94,7 +113,10 @@ async function persistCheckout({
   const db = getDb();
 
   try {
-    await run(db, "BEGIN IMMEDIATE TRANSACTION");
+    await run(
+      db,
+      "BEGIN IMMEDIATE TRANSACTION"
+    );
 
     const currentCart = await get(
       db,
@@ -105,18 +127,29 @@ async function persistCheckout({
     );
 
     if (!currentCart) {
-      throw new Error("El carrito no existe.");
+      const error = new Error(
+        "El carrito no existe."
+      );
+      error.status = 404;
+      throw error;
     }
 
     if (currentCart.estado !== "ABIERTO") {
-      throw new Error("El carrito ya fue procesado.");
+      const error = new Error(
+        "El carrito ya fue procesado."
+      );
+      error.status = 409;
+      throw error;
     }
 
     const saleResult = await run(
       db,
       `INSERT INTO venta(
          id_cliente,
+         id_cliente_cuenta,
          id_usuario,
+         canal_venta,
+         direccion_entrega_snapshot,
          total,
          estado,
          estado_pedido,
@@ -124,10 +157,18 @@ async function persistCheckout({
          fecha_entrega_estimada,
          pago_estado
        )
-       VALUES (?, ?, ?, 1, 'CONFIRMADO', ?, ?, ?)`,
+       VALUES (
+         ?, ?, ?, ?, ?, ?,
+         1,
+         'CONFIRMADO',
+         ?, ?, ?
+       )`,
       [
         id_cliente,
+        id_cliente_cuenta,
         id_usuario,
+        canal_venta,
+        direccion_entrega_snapshot,
         total,
         tipo_entrega,
         fecha_entrega_estimada,
@@ -168,8 +209,10 @@ async function persistCheckout({
       await run(
         db,
         `UPDATE producto
-         SET stock_reservado = stock_reservado + ?,
-             stock_comprometido = stock_comprometido + ?,
+         SET stock_reservado =
+               stock_reservado + ?,
+             stock_comprometido =
+               stock_comprometido + ?,
              updated_at = datetime('now')
          WHERE id_producto = ?`,
         [
@@ -192,7 +235,11 @@ async function persistCheckout({
     );
 
     if (cartResult.changes !== 1) {
-      throw new Error("No fue posible convertir el carrito.");
+      const error = new Error(
+        "No fue posible convertir el carrito."
+      );
+      error.status = 409;
+      throw error;
     }
 
     await run(db, "COMMIT");
@@ -205,6 +252,7 @@ async function persistCheckout({
       estado_pedido: "CONFIRMADO",
       pago_estado,
       tipo_entrega,
+      canal_venta,
     };
   } catch (error) {
     try {
