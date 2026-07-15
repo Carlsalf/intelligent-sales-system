@@ -102,6 +102,7 @@ async function persistCheckout({
   id_cliente,
   id_cliente_cuenta = null,
   id_usuario,
+  id_direccion_entrega = null,
   canal_venta = "BACKOFFICE",
   direccion_entrega_snapshot = null,
   tipo_entrega,
@@ -148,6 +149,7 @@ async function persistCheckout({
          id_cliente,
          id_cliente_cuenta,
          id_usuario,
+         id_direccion_entrega,
          canal_venta,
          direccion_entrega_snapshot,
          total,
@@ -158,7 +160,7 @@ async function persistCheckout({
          pago_estado
        )
        VALUES (
-         ?, ?, ?, ?, ?, ?,
+         ?, ?, ?, ?, ?, ?, ?,
          1,
          'CONFIRMADO',
          ?, ?, ?
@@ -167,6 +169,7 @@ async function persistCheckout({
         id_cliente,
         id_cliente_cuenta,
         id_usuario,
+        id_direccion_entrega,
         canal_venta,
         direccion_entrega_snapshot,
         total,

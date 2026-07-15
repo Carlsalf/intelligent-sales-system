@@ -264,6 +264,14 @@ async function initDb() {
     "TEXT"
   );
 
+
+  await ensureColumn(
+    db,
+    "venta",
+    "id_direccion_entrega",
+    "INTEGER"
+  );
+
   await run(
     db,
     "CREATE INDEX IF NOT EXISTS idx_venta_cliente_cuenta " +
@@ -274,6 +282,13 @@ async function initDb() {
     db,
     "CREATE INDEX IF NOT EXISTS idx_venta_canal " +
     "ON venta(canal_venta);"
+  );
+
+
+  await run(
+    db,
+    "CREATE INDEX IF NOT EXISTS idx_venta_direccion_entrega " +
+    "ON venta(id_direccion_entrega);"
   );
 
 

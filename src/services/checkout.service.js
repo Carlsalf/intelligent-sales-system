@@ -1,4 +1,7 @@
 const repository = require("../repositories/checkout.repo");
+const customerAddressRepository = require(
+  "../repositories/customer-address.repo"
+);
 
 const {
   buildFulfillmentPlan,
@@ -135,6 +138,7 @@ async function executeCheckout({
   id_cliente,
   id_cliente_cuenta = null,
   id_usuario,
+  id_direccion_entrega = null,
   body = {},
   canal_venta,
 }) {
@@ -234,6 +238,7 @@ async function executeCheckout({
     id_cliente: clientId,
     id_cliente_cuenta: customerAccountId,
     id_usuario: userId,
+    id_direccion_entrega,
     canal_venta: salesChannel,
     direccion_entrega_snapshot:
       deliverySnapshot,
@@ -282,17 +287,58 @@ async function checkoutCustomer(
   customer,
   body = {}
 ) {
+  const customerId = positiveInteger(
+    customer?.id_cliente,
+    "id_cliente"
+  );
+
   const technicalUserId = positiveInteger(
     process.env.ECOMMERCE_SYSTEM_USER_ID,
     "ECOMMERCE_SYSTEM_USER_ID"
   );
 
+  const deliveryType = validateDeliveryType(
+    body.tipo_entrega
+  );
+
+  let idDireccionEntrega = null;
+  let deliveryAddress = null;
+
+  if (deliveryType === DELIVERY_TYPES.DELIVERY) {
+    idDireccionEntrega = positiveInteger(
+      body.id_direccion,
+      "id_direccion"
+    );
+
+    deliveryAddress =
+      await customerAddressRepository.getCustomerAddressById(
+        customerId,
+        idDireccionEntrega
+      );
+
+    if (!deliveryAddress) {
+      throw createHttpError(
+        "La dirección seleccionada no existe o no pertenece al cliente autenticado.",
+        404,
+        "CUSTOMER_ADDRESS_NOT_FOUND"
+      );
+    }
+  }
+
+  const secureBody = {
+    ...body,
+    tipo_entrega: deliveryType,
+    direccion_entrega: deliveryAddress,
+  };
+
   return executeCheckout({
-    id_cliente: customer?.id_cliente,
+    id_cliente: customerId,
     id_cliente_cuenta:
       customer?.id_cliente_cuenta,
     id_usuario: technicalUserId,
-    body,
+    id_direccion_entrega:
+      idDireccionEntrega,
+    body: secureBody,
     canal_venta:
       body.canal_venta ===
       SALES_CHANNELS.ECOMMERCE_MOBILE
