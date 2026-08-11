@@ -1,0 +1,22 @@
+{
+  "expo": {
+    "name": "Intelligent Sales Store",
+    "slug": "intelligent-sales-store",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "scheme": "intelligentsalesstore",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.carloscallagua.intelligentsalesstore"
+    },
+    "android": {
+      "package": "com.carloscallagua.intelligentsalesstore"
+    },
+    "plugins": ["expo-router", "expo-secure-store"],
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}
