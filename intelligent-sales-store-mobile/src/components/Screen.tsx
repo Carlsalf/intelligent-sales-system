@@ -1,5 +1,6 @@
 import { PropsWithChildren } from 'react';
-import { SafeAreaView, StyleSheet, ViewStyle } from 'react-native';
+import { StyleSheet, ViewStyle } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { colors } from '@/src/theme/tokens';
 
 export function Screen({ children, style }: PropsWithChildren<{ style?: ViewStyle }>) {
