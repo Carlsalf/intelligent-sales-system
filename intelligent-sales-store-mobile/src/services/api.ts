@@ -85,3 +85,7 @@ export async function fetchProducts(search = '', category = '') {
   const suffix = params.toString() ? `?${params.toString()}` : '';
   return apiRequest<StoreProduct[] | { products: StoreProduct[] }>(`/store/products${suffix}`);
 }
+
+export async function fetchProductById(id: number) {
+  return apiRequest<StoreProduct>(`/store/products/${id}`);
+}

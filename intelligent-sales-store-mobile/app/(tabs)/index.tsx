@@ -1,10 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
-import {
-  ActivityIndicator,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
+import { useRouter } from 'expo-router';
 
 import { Screen } from '@/src/components/Screen';
 import {
@@ -41,6 +37,8 @@ function getCategory(product: StoreProduct) {
 }
 
 export default function StoreScreen() {
+  const router = useRouter();
+
   const [products, setProducts] = useState<StoreProduct[]>([]);
   const [catalogProducts, setCatalogProducts] = useState<StoreProduct[]>([]);
   const [search, setSearch] = useState('');
@@ -123,8 +121,8 @@ export default function StoreScreen() {
     );
   }, [products, selectedCategory]);
 
-  return (
-    <Screen>
+  const catalogHeader = (
+    <View>
       <HeroBanner />
 
       <View style={styles.searchContainer}>
@@ -164,11 +162,19 @@ export default function StoreScreen() {
           subtitle={
             loading
               ? 'Actualizando catálogo…'
-              : `${visibleProducts.length} producto${visibleProducts.length === 1 ? '' : 's'} disponible${visibleProducts.length === 1 ? '' : 's'}`
+              : `${visibleProducts.length} producto${
+                  visibleProducts.length === 1 ? '' : 's'
+                } disponible${
+                  visibleProducts.length === 1 ? '' : 's'
+                }`
           }
         />
       </View>
+    </View>
+  );
 
+  return (
+    <Screen>
       {loading ? (
         <View style={styles.state}>
           <ActivityIndicator
@@ -190,6 +196,18 @@ export default function StoreScreen() {
         <ProductGrid
           products={visibleProducts}
           searching={Boolean(search || selectedCategory)}
+          header={catalogHeader}
+          onProductPress={(product) => {
+            const productId =
+              product.id_producto ?? product.id;
+
+            if (productId) {
+              router.push({
+                pathname: '/product/[id]',
+                params: { id: String(productId) },
+              });
+            }
+          }}
         />
       )}
     </Screen>
@@ -201,18 +219,22 @@ const styles = StyleSheet.create({
     paddingHorizontal: spacing.lg,
     paddingTop: spacing.lg,
   },
+
   categories: {
     paddingTop: spacing.lg,
     gap: spacing.md,
   },
+
   categoriesHeader: {
     paddingHorizontal: spacing.lg,
   },
+
   catalogHeader: {
     paddingHorizontal: spacing.lg,
     paddingTop: spacing.xl,
     paddingBottom: spacing.sm,
   },
+
   state: {
     flex: 1,
     alignItems: 'center',
@@ -220,11 +242,13 @@ const styles = StyleSheet.create({
     gap: spacing.sm,
     padding: spacing.xl,
   },
+
   stateText: {
     ...typography.body,
     color: colors.textSecondary,
     textAlign: 'center',
   },
+
   error: {
     ...typography.body,
     color: colors.danger,

@@ -1,4 +1,6 @@
+import type { ReactElement } from 'react';
 import { FlatList, StyleSheet } from 'react-native';
+
 import type { StoreProduct } from '@/src/types/store';
 import { spacing } from '@/src/theme/tokens';
 import { EmptyCatalog } from './EmptyCatalog';
@@ -8,21 +10,23 @@ type ProductGridProps = {
   products: StoreProduct[];
   searching?: boolean;
   onProductPress?: (product: StoreProduct) => void;
+  header?: ReactElement;
 };
 
 export function ProductGrid({
   products,
   searching = false,
   onProductPress,
+  header,
 }: ProductGridProps) {
   return (
     <FlatList
+      style={styles.list}
       data={products}
       keyExtractor={(item, index) =>
         String(item.id_producto ?? item.id ?? index)
       }
-      contentContainerStyle={styles.content}
-      showsVerticalScrollIndicator={false}
+      ListHeaderComponent={header}
       ListEmptyComponent={
         <EmptyCatalog searching={searching} />
       }
@@ -32,14 +36,18 @@ export function ProductGrid({
           onPress={onProductPress}
         />
       )}
+      contentContainerStyle={styles.content}
+      showsVerticalScrollIndicator={false}
+      keyboardShouldPersistTaps="handled"
     />
   );
 }
 
 const styles = StyleSheet.create({
+  list: {
+    flex: 1,
+  },
   content: {
-    padding: spacing.lg,
-    paddingTop: spacing.sm,
     paddingBottom: 120,
     gap: spacing.md,
   },
