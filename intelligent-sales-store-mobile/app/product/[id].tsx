@@ -9,6 +9,8 @@ import {
   View,
 } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
+import { useAuth } from '@/src/context/AuthContext';
+import { useCart } from '@/src/context/CartContext';
 
 import { Screen } from '@/src/components/Screen';
 import { Badge, Price } from '@/src/components/ui';
@@ -24,6 +26,8 @@ import type { StoreProduct } from '@/src/types/store';
 
 export default function ProductDetailScreen() {
   const router = useRouter();
+  const { isAuthenticated } = useAuth();
+  const { addItem, isMutating } = useCart();
   const { id } = useLocalSearchParams<{ id: string }>();
 
   const [product, setProduct] = useState<StoreProduct | null>(null);
@@ -226,14 +230,41 @@ export default function ProductDetailScreen() {
 
           <Pressable
             accessibilityRole="button"
+            disabled={isMutating}
+            onPress={async () => {
+              const productId =
+                product.id_producto ?? product.id;
+
+              if (!productId) return;
+
+              if (!isAuthenticated) {
+                router.push({
+                  pathname: '/login',
+                  params: {
+                    redirect: `/product/${productId}`,
+                  },
+                });
+                return;
+              }
+
+              try {
+                await addItem(productId, quantity);
+                router.push('/cart');
+              } catch {
+                // El CartContext expone el error correspondiente.
+              }
+            }}
             style={({ pressed }) => [
               styles.addButton,
-              pressed && styles.addButtonPressed,
+              pressed && !isMutating && styles.addButtonPressed,
+              isMutating && styles.addButtonDisabled,
             ]}
           >
             <View>
               <Text style={styles.addButtonTitle}>
-                Añadir al carrito
+                {isMutating
+                  ? 'Añadiendo…'
+                  : 'Añadir al carrito'}
               </Text>
 
               <Text style={styles.addButtonSubtitle}>
@@ -399,6 +430,10 @@ const styles = StyleSheet.create({
   },
   addButtonPressed: {
     opacity: 0.88,
+  },
+
+  addButtonDisabled: {
+    opacity: 0.6,
   },
   addButtonTitle: {
     ...typography.button,
