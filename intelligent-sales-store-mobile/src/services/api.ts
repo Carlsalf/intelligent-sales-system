@@ -4,6 +4,8 @@ import type { AuthResult, Customer, StoreProduct } from '@/src/types/store';
 const TOKEN_KEY = 'iss_customer_token';
 const API_URL = process.env.EXPO_PUBLIC_API_URL ?? 'http://localhost:3001/api';
 
+console.log('[ISS API] API_URL =', API_URL);
+
 type ApiOptions = RequestInit & { authenticated?: boolean };
 
 async function parseResponse(response: Response) {
