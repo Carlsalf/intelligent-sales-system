@@ -117,6 +117,17 @@ async function registerCustomer(payload = {}) {
   const email = normalizeEmail(payload.email);
   const password = payload.password;
 
+  if (
+    telefono &&
+    (!/^\d{9,15}$/.test(telefono))
+  ) {
+    throw createHttpError(
+      "El teléfono debe contener entre 9 y 15 dígitos",
+      400,
+      "INVALID_PHONE"
+    );
+  }
+
   if (nombre.length < 2) {
     throw createHttpError(
       "El nombre del cliente es obligatorio",

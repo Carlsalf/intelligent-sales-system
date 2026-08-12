@@ -11,7 +11,10 @@ type ApiOptions = RequestInit & { authenticated?: boolean };
 async function parseResponse(response: Response) {
   const body = await response.json().catch(() => ({}));
   if (!response.ok) {
-    const message = body?.message || 'No se pudo completar la operación';
+    const message =
+      body?.error ||
+      body?.message ||
+      'No se pudo completar la operación';
     throw new Error(message);
   }
   return body;
