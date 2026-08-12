@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import {
   ActivityIndicator,
   StyleSheet,
@@ -8,10 +8,14 @@ import {
 
 import { Screen } from '@/src/components/Screen';
 import {
+  CategoryChips,
   HeroBanner,
   ProductGrid,
 } from '@/src/components/store';
-import { SearchBar } from '@/src/components/ui';
+import {
+  SearchBar,
+  SectionHeader,
+} from '@/src/components/ui';
 import { fetchProducts } from '@/src/services/api';
 import {
   colors,
@@ -28,11 +32,43 @@ function normalizeProducts(
     : data.products ?? [];
 }
 
+function getCategory(product: StoreProduct) {
+  return (
+    product.categoria_nombre ??
+    product.categoria ??
+    'Producto'
+  );
+}
+
 export default function StoreScreen() {
   const [products, setProducts] = useState<StoreProduct[]>([]);
+  const [catalogProducts, setCatalogProducts] = useState<StoreProduct[]>([]);
   const [search, setSearch] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+
+  useEffect(() => {
+    let active = true;
+
+    async function loadCatalogReference() {
+      try {
+        const result = await fetchProducts();
+
+        if (active) {
+          setCatalogProducts(normalizeProducts(result));
+        }
+      } catch {
+        // La carga principal mostrará el error correspondiente.
+      }
+    }
+
+    loadCatalogReference();
+
+    return () => {
+      active = false;
+    };
+  }, []);
 
   useEffect(() => {
     let active = true;
@@ -68,6 +104,25 @@ export default function StoreScreen() {
     };
   }, [search]);
 
+  const categories = useMemo(() => {
+    return Array.from(
+      new Set(
+        catalogProducts
+          .map(getCategory)
+          .filter(Boolean),
+      ),
+    ).sort((a, b) => a.localeCompare(b, 'es'));
+  }, [catalogProducts]);
+
+  const visibleProducts = useMemo(() => {
+    if (!selectedCategory) return products;
+
+    return products.filter(
+      (product) =>
+        getCategory(product) === selectedCategory,
+    );
+  }, [products, selectedCategory]);
+
   return (
     <Screen>
       <HeroBanner />
@@ -75,8 +130,42 @@ export default function StoreScreen() {
       <View style={styles.searchContainer}>
         <SearchBar
           value={search}
-          onChangeText={setSearch}
+          onChangeText={(value) => {
+            setSearch(value);
+
+            if (value.trim()) {
+              setSelectedCategory('');
+            }
+          }}
           placeholder="Buscar productos"
+        />
+      </View>
+
+      {categories.length > 0 ? (
+        <View style={styles.categories}>
+          <View style={styles.categoriesHeader}>
+            <SectionHeader
+              title="Categorías"
+              subtitle="Explora el catálogo por tipo de producto"
+            />
+          </View>
+
+          <CategoryChips
+            categories={categories}
+            selected={selectedCategory}
+            onSelect={setSelectedCategory}
+          />
+        </View>
+      ) : null}
+
+      <View style={styles.catalogHeader}>
+        <SectionHeader
+          title="Productos"
+          subtitle={
+            loading
+              ? 'Actualizando catálogo…'
+              : `${visibleProducts.length} producto${visibleProducts.length === 1 ? '' : 's'} disponible${visibleProducts.length === 1 ? '' : 's'}`
+          }
         />
       </View>
 
@@ -99,8 +188,8 @@ export default function StoreScreen() {
         </View>
       ) : (
         <ProductGrid
-          products={products}
-          searching={Boolean(search)}
+          products={visibleProducts}
+          searching={Boolean(search || selectedCategory)}
         />
       )}
     </Screen>
@@ -111,6 +200,17 @@ const styles = StyleSheet.create({
   searchContainer: {
     paddingHorizontal: spacing.lg,
     paddingTop: spacing.lg,
+  },
+  categories: {
+    paddingTop: spacing.lg,
+    gap: spacing.md,
+  },
+  categoriesHeader: {
+    paddingHorizontal: spacing.lg,
+  },
+  catalogHeader: {
+    paddingHorizontal: spacing.lg,
+    paddingTop: spacing.xl,
     paddingBottom: spacing.sm,
   },
   state: {
