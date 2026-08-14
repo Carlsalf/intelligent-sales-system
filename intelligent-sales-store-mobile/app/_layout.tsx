@@ -16,6 +16,30 @@ export default function RootLayout() {
           name="product/[id]"
           options={{ headerShown: false }}
         />
+        <Stack.Screen
+          name="checkout/delivery"
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="checkout/address"
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="checkout/review"
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="checkout/payment"
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="checkout/success"
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="order/[id]"
+          options={{ headerShown: false }}
+        />
         </Stack>
       </CartProvider>
     </AuthProvider>

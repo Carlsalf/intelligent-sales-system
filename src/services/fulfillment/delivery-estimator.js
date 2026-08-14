@@ -1,39 +1,74 @@
-const DEFAULT_RESERVED_HOURS = 2;
-const DEFAULT_COMMITTED_HOURS = 48;
+const DEFAULT_PREPARATION_DAYS = 1;
 
-function addHours(date, hours) {
+function addDays(date, days) {
   const result = new Date(date);
-  result.setHours(result.getHours() + hours);
+  result.setDate(result.getDate() + days);
   return result;
 }
 
-function estimatePromisedAt({
-  reservedQuantity,
-  committedQuantity,
-  baseDate = new Date(),
-}) {
-  const reserved = Number(reservedQuantity);
-  const committed = Number(committedQuantity);
-
-  if (
-    !Number.isInteger(reserved) ||
-    reserved < 0 ||
-    !Number.isInteger(committed) ||
-    committed < 0
-  ) {
-    throw new Error("Las cantidades de cumplimiento deben ser enteros no negativos.");
+function toNonNegativeIntegerOrNull(value) {
+  if (value === null || value === undefined || value === "") {
+    return null;
   }
 
-  const hours =
-    committed > 0
-      ? DEFAULT_COMMITTED_HOURS
-      : DEFAULT_RESERVED_HOURS;
+  const parsed = Number(value);
 
-  return addHours(baseDate, hours).toISOString();
+  if (!Number.isInteger(parsed) || parsed < 0) {
+    return null;
+  }
+
+  return parsed;
+}
+
+function estimatePromisedAt({
+  committedQuantity,
+  preparationDays = DEFAULT_PREPARATION_DAYS,
+  replenishmentDays = null,
+  replenishmentConfirmed = false,
+  baseDate = new Date(),
+}) {
+  const committed = Number(committedQuantity);
+
+  if (!Number.isInteger(committed) || committed < 0) {
+    throw new Error(
+      "committedQuantity debe ser un entero no negativo."
+    );
+  }
+
+  const preparation =
+    toNonNegativeIntegerOrNull(preparationDays) ??
+    DEFAULT_PREPARATION_DAYS;
+
+  // Todo el pedido puede cubrirse con stock disponible.
+  if (committed === 0) {
+    return addDays(
+      baseDate,
+      preparation
+    ).toISOString();
+  }
+
+  // Existe cantidad comprometida pero el abastecimiento
+  // todavía no está confirmado: no debe prometerse fecha.
+  if (!replenishmentConfirmed) {
+    return null;
+  }
+
+  const replenishment =
+    toNonNegativeIntegerOrNull(replenishmentDays);
+
+  // Aunque exista una marca de reposición confirmada,
+  // necesitamos conocer el plazo para calcular una fecha.
+  if (replenishment === null) {
+    return null;
+  }
+
+  return addDays(
+    baseDate,
+    replenishment + preparation
+  ).toISOString();
 }
 
 module.exports = {
-  DEFAULT_RESERVED_HOURS,
-  DEFAULT_COMMITTED_HOURS,
+  DEFAULT_PREPARATION_DAYS,
   estimatePromisedAt,
 };

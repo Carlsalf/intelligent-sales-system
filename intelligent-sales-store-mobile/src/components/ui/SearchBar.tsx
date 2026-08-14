@@ -15,12 +15,14 @@ import { typography } from '@/src/theme/typography';
 type SearchBarProps = {
   value: string;
   onChangeText: (value: string) => void;
+  onSubmitEditing?: () => void;
   placeholder?: string;
 };
 
 export function SearchBar({
   value,
   onChangeText,
+  onSubmitEditing,
   placeholder = 'Buscar',
 }: SearchBarProps) {
   const [focused, setFocused] = useState(false);

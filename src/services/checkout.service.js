@@ -123,7 +123,21 @@ function buildDeliverySnapshot(deliveryType, rawAddress) {
 }
 
 function latestPromisedAt(items) {
+  if (
+    items.some(
+      (item) =>
+        item.availabilityStatus ===
+        "PENDIENTE_REPOSICION"
+    )
+  ) {
+    return null;
+  }
+
   return items.reduce((latest, item) => {
+    if (!item.promisedAt) {
+      return latest;
+    }
+
     if (!latest) {
       return item.promisedAt;
     }
@@ -132,6 +146,30 @@ function latestPromisedAt(items) {
       ? item.promisedAt
       : latest;
   }, null);
+}
+
+function resolveOrderStatus(items) {
+  if (
+    items.some(
+      (item) =>
+        item.availabilityStatus ===
+        "PENDIENTE_REPOSICION"
+    )
+  ) {
+    return "PENDIENTE_REPOSICION";
+  }
+
+  if (
+    items.some(
+      (item) =>
+        item.availabilityStatus ===
+        "COMPROMETIDO"
+    )
+  ) {
+    return "CONFIRMADO_CON_REPOSICION";
+  }
+
+  return "CONFIRMADO";
 }
 
 async function executeCheckout({
@@ -200,6 +238,16 @@ async function executeCheckout({
         item.stock_reservado || 0
       ),
       paymentStatus,
+      preparationDays: Number(
+        item.dias_preparacion ?? 1
+      ),
+      replenishmentDays:
+        item.dias_reposicion === null ||
+        item.dias_reposicion === undefined
+          ? null
+          : Number(item.dias_reposicion),
+      replenishmentConfirmed:
+        Number(item.reposicion_confirmada) === 1,
       baseDate: new Date(),
     });
 
@@ -233,6 +281,10 @@ async function executeCheckout({
     plannedItems
   );
 
+  const orderStatus = resolveOrderStatus(
+    plannedItems
+  );
+
   const result = await repository.persistCheckout({
     id_carrito: cart.id_carrito,
     id_cliente: clientId,
@@ -246,20 +298,32 @@ async function executeCheckout({
     pago_estado: paymentStatus,
     total,
     fecha_entrega_estimada: promisedAt,
+    estado_pedido: orderStatus,
     items: plannedItems,
   });
 
+  const checkoutMessage =
+    result.estado_pedido === "PENDIENTE_REPOSICION"
+      ? "Pago confirmado. El pedido ha sido registrado y queda pendiente de reposición. Te avisaremos cuando podamos confirmar una fecha de entrega."
+      : result.estado_pedido === "CONFIRMADO_CON_REPOSICION"
+        ? "Pago confirmado. El pedido ha sido registrado. Algunos productos requieren reposición y ya cuentan con una fecha estimada."
+        : "Pago confirmado. Su pedido ha sido registrado y está siendo preparado.";
+
   return {
     success: true,
-    message:
-      "Pago confirmado. Su pedido ha sido registrado y está siendo preparado.",
+    message: checkoutMessage,
     pedido: {
       id_venta: result.id_venta,
       codigo: `ISS-${String(
         result.id_venta
       ).padStart(6, "0")}`,
-      estado: "CONFIRMADO",
-      estado_visible: "PEDIDO_CONFIRMADO",
+      estado: result.estado_pedido,
+      estado_visible:
+        result.estado_pedido === "PENDIENTE_REPOSICION"
+          ? "PENDIENTE_REPOSICION"
+          : result.estado_pedido === "CONFIRMADO_CON_REPOSICION"
+            ? "CONFIRMADO_CON_REPOSICION"
+            : "PEDIDO_CONFIRMADO",
       pago_estado: result.pago_estado,
       tipo_entrega: result.tipo_entrega,
       canal_venta: result.canal_venta,

@@ -309,10 +309,7 @@ export default function CartScreen() {
               <Pressable
                 style={styles.checkoutButton}
                 onPress={() => {
-                  Alert.alert(
-                    'Checkout',
-                    'El checkout se conectará en el siguiente bloque.',
-                  );
+                  router.push('/checkout/delivery');
                 }}
               >
                 <Text style={styles.checkoutButtonText}>

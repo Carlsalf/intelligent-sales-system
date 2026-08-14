@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 import { useRouter } from 'expo-router';
 
@@ -41,10 +41,29 @@ export default function StoreScreen() {
 
   const [products, setProducts] = useState<StoreProduct[]>([]);
   const [catalogProducts, setCatalogProducts] = useState<StoreProduct[]>([]);
+  const [searchInput, setSearchInput] = useState('');
   const [search, setSearch] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+
+  const firstLoadRef = useRef(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      const value = searchInput.trim();
+
+      setSelectedCategory('');
+
+      setSearch((current) =>
+        current === value ? current : value
+      );
+    }, 450);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [searchInput]);
 
   useEffect(() => {
     let active = true;
@@ -73,13 +92,17 @@ export default function StoreScreen() {
 
     const timer = setTimeout(async () => {
       try {
-        setLoading(true);
+        if (firstLoadRef.current) {
+          setLoading(true);
+        }
+
         setError('');
 
         const result = await fetchProducts(search);
 
         if (active) {
           setProducts(normalizeProducts(result));
+          firstLoadRef.current = false;
         }
       } catch (err) {
         if (active) {
@@ -127,11 +150,12 @@ export default function StoreScreen() {
 
       <View style={styles.searchContainer}>
         <SearchBar
-          value={search}
+          value={searchInput}
           onChangeText={(value) => {
-            setSearch(value);
+            setSearchInput(value);
 
-            if (value.trim()) {
+            if (!value.trim() && search) {
+              setSearch('');
               setSelectedCategory('');
             }
           }}

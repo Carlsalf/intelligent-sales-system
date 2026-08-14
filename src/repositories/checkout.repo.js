@@ -79,6 +79,9 @@ async function getOpenCartSnapshot(id_cliente) {
          p.stock,
          p.stock_reservado,
          p.stock_comprometido,
+         p.dias_preparacion,
+         p.dias_reposicion,
+         p.reposicion_confirmada,
          p.estado
        FROM detalle_carrito dc
        INNER JOIN producto p
@@ -109,6 +112,7 @@ async function persistCheckout({
   pago_estado,
   total,
   fecha_entrega_estimada,
+  estado_pedido = "CONFIRMADO",
   items,
 }) {
   const db = getDb();
@@ -162,7 +166,7 @@ async function persistCheckout({
        VALUES (
          ?, ?, ?, ?, ?, ?, ?,
          1,
-         'CONFIRMADO',
+         ?,
          ?, ?, ?
        )`,
       [
@@ -173,6 +177,7 @@ async function persistCheckout({
         canal_venta,
         direccion_entrega_snapshot,
         total,
+        estado_pedido,
         tipo_entrega,
         fecha_entrega_estimada,
         pago_estado,
@@ -252,7 +257,7 @@ async function persistCheckout({
       id_carrito,
       total,
       fecha_entrega_estimada,
-      estado_pedido: "CONFIRMADO",
+      estado_pedido,
       pago_estado,
       tipo_entrega,
       canal_venta,

@@ -86,6 +86,9 @@ async function initDb() {
   // Migraciones inventario: reserva y compromiso de stock
   await ensureColumn(db, "producto", "stock_reservado", "INTEGER NOT NULL DEFAULT 0");
   await ensureColumn(db, "producto", "stock_comprometido", "INTEGER NOT NULL DEFAULT 0");
+  await ensureColumn(db, "producto", "dias_preparacion", "INTEGER NOT NULL DEFAULT 1");
+  await ensureColumn(db, "producto", "dias_reposicion", "INTEGER");
+  await ensureColumn(db, "producto", "reposicion_confirmada", "INTEGER NOT NULL DEFAULT 0");
 
   // Cliente
   await run(

@@ -17,6 +17,7 @@ const customerAuthRoutes = require("./routes/customer-auth.routes");
 const customerCartRoutes = require("./routes/customer-cart.routes");
 const customerCheckoutRoutes = require("./routes/customer-checkout.routes");
 const customerAddressRoutes = require("./routes/customer-address.routes");
+const customerOrdersRoutes = require("./routes/customer-orders.routes");
 
 const app = express();
 
@@ -51,6 +52,7 @@ app.use("/api/store/auth", customerAuthRoutes);
 app.use("/api/store/cart", customerCartRoutes);
 app.use("/api/store/checkout", customerCheckoutRoutes);
 app.use("/api/store/addresses", customerAddressRoutes);
+app.use("/api/store/orders", customerOrdersRoutes);
 
 // 404
 app.use((req, res) => {
