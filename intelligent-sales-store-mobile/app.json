@@ -9,14 +9,27 @@
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.carloscallagua.intelligentsalesstore"
+      "bundleIdentifier": "com.carloscallagua.intelligentsalesstore",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
       "package": "com.carloscallagua.intelligentsalesstore"
     },
-    "plugins": ["expo-router", "expo-secure-store"],
+    "plugins": [
+      "expo-router",
+      "expo-secure-store"
+    ],
     "experiments": {
       "typedRoutes": true
+    },
+    "owner": "intelligent-sales",
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "1a57468f-b4c2-4078-90f2-51e19f6afcb9"
+      }
     }
   }
 }
