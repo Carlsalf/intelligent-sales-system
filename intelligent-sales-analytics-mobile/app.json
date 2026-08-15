@@ -1,13 +1,17 @@
 {
   "expo": {
-    "name": "intelligent-sales-analytics-mobile",
+    "name": "Intelligent Sales Analytics",
     "slug": "intelligent-sales-analytics-mobile",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.carlsalf.intelligentsales.analytics",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -25,6 +29,13 @@
       "expo-router",
       "expo-secure-store"
     ],
-    "scheme": "intelligent-sales-analytics"
+    "scheme": "intelligent-sales-analytics",
+    "owner": "intelligent-sales",
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "a65901f6-d098-4b13-8c78-3242554a82ea"
+      }
+    }
   }
 }
