@@ -8,121 +8,148 @@ import {
 } from '@/src/theme/tokens';
 
 type Props = {
-  index: number;
-  health: string;
   variation: number;
   previous: string;
   current: string;
+  previousRevenue: string;
+  currentRevenue: string;
 };
 
 export function CommercialHealthCard({
-  index,
-  health,
   variation,
   previous,
   current,
+  previousRevenue,
+  currentRevenue,
 }: Props) {
-  const positive = variation >= 0;
+  const positive = variation > 0;
+  const negative = variation < 0;
+
+  const iconName = positive
+    ? 'trending-up'
+    : negative
+      ? 'trending-down'
+      : 'remove-outline';
+
+  const variationColor = positive
+    ? '#15803D'
+    : negative
+      ? '#B91C1C'
+      : '#475569';
+
+  const variationPrefix = positive
+    ? '+'
+    : '';
+
+  const changeLabel = positive
+    ? 'Aumento'
+    : negative
+      ? 'Disminución'
+      : 'Sin variación';
 
   return (
     <View style={styles.card}>
       <View style={styles.header}>
-        <View style={styles.heading}>
+        <View>
           <Text style={styles.title}>
-            Salud comercial
+            Comparación de facturación
           </Text>
 
           <Text style={styles.caption}>
-            Comparación entre periodos completos
+            Dos últimos periodos completos
           </Text>
         </View>
 
         <View style={styles.badge}>
-          <Text style={styles.badgeText}>
-            {health}
-          </Text>
-
           <Ionicons
-            name="star"
-            size={13}
-            color="#15803D"
+            name={iconName}
+            size={14}
+            color={variationColor}
           />
-        </View>
-      </View>
-
-      <View style={styles.body}>
-        <View style={styles.indexArea}>
-          <View style={styles.ringOuter}>
-            <View style={styles.ringInner}>
-              <Text style={styles.indexValue}>
-                {index}
-              </Text>
-
-              <Text style={styles.indexOf}>
-                /100
-              </Text>
-            </View>
-          </View>
-
-          <Text style={styles.indexLabel}>
-            Índice comercial
-          </Text>
-        </View>
-
-        <View style={styles.divider} />
-
-        <View style={styles.variationArea}>
-          <View style={styles.trendCircle}>
-            <Ionicons
-              name={
-                positive
-                  ? 'trending-up'
-                  : 'trending-down'
-              }
-              size={24}
-              color={
-                positive
-                  ? '#16A34A'
-                  : '#DC2626'
-              }
-            />
-          </View>
 
           <Text
             style={[
-              styles.variation,
-              {
-                color: positive
-                  ? '#15803D'
-                  : '#B91C1C',
-              },
+              styles.badgeText,
+              { color: variationColor },
             ]}
-            numberOfLines={1}
-            adjustsFontSizeToFit
-            minimumFontScale={0.75}
           >
-            {positive ? '+' : '-'}
-            {Math.abs(variation).toFixed(2)} %
+            {changeLabel}
+          </Text>
+        </View>
+      </View>
+
+      <View style={styles.periodComparison}>
+        <View style={styles.periodBlock}>
+          <Text style={styles.periodLabel}>
+            {previous}
+          </Text>
+
+          <Text style={styles.revenueValue}>
+            {previousRevenue}
+          </Text>
+
+          <Text style={styles.revenueCaption}>
+            Facturación anterior
+          </Text>
+        </View>
+
+        <View style={styles.arrowArea}>
+          <Ionicons
+            name="arrow-forward"
+            size={20}
+            color="#64748B"
+          />
+        </View>
+
+        <View style={styles.periodBlock}>
+          <Text style={styles.periodLabel}>
+            {current}
+          </Text>
+
+          <Text style={styles.revenueValue}>
+            {currentRevenue}
+          </Text>
+
+          <Text style={styles.revenueCaption}>
+            Último periodo completo
+          </Text>
+        </View>
+      </View>
+
+      <View style={styles.variationPanel}>
+        <View
+          style={[
+            styles.trendCircle,
+            {
+              backgroundColor: positive
+                ? '#DCFCE7'
+                : negative
+                  ? '#FEE2E2'
+                  : '#F1F5F9',
+            },
+          ]}
+        >
+          <Ionicons
+            name={iconName}
+            size={24}
+            color={variationColor}
+          />
+        </View>
+
+        <View style={styles.variationTextArea}>
+          <Text
+            style={[
+              styles.variationValue,
+              { color: variationColor },
+            ]}
+          >
+            {variationPrefix}
+            {variation.toFixed(2)} %
           </Text>
 
           <Text style={styles.variationCaption}>
-            Variación mensual
+            Variación respecto al periodo anterior
           </Text>
-
-          <View style={styles.periodRow}>
-            <Ionicons
-              name="calendar-outline"
-              size={15}
-              color="#2563EB"
-            />
-
-            <Text
-              style={styles.periodText}
-              numberOfLines={1}
-            >
-              {previous} → {current}
-            </Text>
-          </View>
         </View>
       </View>
     </View>
@@ -136,143 +163,114 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#E2E8F0',
     padding: spacing.lg,
+    marginTop: spacing.md,
     shadowColor: '#0F172A',
     shadowOffset: {
       width: 0,
-      height: 6,
+      height: 4,
     },
-    shadowOpacity: 0.04,
-    shadowRadius: 16,
+    shadowOpacity: 0.05,
+    shadowRadius: 12,
     elevation: 2,
   },
 
   header: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    gap: spacing.sm,
     alignItems: 'flex-start',
-  },
-
-  heading: {
-    flex: 1,
+    justifyContent: 'space-between',
+    gap: spacing.md,
   },
 
   title: {
-    color: colors.text,
-    fontSize: 18,
-    fontWeight: '900',
+    fontSize: 17,
+    fontWeight: '800',
+    color: '#0F172A',
   },
 
   caption: {
     marginTop: 3,
-    color: colors.textSecondary,
-    fontSize: 11,
+    fontSize: 12,
+    color: '#64748B',
   },
 
   badge: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 5,
-    backgroundColor: '#DCFCE7',
-    borderRadius: 999,
     paddingHorizontal: 10,
     paddingVertical: 6,
+    borderRadius: 999,
+    backgroundColor: '#F8FAFC',
   },
 
   badgeText: {
-    color: '#15803D',
     fontSize: 11,
     fontWeight: '800',
   },
 
-  body: {
+  periodComparison: {
     flexDirection: 'row',
     alignItems: 'center',
     marginTop: spacing.lg,
   },
 
-  indexArea: {
-    width: '42%',
-    alignItems: 'center',
-  },
-
-  ringOuter: {
-    width: 108,
-    height: 108,
-    borderRadius: 54,
-    borderWidth: 10,
-    borderColor: '#22C55E',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#F8FAFC',
-  },
-
-  ringInner: {
-    alignItems: 'center',
-  },
-
-  indexValue: {
-    color: colors.text,
-    fontSize: 29,
-    fontWeight: '900',
-  },
-
-  indexOf: {
-    color: colors.textSecondary,
-    fontSize: 11,
-  },
-
-  indexLabel: {
-    marginTop: 7,
-    color: colors.textSecondary,
-    fontSize: 10.5,
-  },
-
-  divider: {
-    width: 1,
-    height: 112,
-    backgroundColor: '#E2E8F0',
-    marginHorizontal: spacing.md,
-  },
-
-  variationArea: {
+  periodBlock: {
     flex: 1,
-    minWidth: 0,
+  },
+
+  periodLabel: {
+    fontSize: 12,
+    fontWeight: '700',
+    color: '#64748B',
+  },
+
+  revenueValue: {
+    marginTop: 4,
+    fontSize: 20,
+    fontWeight: '900',
+    color: '#0F172A',
+  },
+
+  revenueCaption: {
+    marginTop: 2,
+    fontSize: 10,
+    color: '#94A3B8',
+  },
+
+  arrowArea: {
+    paddingHorizontal: spacing.sm,
+  },
+
+  variationPanel: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: spacing.lg,
+    paddingTop: spacing.md,
+    borderTopWidth: 1,
+    borderTopColor: '#E2E8F0',
   },
 
   trendCircle: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    backgroundColor: '#ECFDF3',
+    width: 46,
+    height: 46,
+    borderRadius: 23,
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 8,
   },
 
-  variation: {
-    fontSize: 21,
-    lineHeight: 26,
+  variationTextArea: {
+    marginLeft: spacing.md,
+    flex: 1,
+  },
+
+  variationValue: {
+    fontSize: 22,
     fontWeight: '900',
-    letterSpacing: -0.4,
   },
 
   variationCaption: {
-    color: colors.textSecondary,
-    fontSize: 10.5,
-    marginTop: 3,
-  },
-
-  periodRow: {
-    marginTop: spacing.md,
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 5,
-  },
-
-  periodText: {
-    flex: 1,
-    color: colors.textSecondary,
-    fontSize: 9.5,
+    marginTop: 1,
+    fontSize: 11,
+    color: '#64748B',
   },
 });

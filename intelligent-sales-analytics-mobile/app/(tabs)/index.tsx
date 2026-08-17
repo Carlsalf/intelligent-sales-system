@@ -210,22 +210,19 @@ export default function DashboardScreen() {
             icon="trending-up-outline"
             title="Ticket medio"
             value={money(summary.ticket_medio)}
-            subtitle="Por venta promedio"
+            subtitle="Importe medio por venta"
           />
 
           <MetricCard
-            icon="bar-chart-outline"
-            title="Índice comercial"
-            value={`${summary.indice_comercial}/100`}
-            subtitle="Rendimiento general"
+            icon="stats-chart-outline"
+            title="Variación mensual"
+            value={`${summary.variacion_mensual > 0 ? '+' : ''}${summary.variacion_mensual.toFixed(2)} %`}
+            subtitle="Respecto al periodo anterior"
             accent="green"
-            progress={summary.indice_comercial}
           />
         </View>
 
         <CommercialHealthCard
-          index={summary.indice_comercial}
-          health={summary.salud_comercial}
           variation={summary.variacion_mensual}
           previous={shortPeriod(
             summary.periodo_comparacion
@@ -234,6 +231,12 @@ export default function DashboardScreen() {
           current={shortPeriod(
             summary.periodo_comparacion
               .actual_visible,
+          )}
+          previousRevenue={money(
+            summary.facturacion_mes_anterior,
+          )}
+          currentRevenue={money(
+            summary.facturacion_mes_actual,
           )}
         />
 
