@@ -25,3 +25,8 @@ src/db/*.sqlite.*
 
 # Local development backups
 backups/
+
+# Python virtual environments
+venv/
+.venv/
+data-analysis/venv/
