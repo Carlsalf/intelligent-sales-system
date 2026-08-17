@@ -254,7 +254,7 @@ The mobile applications have additionally been validated through EAS-generated i
 ## Technical Stack
 
 | Layer | Technologies |
-|---|---|
+| --- | --- |
 | Backend | Node.js, Express |
 | Database | SQLite |
 | Authentication | JWT |
