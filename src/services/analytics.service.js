@@ -112,7 +112,7 @@ function buildRecommendations({
 
   if (completedPeriods.length < 12) {
     recomendaciones.push(
-      "Ampliar el histórico de ventas para mejorar la confianza de futuros modelos predictivos."
+      "Ampliar el histórico de ventas para disponer de una base más sólida para futuras proyecciones."
     );
   }
 
