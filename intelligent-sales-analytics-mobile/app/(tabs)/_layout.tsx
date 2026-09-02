@@ -4,6 +4,10 @@ import {
 } from 'expo-router';
 
 import {
+  Ionicons,
+} from '@expo/vector-icons';
+
+import {
   useAuth,
 } from '@/src/context/AuthContext';
 
@@ -45,6 +49,13 @@ export default function TabsLayout() {
         name="index"
         options={{
           title: 'Resumen',
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons
+              name="stats-chart-outline"
+              size={size}
+              color={color}
+            />
+          ),
         }}
       />
 
@@ -52,6 +63,13 @@ export default function TabsLayout() {
         name="operations"
         options={{
           title: 'Operaciones',
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons
+              name="receipt-outline"
+              size={size}
+              color={color}
+            />
+          ),
         }}
       />
 
@@ -59,6 +77,13 @@ export default function TabsLayout() {
         name="account"
         options={{
           title: 'Perfil',
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons
+              name="person-outline"
+              size={size}
+              color={color}
+            />
+          ),
         }}
       />
     </Tabs>

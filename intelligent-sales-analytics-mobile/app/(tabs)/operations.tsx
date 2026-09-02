@@ -156,15 +156,16 @@ export default function OperationsScreen() {
 
           <View style={styles.statusContent}>
             <Text style={styles.statusLabel}>
-              Estado del negocio
+              Evolución comercial
             </Text>
 
             <Text style={styles.statusValue}>
-              {summary.salud_comercial}
+              {summary.variacion_mensual > 0 ? '+' : ''}
+              {summary.variacion_mensual.toFixed(2)} %
             </Text>
 
             <Text style={styles.statusMeta}>
-              Índice comercial {summary.indice_comercial}/100 · Tendencia {summary.tendencia}
+              Tendencia {summary.tendencia} · dos últimos periodos completos
             </Text>
           </View>
         </View>

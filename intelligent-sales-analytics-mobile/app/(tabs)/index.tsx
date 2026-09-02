@@ -56,6 +56,20 @@ function firstName(value?: string | null) {
     .split(/\s+/)[0];
 }
 
+function greetingByTime() {
+  const hour = new Date().getHours();
+
+  if (hour >= 5 && hour < 12) {
+    return 'Buenos días';
+  }
+
+  if (hour >= 12 && hour < 20) {
+    return 'Buenas tardes';
+  }
+
+  return 'Buenas noches';
+}
+
 function shortPeriod(
   value: string,
 ) {
@@ -186,7 +200,7 @@ export default function DashboardScreen() {
           </Text>
 
           <Text style={styles.greeting}>
-            Buenos días, {firstName(user?.nombre)}
+            {greetingByTime()}, {firstName(user?.nombre)}
           </Text>
 
           <Text style={styles.period}>
@@ -272,15 +286,28 @@ export default function DashboardScreen() {
 
         <View style={styles.methodNote}>
           <Text style={styles.methodTitle}>
-            Criterio analítico
+            Interpretación de los resultados
           </Text>
 
           <Text style={styles.methodText}>
-            Los indicadores y recomendaciones se
-            calculan mediante datos comerciales y
-            reglas de negocio. Los modelos de
-            Inteligencia Artificial quedan definidos
-            como evolución futura de la arquitectura.
+            {shortPeriod(
+              summary.periodo_comparacion.actual_visible,
+            )}{' '}
+            presenta una facturación{' '}
+            {summary.variacion_mensual > 0
+              ? 'superior'
+              : summary.variacion_mensual < 0
+                ? 'inferior'
+                : 'igual'}{' '}
+            a{' '}
+            {shortPeriod(
+              summary.periodo_comparacion.anterior_visible,
+            )}.{' '}
+            {summary.periodo_en_curso
+              ? `${shortPeriod(
+                  summary.periodo_en_curso.mes_visible,
+                )} se muestra por separado al corresponder a un periodo en curso con datos parciales.`
+              : 'No existe un periodo parcial adicional en los datos analizados.'}
           </Text>
         </View>
       </ScrollView>

@@ -35,7 +35,7 @@ export function RecommendationsCard({
       </Text>
 
       <Text style={styles.caption}>
-        Reglas de negocio y análisis comercial
+        Sugerencias basadas en la información comercial
       </Text>
 
       <View style={styles.list}>
@@ -71,11 +71,6 @@ export function RecommendationsCard({
                 {item}
               </Text>
 
-              <Ionicons
-                name="chevron-forward"
-                size={18}
-                color="#94A3B8"
-              />
             </View>
           );
         })}

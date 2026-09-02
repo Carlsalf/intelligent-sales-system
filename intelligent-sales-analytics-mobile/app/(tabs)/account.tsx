@@ -210,7 +210,7 @@ export default function AccountScreen() {
               </Text>
 
               <Text style={styles.statusText}>
-                Acceso autenticado mediante token seguro.
+                Acceso autenticado mediante token almacenado de forma segura.
               </Text>
             </View>
 
